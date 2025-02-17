@@ -1,0 +1,8 @@
+{
+  "extends": "next",
+  "plugins": ["eslint-plugin-simple-import-sort", "unused-imports"],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error"
+  }
+}
