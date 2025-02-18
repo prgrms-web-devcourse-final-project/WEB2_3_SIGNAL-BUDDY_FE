@@ -1,7 +1,17 @@
-import type { NextConfig } from "next";
+/* eslint-disable @typescript-eslint/no-require-imports */
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const withPWA = require("next-pwa")({
+  dest: "public", // Service Worker와 캐시 파일을 저장할 경로
+  register: true, // 브라우저에서 자동으로 등록
+  skipWaiting: true, // 활성화 시 이전 SW 대기 없이 새 SW 적용
+  disable: process.env.NODE_ENV === "development", // 개발 환경에서는 비활성화
+});
+
+const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    appDir: true, // Next.js 15에서 app 디렉토리 사용
+  },
 };
 
-export default nextConfig;
+module.exports = withPWA(nextConfig);
