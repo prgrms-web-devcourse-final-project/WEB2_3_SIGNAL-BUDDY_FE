@@ -13,17 +13,21 @@ let subscription: webpush.PushSubscription | null = null;
 function transformSubscription(
   sub: PushSubscription,
 ): webpush.PushSubscription {
+  // sub.getKey가 없으므로 keys 속성을 직접 처리
+  const keys = sub.keys
+    ? {
+        p256dh: sub.keys.p256dh || "", // 'p256dh' 키가 없으면 빈 문자열로 처리
+        auth: sub.keys.auth || "", // 'auth' 키가 없으면 빈 문자열로 처리
+      }
+    : {
+        p256dh: "", // 기본 빈 문자열
+        auth: "", // 기본 빈 문자열
+      };
+
   return {
     endpoint: sub.endpoint,
     expirationTime: sub.expirationTime,
-    keys: {
-      p256dh: sub.getKey("p256dh")
-        ? btoa(String.fromCharCode(...new Uint8Array(sub.getKey("p256dh")!)))
-        : "",
-      auth: sub.getKey("auth")
-        ? btoa(String.fromCharCode(...new Uint8Array(sub.getKey("auth")!)))
-        : "",
-    },
+    keys: keys, // keys 정보를 반환
   };
 }
 
