@@ -1,21 +1,32 @@
 import React from "react";
-import logo from "@/public/imgs/Logo Symbol.png";
-
 import Image from "next/image";
+import logo from "@/public/imgs/Logo Symbol.png";
+import Link from "next/link";
+
 export default function Navbar() {
   return (
-    <div className="flex h-[70px] justify-center">
+    <nav className="flex h-[70px] justify-center" aria-label="Main Navigation">
       <div className="mx-4 flex w-[1240px] items-center justify-between">
+        {/* 로고 영역 */}
         <div>
-          <Image src={logo} alt="로고이미지 입니다." width={85} height={31} />
+          <Link href="/" aria-label="Homepage">
+            <Image src={logo} alt="Signal Buddy 로고" width={85} height={31} />
+          </Link>
         </div>
 
+        {/* 내비게이션 메뉴 */}
         <div className="flex items-center gap-5 font-semibold">
-          <p>지도</p>
-          <p>피드백</p>
-          <p>로그인</p>
+          <Link href="/map" className="hover:underline">
+            지도
+          </Link>
+          <Link href="/feedback" className="hover:underline">
+            피드백
+          </Link>
+          <Link href="/login" className="hover:underline">
+            로그인
+          </Link>
         </div>
       </div>
-    </div>
+    </nav>
   );
 }

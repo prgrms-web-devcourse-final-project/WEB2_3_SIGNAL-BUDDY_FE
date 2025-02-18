@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/nav/Navbar";
 import Footer from "../components/footer/Footer";
@@ -20,13 +19,16 @@ export default function RootLayout({
         className="pretendard flex min-h-screen flex-col bg-gray-100 antialiased"
         cz-shortcut-listen="true"
       >
-        <header>
+        <header role="banner" aria-label="주요 네비게이션">
           <Navbar />
         </header>
-        <section className="max-w-screen mx-[30px] flex-grow bg-teal">
+        <section
+          className="max-w-screen mx-[30px] flex-grow bg-teal"
+          aria-labelledby="main-content"
+        >
           {children}
         </section>
-        <footer>
+        <footer role="contentinfo" aria-label="사이트 하단 정보">
           <Footer />
         </footer>
       </body>
