@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Children } from "react";
 import { subscribeUser, unsubscribeUser, sendNotification } from "./actions";
 
 function urlBase64ToUint8Array(base64String: string) {
@@ -137,8 +137,9 @@ function InstallPrompt() {
 export default function Home() {
   return (
     <div>
-      <PushNotificationManager />
-      <InstallPrompt />
+      {/* <PushNotificationManager />
+      <InstallPrompt /> */}
+      <section></section>
     </div>
   );
 }
