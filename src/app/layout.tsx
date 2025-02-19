@@ -16,19 +16,27 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className="pretendard flex min-h-screen flex-col bg-gray-100 antialiased"
+        className="flex min-h-screen flex-col bg-gray-100 font-Pretendard antialiased"
         cz-shortcut-listen="true"
       >
-        <header role="banner" aria-label="주요 네비게이션">
+        <header
+          role="banner"
+          aria-label="주요 네비게이션"
+          className="mx-4 md:mx-[30px]"
+        >
           <Navbar />
         </header>
-        <section
-          className="max-w-screen mx-[30px] flex-grow bg-teal"
+        <main
+          className="mx-4 flex flex-grow md:mx-[30px]"
           aria-labelledby="main-content"
         >
           {children}
-        </section>
-        <footer role="contentinfo" aria-label="사이트 하단 정보">
+        </main>
+        <footer
+          role="contentinfo"
+          aria-label="사이트 하단 정보"
+          className="mx-4 md:mx-[30px]"
+        >
           <Footer />
         </footer>
       </body>
