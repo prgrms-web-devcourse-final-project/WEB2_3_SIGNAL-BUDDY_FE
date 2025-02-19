@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const withPWA = require("next-pwa")({
   dest: "public", // Service Worker와 캐시 파일을 저장할 경로
   register: true, // 브라우저에서 자동으로 등록
@@ -10,7 +9,9 @@ const withPWA = require("next-pwa")({
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    appDir: true, // Next.js 15에서 app 디렉토리 사용
+    turbo: {
+      enabled: false, // Turbopack 비활성화
+    },
   },
 };
 
