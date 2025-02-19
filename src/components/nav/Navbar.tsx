@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <nav className="flex h-[70px] justify-center" aria-label="Main Navigation">
-      <div className="mx-4 flex w-[1240px] items-center justify-between">
+      <div className="sm:mx-4 flex w-[1240px] items-center justify-between">
         {/* 로고 영역 */}
         <div>
           <Link href="/" aria-label="Homepage">
@@ -33,7 +33,7 @@ export default function Navbar() {
         </div>
 
         {/* 내비게이션 메뉴 */}
-        <div className="hidden items-center gap-5 font-semibold sm:flex">
+        <div className="text-grey-700 hidden items-center gap-5 font-semibold sm:flex">
           <Link href="/map" className="hover:underline">
             지도
           </Link>
