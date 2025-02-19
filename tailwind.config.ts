@@ -19,7 +19,7 @@ export default {
         green: "#2CCA3E",
         teal: "#8DB4AF",
         pink: "#FFE4E9",
-        gray: {
+        grey: {
           "100": "#F3F3F3",
           "200": "#E8E8E8",
           "300": "#CED1D8",

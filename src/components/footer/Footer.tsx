@@ -10,14 +10,14 @@ export default function Footer() {
       aria-labelledby="footer-heading"
     >
       <div
-        className="flex h-[117px] w-[1240px] flex-col rounded-[20px] bg-white px-6 sm:pt-5 sm:h-[190px] sm:px-5"
+        className="flex h-[117px] w-[1240px] flex-col rounded-[20px] bg-white px-6 sm:h-[190px] sm:px-5 sm:pt-5"
         role="contentinfo"
       >
         <h2 id="footer-heading" className="sr-only">
           Footer Navigation
         </h2>
 
-        <div className="flex h-[128px] justify-between sm:border-b sm:border-gray-300">
+        <div className="sm:border-grey-300 flex h-[128px] justify-between sm:border-b">
           {/* 로고 및 슬로건 */}
           <div className="mb-3 flex w-full flex-col items-center gap-[14px] pt-[21px] sm:mb-0 sm:items-start">
             <Link
@@ -33,7 +33,7 @@ export default function Footer() {
                 objectFit="contain"
               />
             </Link>
-            <p className="hidden font-semibold text-gray-500 sm:flex">
+            <p className="text-grey-500 hidden font-semibold sm:flex">
               모두를 위한 보행 파트너
             </p>
           </div>
@@ -41,10 +41,10 @@ export default function Footer() {
           {/* 네비게이션 섹션 */}
           <nav aria-label="Footer Main Menu" className="hidden gap-4 sm:flex">
             <div className="w-[120px]">
-              <h3 className="border-b border-gray-300 pb-2 text-[10px] text-gray-400">
+              <h3 className="border-grey-300 text-grey-400 border-b pb-2 text-[10px]">
                 MENU
               </h3>
-              <ul className="mt-2 flex flex-col gap-[11px] text-xs font-semibold text-gray-500">
+              <ul className="text-grey-500 mt-2 flex flex-col gap-[11px] text-xs font-semibold">
                 <li>
                   <Link href="/" className="hover:underline">
                     홈
@@ -63,10 +63,10 @@ export default function Footer() {
               </ul>
             </div>
             <div className="w-[140px]">
-              <h3 className="border-b border-gray-300 pb-2 text-[10px] text-gray-400">
+              <h3 className="border-grey-300 text-grey-400 border-b pb-2 text-[10px]">
                 TERMS
               </h3>
-              <ul className="mt-2 flex flex-col gap-[12px] text-xs font-semibold text-gray-500">
+              <ul className="text-grey-500 mt-2 flex flex-col gap-[12px] text-xs font-semibold">
                 <li>
                   <Link href="/privacy" className="hover:underline">
                     개인정보처리방침
@@ -82,7 +82,7 @@ export default function Footer() {
           </nav>
         </div>
 
-        <nav className="mb-[11px] flex justify-between text-xs font-semibold text-gray-500 sm:mb-0 sm:hidden">
+        <nav className="text-grey-500 mb-[11px] flex justify-between text-xs font-semibold sm:mb-0 sm:hidden">
           <ul className="flex gap-5">
             <li>
               <Link href="/">홈</Link>
@@ -106,7 +106,7 @@ export default function Footer() {
 
         {/* 저작권 정보 */}
         <div className="flex justify-center pb-4 pt-3">
-          <p className="text-xs text-gray-500">© 2025 all rights reserved.</p>
+          <p className="text-grey-500 text-xs">© 2025 all rights reserved.</p>
         </div>
       </div>
     </footer>
