@@ -80,6 +80,8 @@ export type TMap = {
     eventType: EventType,
     listener: (event: TMapEvent) => void,
   ) => void;
+  setMapType: (type: number) => void;
+  _data: { mapType: 1 | 4 | 5 };
 };
 type EventType = "click";
 

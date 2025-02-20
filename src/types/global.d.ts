@@ -23,7 +23,14 @@ declare global {
           ) => void;
         };
       };
-      Map: new (element: HTMLElement | string, options?: MapOptions) => TMap;
+      Map: {
+        new (element: HTMLElement | string, options?: any): TMap;
+        MapType: {
+          SATELLITE: 4;
+          HYBRID: 5;
+          ROAD: 1;
+        };
+      };
       LatLng: new (lat: number, lon: number) => TMapLatLng;
       Marker: new (options?: {
         id?: string;
