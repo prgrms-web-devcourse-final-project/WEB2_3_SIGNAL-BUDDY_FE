@@ -1,45 +1,176 @@
-import { useCallback, useState } from "react";
-import { TMap, TMapMarker } from "../types";
+// /* eslint-disable no-underscore-dangle */
+// import { useCallback, useEffect, useState } from "react";
 
-// import { Marker } from '@/components/Map/Marker';
+// import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
-const { Tmapv2 } = window;
+// import {
+//   DEFAULT_ZOOM_LEVEL,
+//   MAX_ZOOM_LEVEL,
+//   MIN_ZOOM_LEVEL,
+//   INITIAL_LATITUDE,
+//   INITIAL_LONGITUDE,
+// } from "@/src/constants";
+// // import { queryKeys } from '@/queries';
+// import { TMap, TMapEvent, TMapLatLng, TMapMarker } from "@/src/types";
+// import Marker from "@/src/components/map/Marker";
 
-export const useMap = (mapRef: React.RefObject<HTMLDivElement | null>) => {
-  const [mapInstance, setMapInstance] = useState<TMap | null>(null);
-  const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
+// const { Tmapv3 } = window;
 
-  // 지도 띄우는 코드 생략
+// export const useMap = (
+//   mapRef: React.RefObject<HTMLDivElement>,
+//   useOnClick: boolean = false,
+// ) => {
+//   const [mapInstance, setMapInstance] = useState<TMap | null>(null);
+//   const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
+//   const [currentCoord, setCurrentCoord] = useState<TMapLatLng | null>(null);
 
-  const updateMarker = useCallback(
-    (coord: { latitude: number | null; longitude: number | null }) => {
-      const { latitude, longitude } = coord;
-      if (!(latitude && longitude) || !mapInstance) {
-        return;
-      }
+//   const coord = {
+//     latitude: currentCoord?.lat() || 0,
+//     longitude: currentCoord?.lng() || 0,
+//   };
 
-      if (currentMarker) {
-        const { _lat: prevLatitude, _lng: prevLongitude } =
-          currentMarker.getPosition();
-        if (prevLatitude === latitude && prevLongitude === longitude) {
-          return;
-        }
-      }
+//   // const { data: addressData } = useQuery({
+//   //   ...queryKeys.tmap.getAddressFromCoord({
+//   //     latitude: coord.latitude,
+//   //     longitude: coord.longitude,
+//   //   }),
 
-      currentMarker?.setMap(null);
-      const position = new Tmapv2.LatLng(latitude, longitude);
-      const marker = new Tmapv2.Marker({
-        position,
-        map: mapInstance,
-        // icon: markerIcon,
-        iconSize: new Tmapv2.Size(50, 50),
-      });
+//   //   placeholderData: keepPreviousData,
+//   // });
+//   // const currentAddress = addressData?.addressInfo.fullAddress || "";
 
-      setCurrentMarker(marker);
-      mapInstance?.setCenter(position);
-    },
-    [mapInstance, currentMarker],
-  );
+//   useEffect(() => {
+//     if (!currentCoord) {
+//       return;
+//     }
 
-  return { mapInstance, updateMarker };
-};
+//     const makeMarker = (position: TMapLatLng) => {
+//       if (!mapInstance) {
+//         return;
+//       }
+
+//       currentMarker?.setMap(null);
+
+//       const marker = Marker({
+//         mapContent: mapInstance,
+//         position,
+//       });
+
+//       setCurrentMarker(marker);
+//     };
+
+//     makeMarker(currentCoord);
+//     // eslint-disable-next-line react-hooks/exhaustive-deps
+//   }, [currentCoord, mapInstance]);
+
+//   useEffect(() => {
+//     if (mapRef.current?.firstChild || mapInstance) {
+//       return;
+//     }
+
+//     const map = new Tmapv3.Map("map", {
+//       center: new Tmapv3.LatLng(INITIAL_LATITUDE, INITIAL_LONGITUDE),
+//       zoom: DEFAULT_ZOOM_LEVEL,
+//       zoomControl: false,
+//     });
+
+//     map.setZoomLimit(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL);
+//     setMapInstance(map);
+//   }, [mapRef, mapInstance]);
+
+//   useEffect(() => {
+//     if (!mapInstance || !useOnClick) {
+//       return;
+//     }
+
+//     const renderMarker = (e: TMapEvent) => {
+//       const { lngLat } = e.data;
+//       const position = new Tmapv3.LatLng(lngLat._lat, lngLat._lng);
+
+//       setCurrentCoord(position);
+//     };
+
+//     mapInstance.on("Click", renderMarker);
+//   }, [mapInstance, currentCoord, useOnClick]);
+
+//   const updateMarker = useCallback(
+//     (tempCoord: {
+//       latitude: number | undefined;
+//       longitude: number | undefined;
+//     }) => {
+//       const { latitude, longitude } = tempCoord;
+//       if (!(latitude && longitude) || !mapInstance) {
+//         return;
+//       }
+
+//       const position = new Tmapv3.LatLng(latitude, longitude);
+
+//       setCurrentCoord(position);
+//       mapInstance?.setCenter(position);
+//     },
+//     [mapInstance],
+//   );
+
+//   const makeMarker = useCallback(
+//     (
+//       tempCoord: { latitude: number | null; longitude: number | null },
+//       theme: "green" | "red",
+//       labelText?: string,
+//     ) => {
+//       const { latitude, longitude } = tempCoord;
+//       if (!(latitude && longitude) || !mapInstance) {
+//         return;
+//       }
+
+//       if (currentMarker) {
+//         const currMarker = currentMarker.getPosition();
+//         const prevLatitude = currMarker._lat;
+//         const prevLongitude = currMarker._lng;
+//         if (prevLatitude === latitude && prevLongitude === longitude) {
+//           mapInstance?.setCenter(new Tmapv3.LatLng(latitude, longitude));
+//           mapInstance?.setZoom(DEFAULT_ZOOM_LEVEL);
+//           return;
+//         }
+//       }
+
+//       currentMarker?.setMap(null);
+//       const position = new Tmapv3.LatLng(latitude, longitude);
+
+//       const marker = Marker({
+//         mapContent: mapInstance,
+//         position,
+//         labelText,
+//       });
+//       setCurrentMarker(marker);
+//       mapInstance?.setCenter(position);
+//     },
+//     [mapInstance, currentMarker],
+//   );
+
+//   const setCenterToSelectedCoord = (position: TMapLatLng) => {
+//     mapInstance?.setCenter(position);
+//   };
+
+//   const setCoord = (currCoord: { latitude: number; longitude: number }) => {
+//     const position = new Tmapv3.LatLng(currCoord.latitude, currCoord.longitude);
+//     setCurrentCoord(position);
+//     setCenterToSelectedCoord(position);
+//   };
+
+//   const initMapModal = () => {
+//     currentMarker?.setMap(null);
+//     setCurrentCoord(null);
+//     setCurrentMarker(null);
+//   };
+
+//   return {
+//     mapInstance,
+//     updateMarker,
+//     makeMarker,
+//     currentMarker,
+//     // currentAddress,
+//     coord,
+//     setCoord,
+//     initMapModal,
+//   };
+// };

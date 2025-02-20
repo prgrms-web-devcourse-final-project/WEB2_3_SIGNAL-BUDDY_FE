@@ -8,8 +8,8 @@ export const metadata: Metadata = {
   title: "Signal Buddy | 모두를 위한 보행 파트너",
   description: "Signal Buddy | 모두를 위한 보행 파트너",
   icons: {
-    icon: "/icon-192x192-rounded.png"
-  }
+    icon: "/icon-192x192-rounded.png",
+  },
 };
 
 export default function RootLayout({

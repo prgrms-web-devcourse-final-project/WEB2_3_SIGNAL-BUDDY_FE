@@ -7,10 +7,14 @@ export interface ILocation {
 
 export const useGeoLocation = (options = {}) => {
   const [location, setLocation] = useState<ILocation>();
+  const [trigger, setTrigger] = useState<boolean>(false);
   const [error, setError] = useState("");
 
+  const handleGetGeo = () => {
+    setTrigger((prev) => !prev);
+  };
+
   const handleSuccess = (pos: GeolocationPosition) => {
-    console.log(pos);
     const { latitude, longitude } = pos.coords;
 
     setLocation({
@@ -30,9 +34,8 @@ export const useGeoLocation = (options = {}) => {
       setError("Geolocation is not supported.");
       return;
     }
-
     geolocation.getCurrentPosition(handleSuccess, handleError, options);
-  }, [options]);
+  }, [options, trigger]);
 
-  return { location, error };
+  return { location, error, handleGetGeo };
 };
