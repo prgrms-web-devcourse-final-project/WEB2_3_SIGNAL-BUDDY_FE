@@ -1,8 +1,6 @@
 'use client';
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Image from "next/image";
@@ -10,19 +8,14 @@ import logo from "@/public/imgs/Logo.png";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp"
 import { useState } from "react";
-import { AuthSideImage } from "../auth-side-image/auth-side-image";
 
-export function ResetPassword2({ className, ...props }: React.ComponentProps<"div">) {
+export function ResetPassword2() {
 
   const [otp, setOtp] = useState("");
 
   const isOtpComplete = otp.length === 6;
 
   return (
-    <div className={cn("flex flex-col gap-6 md:bg-white md:max-h-[770px] ", className)} {...props}>
-      <Card className=" overflow-hidden border-none shadow-none ">
-        <CardContent className="h-[770px] grid p-0 md:grid-cols-2 ">
-            <div className="flex items-center justify-center">
           <form className="w-[360px] md:bg-white">
             <div className="flex flex-col">
                 <Image
@@ -66,10 +59,5 @@ export function ResetPassword2({ className, ...props }: React.ComponentProps<"di
               </Button>
             </div>
           </form>
-            </div>
-        <AuthSideImage/>
-        </CardContent>
-      </Card>
-    </div>
   );
 }
