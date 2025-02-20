@@ -6,7 +6,7 @@ import home_background_img from "@/public/imgs/noisy-gradients.svg";
 export default function Home() {
   return (
     <section
-      className="flex-grow-1 flex w-full justify-center rounded-[20px] py-[203px] lg:pb-[359px] lg:pt-[311px]"
+      className="flex-grow-1 flex w-full justify-center rounded-[20px] py-[203px] lg:pb-[359px] lg:pt-[311px] shadow-md"
       style={{
         backgroundImage: `url(${home_background_img.src})`,
         backgroundSize: "cover",
