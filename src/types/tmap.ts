@@ -1,5 +1,11 @@
 export type MapOptions = {
+  center?: TMapLatLng;
+  scaleBar?: boolean;
+  width?: string | number;
+  height?: string | number;
+  zoom?: number;
   zoomControl?: boolean;
+  scrollwheel?: boolean;
 };
 
 export type NewAddress = {

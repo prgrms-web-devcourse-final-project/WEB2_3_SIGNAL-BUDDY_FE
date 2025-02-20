@@ -1,176 +1,72 @@
-// /* eslint-disable no-underscore-dangle */
-// import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { MapOptions, TMap, TMapMarker } from "@/src/types";
+import { ILocation } from "./useGeoLocation";
+import { DEFAULT_ZOOM_LEVEL } from "@/src/constants";
 
-// import { keepPreviousData, useQuery } from "@tanstack/react-query";
+export default function useMap(
+  mapRef: React.RefObject<HTMLDivElement | null>,
+  location?: ILocation,
+  options: MapOptions = {
+    width: "100%",
+    height: "calc(100vh - 70px)",
+    zoom: DEFAULT_ZOOM_LEVEL,
+    zoomControl: true,
+    scrollwheel: true,
+  },
+) {
+  const [mapIns, setMapIns] = useState<TMap | null>(null);
+  const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
 
-// import {
-//   DEFAULT_ZOOM_LEVEL,
-//   MAX_ZOOM_LEVEL,
-//   MIN_ZOOM_LEVEL,
-//   INITIAL_LATITUDE,
-//   INITIAL_LONGITUDE,
-// } from "@/src/constants";
-// // import { queryKeys } from '@/queries';
-// import { TMap, TMapEvent, TMapLatLng, TMapMarker } from "@/src/types";
-// import Marker from "@/src/components/map/Marker";
+  const initTmap = () => {
+    const { Tmapv2 } = window;
+    if (!Tmapv2) return;
 
-// const { Tmapv3 } = window;
+    const mapDiv = mapRef.current;
+    if (!mapDiv) return;
+    if (!mapDiv.firstChild) {
+      const latitude = 37.5652045;
+      const longitude = 126.98702028;
 
-// export const useMap = (
-//   mapRef: React.RefObject<HTMLDivElement>,
-//   useOnClick: boolean = false,
-// ) => {
-//   const [mapInstance, setMapInstance] = useState<TMap | null>(null);
-//   const [currentMarker, setCurrentMarker] = useState<TMapMarker | null>(null);
-//   const [currentCoord, setCurrentCoord] = useState<TMapLatLng | null>(null);
+      const position = new Tmapv2.LatLng(latitude, longitude);
 
-//   const coord = {
-//     latitude: currentCoord?.lat() || 0,
-//     longitude: currentCoord?.lng() || 0,
-//   };
+      const map = new Tmapv2.Map("map", {
+        center: position,
+      });
 
-//   // const { data: addressData } = useQuery({
-//   //   ...queryKeys.tmap.getAddressFromCoord({
-//   //     latitude: coord.latitude,
-//   //     longitude: coord.longitude,
-//   //   }),
+      const marker = new Tmapv2.Marker({
+        name: "currentTarget",
+        position,
+        map,
+        icon: "/imgs/current-marker.png",
+        iconSize: new Tmapv2.Size(50, 50),
+      });
 
-//   //   placeholderData: keepPreviousData,
-//   // });
-//   // const currentAddress = addressData?.addressInfo.fullAddress || "";
+      setCurrentMarker(marker);
+      setMapIns(map);
+    }
+  };
+  const handleGetCenter = (location?: ILocation) => {
+    if (location && mapIns) {
+      const { Tmapv2 } = window;
+      if (!Tmapv2) return;
+      const latitude = location?.latitude || 37.5652045;
+      const longitude = location?.longitude || 126.98702028;
 
-//   useEffect(() => {
-//     if (!currentCoord) {
-//       return;
-//     }
+      const position = new Tmapv2.LatLng(latitude, longitude);
+      mapIns.setCenter(position);
+      if (currentMarker) {
+        setTimeout(() => {
+          currentMarker.setPosition(position);
+        }, 0);
+      }
+    }
+  };
+  useEffect(() => {
+    initTmap();
+    handleGetCenter(location);
+  }, [location, mapIns]);
 
-//     const makeMarker = (position: TMapLatLng) => {
-//       if (!mapInstance) {
-//         return;
-//       }
-
-//       currentMarker?.setMap(null);
-
-//       const marker = Marker({
-//         mapContent: mapInstance,
-//         position,
-//       });
-
-//       setCurrentMarker(marker);
-//     };
-
-//     makeMarker(currentCoord);
-//     // eslint-disable-next-line react-hooks/exhaustive-deps
-//   }, [currentCoord, mapInstance]);
-
-//   useEffect(() => {
-//     if (mapRef.current?.firstChild || mapInstance) {
-//       return;
-//     }
-
-//     const map = new Tmapv3.Map("map", {
-//       center: new Tmapv3.LatLng(INITIAL_LATITUDE, INITIAL_LONGITUDE),
-//       zoom: DEFAULT_ZOOM_LEVEL,
-//       zoomControl: false,
-//     });
-
-//     map.setZoomLimit(MIN_ZOOM_LEVEL, MAX_ZOOM_LEVEL);
-//     setMapInstance(map);
-//   }, [mapRef, mapInstance]);
-
-//   useEffect(() => {
-//     if (!mapInstance || !useOnClick) {
-//       return;
-//     }
-
-//     const renderMarker = (e: TMapEvent) => {
-//       const { lngLat } = e.data;
-//       const position = new Tmapv3.LatLng(lngLat._lat, lngLat._lng);
-
-//       setCurrentCoord(position);
-//     };
-
-//     mapInstance.on("Click", renderMarker);
-//   }, [mapInstance, currentCoord, useOnClick]);
-
-//   const updateMarker = useCallback(
-//     (tempCoord: {
-//       latitude: number | undefined;
-//       longitude: number | undefined;
-//     }) => {
-//       const { latitude, longitude } = tempCoord;
-//       if (!(latitude && longitude) || !mapInstance) {
-//         return;
-//       }
-
-//       const position = new Tmapv3.LatLng(latitude, longitude);
-
-//       setCurrentCoord(position);
-//       mapInstance?.setCenter(position);
-//     },
-//     [mapInstance],
-//   );
-
-//   const makeMarker = useCallback(
-//     (
-//       tempCoord: { latitude: number | null; longitude: number | null },
-//       theme: "green" | "red",
-//       labelText?: string,
-//     ) => {
-//       const { latitude, longitude } = tempCoord;
-//       if (!(latitude && longitude) || !mapInstance) {
-//         return;
-//       }
-
-//       if (currentMarker) {
-//         const currMarker = currentMarker.getPosition();
-//         const prevLatitude = currMarker._lat;
-//         const prevLongitude = currMarker._lng;
-//         if (prevLatitude === latitude && prevLongitude === longitude) {
-//           mapInstance?.setCenter(new Tmapv3.LatLng(latitude, longitude));
-//           mapInstance?.setZoom(DEFAULT_ZOOM_LEVEL);
-//           return;
-//         }
-//       }
-
-//       currentMarker?.setMap(null);
-//       const position = new Tmapv3.LatLng(latitude, longitude);
-
-//       const marker = Marker({
-//         mapContent: mapInstance,
-//         position,
-//         labelText,
-//       });
-//       setCurrentMarker(marker);
-//       mapInstance?.setCenter(position);
-//     },
-//     [mapInstance, currentMarker],
-//   );
-
-//   const setCenterToSelectedCoord = (position: TMapLatLng) => {
-//     mapInstance?.setCenter(position);
-//   };
-
-//   const setCoord = (currCoord: { latitude: number; longitude: number }) => {
-//     const position = new Tmapv3.LatLng(currCoord.latitude, currCoord.longitude);
-//     setCurrentCoord(position);
-//     setCenterToSelectedCoord(position);
-//   };
-
-//   const initMapModal = () => {
-//     currentMarker?.setMap(null);
-//     setCurrentCoord(null);
-//     setCurrentMarker(null);
-//   };
-
-//   return {
-//     mapInstance,
-//     updateMarker,
-//     makeMarker,
-//     currentMarker,
-//     // currentAddress,
-//     coord,
-//     setCoord,
-//     initMapModal,
-//   };
-// };
+  return {
+    mapIns,
+  };
+}

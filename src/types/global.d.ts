@@ -1,20 +1,15 @@
-import { TMap, TMapLatLng, TMapMarker, TMapSize } from "@/src/types";
+import {
+  MapOptions,
+  TMap,
+  TMapLatLng,
+  TMapMarker,
+  TMapSize,
+} from "@/src/types";
 
 declare global {
   interface Window {
     Tmapv2: {
-      Map: new (
-        element: HTMLElement | string,
-        options?: {
-          center?: TMapLatLng;
-          scaleBar?: boolean;
-          width?: string | number;
-          height?: string | number;
-          zoom?: number;
-          zoomControl?: boolean;
-          scrollwheel?: boolean;
-        },
-      ) => TMap;
+      Map: new (element: HTMLElement | string, options?: MapOptions) => TMap;
       LatLng: new (lat: number, lon: number) => TMapLatLng;
       Marker: new (options?: {
         name?: string;
