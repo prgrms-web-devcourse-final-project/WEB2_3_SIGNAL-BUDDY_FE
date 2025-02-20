@@ -5,8 +5,10 @@ export default {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{astro,htnl,js,ts,jsx,tsx,md,mdx,svelt}",
+    "./src/app/**/*.{astro,html,js,ts,jsx,tsx,md,mdx,svelte}",
+    "./node_modules/@shadcn/ui/dist/**/*.{js,ts,jsx,tsx}",
   ],
+
   theme: {
     extend: {
       colors: {

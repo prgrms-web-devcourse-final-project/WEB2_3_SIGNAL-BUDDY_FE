@@ -7,7 +7,7 @@ export default function Page() {
       <div className="flex w-[400px] flex-col gap-5 pt-2 sm:px-4">
         <section className="flex flex-col gap-2">
           <div className="border-grey-300 flex h-10 items-center gap-2 border-b">
-            <Link href='/my-page/profile'>
+            <Link href="/my-page/profile">
               <ArrowLeftIcon />
             </Link>
             <h1 className="text-grey-700 text-sm font-extrabold">설정</h1>

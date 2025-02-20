@@ -32,7 +32,7 @@ export default function page() {
         </section>
         <section>
           <form action="" className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2 mb-2">
+            <div className="mb-2 flex flex-col gap-2">
               <p className="text-grey-500 text-xs font-medium">닉네임</p>
               <input
                 type="text"
