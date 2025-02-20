@@ -31,6 +31,7 @@ export default function useMap(
 
       const map = new Tmapv2.Map("map", {
         center: position,
+        ...options,
       });
 
       const marker = new Tmapv2.Marker({
