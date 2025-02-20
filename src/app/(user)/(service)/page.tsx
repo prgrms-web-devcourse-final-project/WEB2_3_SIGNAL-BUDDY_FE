@@ -1,10 +1,18 @@
 import Image from "next/image";
-import logo from "@/public/imgs/Logo.png";
+import logo from "@/public/imgs/Logo.svg";
 import Link from "next/link";
+import home_background_img from "@/public/imgs/noisy-gradients.svg";
 
 export default function Home() {
   return (
-    <section className="flex-grow-1 flex w-full justify-center rounded-[20px] bg-slate-300 py-[203px] lg:pb-[359px] lg:pt-[311px]">
+    <section
+      className="flex-grow-1 flex w-full justify-center rounded-[20px] py-[203px] lg:pb-[359px] lg:pt-[311px]"
+      style={{
+        backgroundImage: `url(${home_background_img.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="flex flex-col items-center px-[60px] sm:px-8 md:px-16">
         <div className="w-full max-w-[250px] sm:max-w-[390px] lg:max-w-[600px]">
           <Image
