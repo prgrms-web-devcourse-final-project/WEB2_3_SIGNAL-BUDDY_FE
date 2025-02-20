@@ -10,6 +10,7 @@ import kakaoLogo from "@/public/imgs/Kakao.svg";
 import naverLogo from "@/public/imgs/Naver.svg";
 
 
+
 export function LoginForm() {
   return (
           <form className="w-[360px] md:bg-white">
@@ -37,9 +38,9 @@ export function LoginForm() {
                 />
               </div>
               <div className="grid mt-2">
-                  <Label htmlFor="password" className="text-xs text-gray-500 ">
-                    비밀번호
-                  </Label>
+                <Label htmlFor="password" className="text-xs text-gray-500 ">
+                  비밀번호
+                </Label>
                 <Input
                   id="password"
                   type="password"
@@ -47,23 +48,25 @@ export function LoginForm() {
                   className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300"
                   required
                 />
+
 <div className="flex items-center justify-between mt-5">
                 <div className=" flex space-x-2 items-center">
                   <Checkbox id="rememberEmail" className="w-[22px] h-[22px] rounded-sm border-gray-300 bg-white" />
+
                     <label
                       htmlFor="rememberEmail"
                       className="text-xs font-medium text-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                     >
                       이메일 기억하기
                     </label>
+                  </div>
+                  <Link
+                    href="/reset-password"
+                    className="text-xs font-medium text-gray-500 ml-auto underline-offset-2 hover:underline"
+                  >
+                    비밀번호 재설정
+                  </Link>
                 </div>
-                <Link
-                  href="/reset-password"
-                  className="text-xs font-medium text-gray-500 ml-auto underline-offset-2 hover:underline"
-                >
-                  비밀번호 재설정
-                </Link>
-</div>
               </div>
               <Button
                 type="submit"
@@ -77,13 +80,14 @@ export function LoginForm() {
                 </Link>
               </div>
               <div className="flex items-center mt-[60px]">
-        <div className="flex-grow border-t border-gray-300"></div>
-        <span className="mx-2 text-gray-500 font-Pretendard text-xs">
-          SNS 로그인
-        </span>
-        <div className="flex-grow border-t border-gray-300"></div>
-      </div>
+                <div className="flex-grow border-t border-gray-300"></div>
+                <span className="mx-2 text-gray-500 font-Pretendard text-xs">
+                  SNS 로그인
+                </span>
+                <div className="flex-grow border-t border-gray-300"></div>
+              </div>
               <div className="flex justify-center gap-5 mt-[18px]">
+
                 <Button variant="outline" className="w-10 h-10 p-[10px] flex items-center justify-center rounded-full bg-[#1DC800]">
                 <Image src={naverLogo} alt="naver logo" />
                   <span className="sr-only">네이버 계정으로 로그인</span>
@@ -94,6 +98,7 @@ export function LoginForm() {
                 </Button>
                 <Button variant="outline" className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-white border-gray-300">
                 <Image src={googleLogo} alt="google logo"/>
+
                   <span className="sr-only">구글 계정으로 로그인</span>
                 </Button>
               </div>
