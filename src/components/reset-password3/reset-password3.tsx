@@ -6,7 +6,7 @@ import logo from "@/public/imgs/Logo.png";
 
 export function ResetPassword3() {
   return (
-          <form className="p-6 md:p-8 md:bg-white">
+          <form className="w-[362px] md:bg-white">
             <div className="flex flex-col">
                 <Image
                   src={logo}

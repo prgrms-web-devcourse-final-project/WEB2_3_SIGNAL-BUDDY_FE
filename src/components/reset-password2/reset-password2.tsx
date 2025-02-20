@@ -16,7 +16,7 @@ export function ResetPassword2() {
   const isOtpComplete = otp.length === 6;
 
   return (
-          <form className="w-[360px] md:bg-white">
+          <form className="w-[362px] md:bg-white">
             <div className="flex flex-col">
                 <Image
                   src={logo}
