@@ -93,7 +93,7 @@ export function JoinForm() {
         <div className="flex space-x-2 items-center">
           <Checkbox
             id="rememberEmail"
-            className="w-[22px] h-[22px] rounded-sm border-gray-300"
+            className="w-[22px] h-[22px] rounded-sm border-gray-300 bg-white"
           />
           <label
             htmlFor="rememberEmail"
@@ -105,7 +105,7 @@ export function JoinForm() {
         <div className="flex space-x-2 items-center mt-2">
           <Checkbox
             id="agreeTerms"
-            className="w-[22px] h-[22px] rounded-sm border-gray-300"
+            className="w-[22px] h-[22px] rounded-sm border-gray-300 bg-white"
           />
           <label
             htmlFor="agreeTerms"

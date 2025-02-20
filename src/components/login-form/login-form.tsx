@@ -49,7 +49,7 @@ export function LoginForm() {
                 />
 <div className="flex items-center justify-between mt-5">
                 <div className=" flex space-x-2 items-center">
-                  <Checkbox id="rememberEmail" className="w-[22px] h-[22px] rounded-sm border-gray-300" />
+                  <Checkbox id="rememberEmail" className="w-[22px] h-[22px] rounded-sm border-gray-300 bg-white" />
                     <label
                       htmlFor="rememberEmail"
                       className="text-xs font-medium text-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
