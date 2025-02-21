@@ -76,7 +76,7 @@ export default function MapButtons({ map, getGEO }: Props) {
 
   return (
     <>
-      <div className="fixed top-20 left-5 md:left-[340px] flex gap-2 z-[999]">
+      <div className="fixed top-[140px] md:top-20 left-4 md:left-[340px] flex gap-2 z-[99]">
         <Button
           className={buttonStyle("ROAD")}
           onClick={() => handleChangeMapType("ROAD")}
@@ -99,7 +99,7 @@ export default function MapButtons({ map, getGEO }: Props) {
 
       <button
         onClick={handleClickCurrentPosition}
-        className="fixed bottom-20 md:bottom-10 left-5 md:left-[340px]  border rounded-full hover:bg-gray-200 border-gray-300 z-[999] bg-gray-100 p-1"
+        className="fixed bottom-10 left-4 md:left-[340px]  border rounded-full hover:bg-gray-200 border-gray-300 z-[99] bg-gray-100 p-1"
       >
         <ArrowDownCircleIcon className="w-6 h-6 text-teal" />
       </button>

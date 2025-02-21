@@ -19,7 +19,6 @@ import {
   TmapResponse,
 } from "@/src/types";
 import { useEffect, useRef, useState } from "react";
-import { XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   BuildingOffice2Icon,
@@ -27,9 +26,11 @@ import {
   HomeIcon,
   MapPinIcon,
   PhoneIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import { ILocation } from "@/src/hooks/useGeoLocation";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   search: z.string(),
@@ -41,6 +42,7 @@ type Props = {
 };
 
 export default function MapSearch({ map, location }: Props) {
+  const [isFocus, setIsFocus] = useState<boolean>(false);
   const [results, setResults] = useState<Poi[]>([]);
   const [welfares, setWelfares] = useState<Poi[]>([]);
   const [target, setTarget] = useState<PoiDetail | null>(null);
@@ -118,6 +120,7 @@ export default function MapSearch({ map, location }: Props) {
       iconSize: new Tmapv2.Size(40, 50),
     });
     targetMarker.current = marker;
+    setIsFocus(true);
   };
 
   const handleRemoveTargetMarker = () => {
@@ -251,7 +254,16 @@ export default function MapSearch({ map, location }: Props) {
   }, [map, location]);
 
   return (
-    <div className="relative">
+    <div className="w-full max-w-[calc(100%-32px)] relative">
+      {isFocus && (
+        <Button
+          onClick={() => setIsFocus(false)}
+          className="absolute top-4 right-5 flex md:hidden"
+          size="icon"
+        >
+          <XMarkIcon className="w-7 h-7" />
+        </Button>
+      )}
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <FormField
@@ -263,6 +275,7 @@ export default function MapSearch({ map, location }: Props) {
                   <Input
                     placeholder="검색어를 입력해주세요."
                     className="h-12 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300 px-2 !m-0"
+                    onFocus={() => setIsFocus(true)}
                     {...field}
                   />
                 </FormControl>
@@ -272,98 +285,102 @@ export default function MapSearch({ map, location }: Props) {
           />
         </form>
       </Form>
-      {target ? (
-        <div className="flex flex-col py-2 max-h-[calc(100ch-126px)]">
-          <div className="flex-grow flex flex-col gap-5 overflow-y-auto">
-            <div className="flex flex-col gap-4 bg-white px-2 py-3 md:p-4 rounded-xl">
-              <div className="flex items-center justify-between">
-                <div className="flex gap-1 text-sm font-semibold text-gray-500">
-                  {target.detailBizName || "기타"}
-                </div>
-                <button onClick={handleRemoveTargetMarker}>
-                  <XIcon />
-                </button>
-              </div>
-              <div className="font-bold text-2xl">{target.name}</div>
-              <div className="flex">
-                <Button className="w-full flex items-center text-lg bg-teal text-white hover:opacity-80">
-                  <MapPinIcon className="size-7" /> 도착지 설정
-                </Button>
-              </div>
-            </div>
-            <div className="flex flex-col gap-4 bg-white px-2 py-3 md:p-4 rounded-xl text-sm font-semibold text-gray-500">
-              {target.address && (
-                <div className="flex gap-4 items-center">
-                  <div>
-                    <BuildingOffice2Icon className="size-4 min-w-4" />
+      <div className={cn("hidden md:block", isFocus && "block")}>
+        {target ? (
+          <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
+            <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
+              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:p-4 rounded-xl">
+                <div className="flex items-center justify-between">
+                  <div className="flex gap-1 text-sm font-semibold text-gray-500">
+                    {target.detailBizName || "기타"}
                   </div>
-                  {target.address} {target.firstNo ? target.firstNo : ""}
-                  {target.secondNo ? `-${target.secondNo}` : ""}
+                  <button onClick={handleRemoveTargetMarker}>
+                    <XMarkIcon className="size-4" />
+                  </button>
                 </div>
-              )}
-              {target.bldAddr && (
-                <div className="flex gap-4 items-center">
-                  <div>
-                    <BuildingOfficeIcon className="size-4 min-w-4" />
+                <div className="font-bold text-2xl">{target.name}</div>
+                <div className="flex">
+                  <Button className="w-full flex items-center text-lg bg-teal text-white hover:opacity-80">
+                    <MapPinIcon className="size-7" /> 도착지 설정
+                  </Button>
+                </div>
+              </div>
+              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:p-4 rounded-xl text-sm font-semibold text-gray-500">
+                {target.address && (
+                  <div className="flex gap-4 items-center">
+                    <div>
+                      <BuildingOffice2Icon className="size-4 min-w-4" />
+                    </div>
+                    {target.address} {target.firstNo ? target.firstNo : ""}
+                    {target.secondNo ? `-${target.secondNo}` : ""}
                   </div>
-                  {target.bldAddr} {target.bldNo1 ? target.bldNo1 : ""}{" "}
-                  {target.bldNo2 ? target.bldNo2 : ""}
-                </div>
-              )}
-              {target.tel && (
-                <div className="flex gap-4 items-center">
-                  <PhoneIcon className="size-4 min-w-4" />
-                  {target.tel}
-                </div>
-              )}
-              {target.homepageURL && (
-                <div className="flex gap-4 items-center break-all">
-                  <HomeIcon className="size-4 min-w-4" />
-                  <Link
-                    href={target.homepageURL}
-                    target="_blank"
-                    className="hover:underline"
-                  >
-                    {target.homepageURL}
-                  </Link>
-                </div>
-              )}
+                )}
+                {target.bldAddr && (
+                  <div className="flex gap-4 items-center">
+                    <div>
+                      <BuildingOfficeIcon className="size-4 min-w-4" />
+                    </div>
+                    {target.bldAddr} {target.bldNo1 ? target.bldNo1 : ""}{" "}
+                    {target.bldNo2 ? target.bldNo2 : ""}
+                  </div>
+                )}
+                {target.tel && (
+                  <div className="flex gap-4 items-center">
+                    <PhoneIcon className="size-4 min-w-4" />
+                    {target.tel}
+                  </div>
+                )}
+                {target.homepageURL && (
+                  <div className="flex gap-4 items-center break-all">
+                    <HomeIcon className="size-4 min-w-4" />
+                    <Link
+                      href={target.homepageURL}
+                      target="_blank"
+                      className="hover:underline"
+                    >
+                      {target.homepageURL}
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ) : searchValue ? (
-        <div className=" absolute w-full flex flex-col gap-2 max-h-[calc(100vh-126px)] overflow-y-auto py-4">
-          {results.map((result) => (
-            <div
-              onClick={() => handleClickItem(result)}
-              key={result.id}
-              className="bg-white p-4 rounded-md cursor-pointer hover:bg-gray-200 transition-all font-semibold"
-            >
-              {result.name}
-            </div>
-          ))}
-        </div>
-      ) : (
-        <div className="flex flex-col py-2 max-h-[calc(100ch-126px)]">
-          <div className="flex-grow flex flex-col gap-5 overflow-y-auto">
-            <div className="flex flex-col gap-2 bg-white px-2 py-3 md:p-4 rounded-md">
-              <div className="text-sm text-gray-500 font-medium">
-                주변 복지시설{" "}
-                <span className="text-xs font-bold">{welfares.length}</span>
-              </div>
-              {welfares.map((item) => (
+        ) : searchValue ? (
+          <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
+            <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
+              {results.map((result) => (
                 <div
-                  key={item.id}
-                  onClick={() => handleClickItem(item)}
-                  className="py-4 border-b border-gray-300 cursor-pointer hover:bg-gray-200 transition-all"
+                  onClick={() => handleClickItem(result)}
+                  key={result.id}
+                  className="bg-white p-4 rounded-md cursor-pointer hover:bg-gray-200 transition-all font-semibold"
                 >
-                  {item.name}
+                  {result.name}
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
+            <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
+              <div className="flex flex-col gap-2 bg-white px-2 py-3 md:p-4 rounded-md">
+                <div className="text-sm text-gray-500 font-medium">
+                  주변 복지시설{" "}
+                  <span className="text-xs font-bold">{welfares.length}</span>
+                </div>
+                {welfares.map((item) => (
+                  <div
+                    key={item.id}
+                    onClick={() => handleClickItem(item)}
+                    className="bg-white p-4 rounded-md cursor-pointer hover:bg-gray-200 transition-all font-semibold"
+                  >
+                    {item.name}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
