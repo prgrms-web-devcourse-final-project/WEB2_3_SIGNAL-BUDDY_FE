@@ -1,25 +1,9 @@
 import Image from "next/image";
 import deleteImage from "@/public/imgs/Delete.svg";
 import twoLineHamburger from "@/public/imgs/two-line-hamburger.svg";
+import { MyPlace, myPlaceData } from "./MyPlaceData";
 
-interface MyPlace {
-  id: string;
-  name: string;
-  address: string;
-}
 
-const myPlaceData: MyPlace[] = [
-  {
-    id: "1",
-    name: "집",
-    address: "경기 용인시 기흥구 기흥역로 63 경기 용인시 기흥구 기흥역로 63",
-  },
-  {
-    id: "2",
-    name: "회사",
-    address: "서울 강남구 테헤란로 427",
-  },
-];
 
 function MyPlaceItem({ name, address }: MyPlace) {
   return (
@@ -44,7 +28,7 @@ function MyPlaceItem({ name, address }: MyPlace) {
       {/* pc 화면 */}
       <div className="hidden md:flex items-center gap-2 p-5 bg-white rounded-lg h-[80px] w-full justify-between">
         <div className="flex">
-          <div className="flex items-center pr-4 ">
+          <div className="flex items-center pr-4">
             <Image src={deleteImage} alt="삭제" />
           </div>
           <div>
@@ -57,7 +41,7 @@ function MyPlaceItem({ name, address }: MyPlace) {
           <div className="bg-white w-[58px] h-[58px] rounded-xl border border-gray-300 flex items-center justify-center">
             <div className="bg-gray-500 w-[50px] h-[50px] rounded-lg "></div>
           </div>
-          <div className="ml-4">
+          <div className="ml-5">
             <Image src={twoLineHamburger} alt="순서 바꾸기 아이콘" />
           </div>
         </div>
