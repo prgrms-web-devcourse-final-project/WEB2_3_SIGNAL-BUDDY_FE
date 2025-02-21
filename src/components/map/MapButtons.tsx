@@ -32,6 +32,7 @@ export default function MapButtons({ map, getGEO }: Props) {
 
     const marker = new Tmapv2.Marker({
       position: new Tmapv2.LatLng(lonlat._lat, lonlat._lng),
+      icon: "/imgs/click-marker.png",
       map,
     });
     clickMarkerRef.current = marker;
@@ -75,7 +76,7 @@ export default function MapButtons({ map, getGEO }: Props) {
 
   return (
     <>
-      <div className="absolute top-10 left-full translate-x-10 flex gap-4">
+      <div className="fixed top-20 left-5 md:left-[340px] flex gap-2 z-[999]">
         <Button
           className={buttonStyle("ROAD")}
           onClick={() => handleChangeMapType("ROAD")}
@@ -98,7 +99,7 @@ export default function MapButtons({ map, getGEO }: Props) {
 
       <button
         onClick={handleClickCurrentPosition}
-        className="absolute bottom-10 -right-10 border rounded-full hover:bg-gray-200 border-gray-300 z-999 bg-gray-100 p-1"
+        className="fixed bottom-20 md:bottom-10 left-5 md:left-[340px]  border rounded-full hover:bg-gray-200 border-gray-300 z-[999] bg-gray-100 p-1"
       >
         <ArrowDownCircleIcon className="w-6 h-6 text-teal" />
       </button>

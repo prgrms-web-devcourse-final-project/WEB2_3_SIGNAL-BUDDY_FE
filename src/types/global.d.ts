@@ -3,6 +3,7 @@ import {
   TMap,
   TMapLatLng,
   TMapMarker,
+  TMapMarkerOptions,
   TMapSize,
 } from "@/src/types";
 
@@ -32,18 +33,13 @@ declare global {
         };
       };
       LatLng: new (lat: number, lon: number) => TMapLatLng;
-      Marker: new (options?: {
-        id?: string;
-        name?: string;
-        map: TMap;
-        position: TMapLatLng;
-        iconHTML?: string;
-        iconSize?: TMapSize;
-        label?: string;
-        icon?: string;
-        title?: string;
-      }) => TMapMarker;
+      Marker: {
+        new (options?: TMapMarkerOptions): TMapMarker;
+      };
       Size: new (width: number, height: number) => TMapSize;
+      MarkerOptions: {
+        [key: string]: number;
+      };
     };
   }
 }
