@@ -12,7 +12,7 @@ const myPlaceData: MyPlace[] = [
   {
     id: "1",
     name: "집",
-    address: "경기 용인시 기흥구 기흥역로 63",
+    address: "경기 용인시 기흥구 기흥역로 63 경기 용인시 기흥구 기흥역로 63",
   },
   {
     id: "2",
@@ -29,9 +29,9 @@ function MyPlaceItem({ name, address }: MyPlace) {
         <div className="">
           <Image src={deleteImage} alt="삭제" />
         </div>
-        <div className="bg-white rounded-full pl-5 py-2 h-[58px] flex-1 min-w-[230px]">
-          <p className="text-base font-extrabold">{name}</p>
-          <p className="text-sm font-medium text-gray-500  ">{address}</p>
+        <div className="bg-white rounded-full px-5 py-2 h-[58px] flex-1">
+          <p className="text-base font-extrabold h-5 overflow-hidden">{name}</p>
+          <p className="text-sm font-medium text-gray-500 h-4 mt-1 overflow-hidden">{address}</p>
         </div>
         <div className="bg-white w-[58px] h-[58px] rounded-full flex items-center justify-center">
           <div className="bg-gray-500 w-[50px] h-[50px] rounded-full "></div>
@@ -42,9 +42,9 @@ function MyPlaceItem({ name, address }: MyPlace) {
       </div>
 
       {/* pc 화면 */}
-      <div className="hidden md:flex items-center gap-2 p-5 bg-white rounded-[20px] h-[80px] w-full justify-between">
+      <div className="hidden md:flex items-center gap-2 p-5 bg-white rounded-lg h-[80px] w-full justify-between">
         <div className="flex">
-          <div className="flex items-center pr-4">
+          <div className="flex items-center pr-4 ">
             <Image src={deleteImage} alt="삭제" />
           </div>
           <div>
@@ -62,7 +62,6 @@ function MyPlaceItem({ name, address }: MyPlace) {
           </div>
         </div>
       </div>
-
     </article>
   );
 }
