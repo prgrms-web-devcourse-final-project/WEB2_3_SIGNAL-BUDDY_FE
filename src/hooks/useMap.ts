@@ -31,6 +31,8 @@ export default function useMap(
 
       const map = new Tmapv2.Map("map", {
         center: position,
+        httpsMode: true,
+        pinchZoom: true,
         ...options,
       });
 
