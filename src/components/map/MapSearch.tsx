@@ -43,8 +43,9 @@ type Props = {
 export default function MapSearch({ map, location }: Props) {
   const [results, setResults] = useState<Poi[]>([]);
   const [welfares, setWelfares] = useState<Poi[]>([]);
-  const markers = useRef<TMapMarker[]>([]);
   const [target, setTarget] = useState<PoiDetail | null>(null);
+  const markers = useRef<TMapMarker[]>([]);
+  const targetMarker = useRef<TMapMarker | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -86,6 +87,44 @@ export default function MapSearch({ map, location }: Props) {
       handleClickItem(lonlatoption);
     });
     markers.current.push(marker);
+  };
+
+  const addTargetMarker = (poi: Poi) => {
+    const { Tmapv2 } = window;
+    if (!Tmapv2 || !map) return;
+    if (targetMarker.current) {
+      console.log(targetMarker.current);
+      targetMarker.current.setMap(null);
+    }
+    const id = poi.id;
+    const lon = poi.frontLon;
+    const lat = poi.frontLat;
+    const lonlatoption = {
+      ...poi,
+      id,
+      title: poi.name,
+      lonlat: new Tmapv2.LatLng(Number(lat), Number(lon)),
+    };
+    const marker = new Tmapv2.Marker({
+      id: lonlatoption.id,
+      animation: Tmapv2.MarkerOptions.ANIMATE_BALLOON,
+      position: new Tmapv2.LatLng(
+        lonlatoption.lonlat._lat,
+        lonlatoption.lonlat._lng,
+      ),
+      map: map,
+      title: lonlatoption.title,
+      icon: "/imgs/poi-marker.png",
+      iconSize: new Tmapv2.Size(40, 50),
+    });
+    targetMarker.current = marker;
+  };
+
+  const handleRemoveTargetMarker = () => {
+    if (!targetMarker.current) return;
+    targetMarker.current.setMap(null);
+    setTarget(null);
+    targetMarker.current = null;
   };
 
   const onComplete = (data: { _responseData: TmapResponse }) => {
@@ -170,6 +209,7 @@ export default function MapSearch({ map, location }: Props) {
     if (!res.ok) return;
     const data = (await res.json()).poiDetailInfo;
     setTarget({ ...newTarget, ...data });
+    addTargetMarker(newTarget);
   };
 
   useEffect(() => {
@@ -240,7 +280,7 @@ export default function MapSearch({ map, location }: Props) {
                 <div className="flex gap-1 text-sm font-semibold text-gray-500">
                   {target.detailBizName || "기타"}
                 </div>
-                <button onClick={() => setTarget(null)}>
+                <button onClick={handleRemoveTargetMarker}>
                   <XIcon />
                 </button>
               </div>
