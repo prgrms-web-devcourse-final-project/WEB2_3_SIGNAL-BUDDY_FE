@@ -76,7 +76,7 @@ export default function MapButtons({ map, getGEO }: Props) {
 
   return (
     <>
-      <div className="fixed top-[140px] md:top-20 left-4 md:left-[340px] flex gap-2 z-[99]">
+      <div className="fixed top-[140px] md:top-20 left-4 md:left-[340px] hidden md:flex gap-2 z-[99]">
         <Button
           className={buttonStyle("ROAD")}
           onClick={() => handleChangeMapType("ROAD")}

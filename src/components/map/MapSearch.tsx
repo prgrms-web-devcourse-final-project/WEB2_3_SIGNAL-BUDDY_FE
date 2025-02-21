@@ -88,6 +88,9 @@ export default function MapSearch({ map, location }: Props) {
     marker.addListener("click", async () => {
       handleClickItem(lonlatoption);
     });
+    marker.addListener("touchend", async () => {
+      handleClickItem(lonlatoption);
+    });
     markers.current.push(marker);
   };
 
@@ -258,10 +261,10 @@ export default function MapSearch({ map, location }: Props) {
       {isFocus && (
         <Button
           onClick={() => setIsFocus(false)}
-          className="absolute top-4 right-5 flex md:hidden"
+          className="absolute top-[10px] right-5 flex md:hidden w-7 h-7"
           size="icon"
         >
-          <XMarkIcon className="w-7 h-7" />
+          <XMarkIcon className="!size-5" />
         </Button>
       )}
       <Form {...form}>
@@ -294,9 +297,9 @@ export default function MapSearch({ map, location }: Props) {
                   <div className="flex gap-1 text-sm font-semibold text-gray-500">
                     {target.detailBizName || "기타"}
                   </div>
-                  <button onClick={handleRemoveTargetMarker}>
-                    <XMarkIcon className="size-4" />
-                  </button>
+                  <Button onClick={handleRemoveTargetMarker}>
+                    <XMarkIcon className="!size-5" />
+                  </Button>
                 </div>
                 <div className="font-bold text-2xl">{target.name}</div>
                 <div className="flex">

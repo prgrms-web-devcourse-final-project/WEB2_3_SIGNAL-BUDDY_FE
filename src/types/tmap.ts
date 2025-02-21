@@ -94,7 +94,7 @@ export type TMap = {
   setMapType: (type: number) => void;
   _data: { mapType: 1 | 4 | 5 };
 };
-type EventType = "click";
+type EventType = "click" | "touchend";
 
 export type TMapEvent = {
   latLng: TMapLatLng;
