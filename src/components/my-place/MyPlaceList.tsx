@@ -1,6 +1,3 @@
-import Image from "next/image";
-import deleteImage from "@/public/imgs/Delete.svg";
-import twoLineHamburger from "@/public/imgs/two-line-hamburger.svg";
 
 interface MyPlace {
   id: string;
@@ -40,7 +37,7 @@ function MyPlaceItem({
       </div>
 
       {/* pc 화면 */}
-      <div className="hidden md:flex items-center gap-2 p-5 bg-white rounded-lg h-[80px] w-full justify-between">
+      <div className="hidden md:flex items-center gap-2 py-5 px-4 bg-white rounded-lg h-[80px] w-full justify-between">
         <div className="flex">
           <div>
             <p className="text-base font-extrabold">{name}</p>
