@@ -76,11 +76,8 @@ export default function MyPlaceListEdit() {
       return;
     }
 
-    // 기존 배열 복사
     const updated = Array.from(items);
-    // 드래그된 아이템을 꺼내고
     const [movedItem] = updated.splice(source.index, 1);
-    // 드롭 위치에 삽입
     updated.splice(destination.index, 0, movedItem);
 
     setItems(updated);
@@ -94,13 +91,14 @@ export default function MyPlaceListEdit() {
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="myPlaceList">
         {(provided) => (
-          <div className="flex flex-col gap-2" {...provided.droppableProps} ref={provided.innerRef}>
+          <div className="flex flex-col " {...provided.droppableProps} ref={provided.innerRef}>
             {items.map((myPlace, index) => (
               <Draggable key={myPlace.id} draggableId={myPlace.id} index={index}>
                 {(provided) => (
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
+                    className="mb-2"
                   >
                     <MyPlaceItem
                       {...myPlace}
