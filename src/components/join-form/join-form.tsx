@@ -1,4 +1,3 @@
-// JoinForm.tsx
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,7 +9,7 @@ import cameraIcon from "@/public/imgs/Camera.png";
 
 export function JoinForm() {
   return (
-    <form className="w-[360px] md:bg-white">
+    <form className="w-full max-w-[360px] md:bg-white">
       <div className="flex flex-col ">
         <Image
           src={logo}
