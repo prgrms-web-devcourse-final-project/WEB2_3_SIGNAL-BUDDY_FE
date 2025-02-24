@@ -6,7 +6,7 @@ import logo from "@/public/imgs/Logo.png";
 
 export function ResetPassword3() {
   return (
-          <form className="w-[362px] md:bg-white">
+          <form className="w-full max-w-[362px] md:bg-white">
             <div className="flex flex-col">
                 <Image
                   src={logo}
@@ -45,7 +45,7 @@ export function ResetPassword3() {
                 </div>
               <Button
                 type="submit"
-                className="w-full bg-teal text-white text-sm h-10 mt-[148px] rounded-md"
+                className="w-full bg-teal text-white text-sm h-10 mt-[148px] rounded-md mb-2"
               >
                 재설정
               </Button>
