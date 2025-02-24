@@ -8,7 +8,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="bg-gray-300">
       <SidebarProvider>
         <AppSidebar />
-        <main className="flex w-full flex-col">
+        <main className="flex w-full flex-col min-w-[950px]">
           <div className="flex h-[50px] items-center justify-between bg-gray-100 px-5">
             <div className="flex items-center gap-4">
               <SidebarTrigger className="flex aspect-square w-[20px] items-center justify-center text-gray-400">
