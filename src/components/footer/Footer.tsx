@@ -6,11 +6,11 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <footer
-      className="mt-[60px] mb-2 flex justify-center pb-2 sm:mx-0"
+      className="mb-2 mt-[60px] flex justify-center pb-2 sm:mx-0"
       aria-labelledby="footer-heading"
     >
       <div
-        className="flex h-[117px]  w-full max-w-[calc(100vw-32px)] md:max-w-[calc(100vw-60px)] flex-col rounded-[20px] bg-white px-6 sm:h-[190px] sm:px-5 sm:pt-5"
+        className="flex h-[117px] w-full max-w-[calc(100vw-32px)] flex-col rounded-[20px] bg-white px-6 sm:h-[190px] sm:px-5 sm:pt-5 md:max-w-[calc(100vw-60px)]"
         role="contentinfo"
       >
         <h2 id="footer-heading" className="sr-only">
@@ -75,6 +75,11 @@ export default function Footer() {
                 <li>
                   <Link href="/terms" className="hover:underline">
                     이용약관
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/admin" className="hover:underline">
+                    관리자 페이지
                   </Link>
                 </li>
               </ul>

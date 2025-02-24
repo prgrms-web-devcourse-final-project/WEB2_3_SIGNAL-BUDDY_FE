@@ -1,29 +1,29 @@
 import { ReactNode } from "react";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/src/components/admin/ui/app-sidebar";
+import { PanelLeftClose } from "lucide-react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        {children}
-      </main>
-    </SidebarProvider>
-    // <div className="flex h-[100vh] w-[100vw] bg-gray-300">
-    //   {/* 좌측 메뉴 영역 */}
-    //   <nav className="h-full w-[66px] bg-red"></nav>
-
-    //   {/* 우측 영역 */}
-    //   <div className="flex flex-grow flex-col">
-    //     {/* 상단 툴바 영역 */}
-    //     <div className="h-[73px] w-full bg-teal">dwa</div>
-    //     {/* 본문 영역 */}
-    //     <div className="mx-[20px] my-[22.5px] h-full rounded-[20px] bg-gray-100">
-    //       {children}
-    //     </div>
-    //   </div>
-    // </div>
+    <div className="bg-gray-300">
+      <SidebarProvider>
+        <AppSidebar />
+        <main className="flex w-full flex-col">
+          <div className="flex h-[50px] items-center justify-between bg-gray-100 px-5">
+            <div className="flex items-center gap-4">
+              <SidebarTrigger className="flex aspect-square w-[20px] items-center justify-center text-gray-400">
+                <PanelLeftClose />
+              </SidebarTrigger>
+              <div className="text-gray-300">|</div>
+              <p className="text-sm font-semibold text-gray-500">대시보드</p>
+            </div>
+            <p className="text-sm font-semibold text-gray-700">로그아웃</p>
+          </div>
+          <div className="mx-5 mb-[22px] mt-[23px] h-full rounded-xl bg-gray-100 px-[12px] py-[10px]">
+            {children}
+          </div>
+        </main>
+      </SidebarProvider>
+    </div>
   );
 }
