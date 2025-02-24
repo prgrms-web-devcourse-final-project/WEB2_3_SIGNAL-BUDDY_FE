@@ -10,39 +10,39 @@ type Props = {
 };
 
 export default function MapButtons({ map, getGEO }: Props) {
-  const clickMarkerRef = useRef<TMapMarker>(null);
+  // const clickMarkerRef = useRef<TMapMarker>(null);
 
   const handleClickCurrentPosition = () => {
     getGEO();
   };
 
-  const removeClickMarker = () => {
-    if (clickMarkerRef.current) {
-      clickMarkerRef.current.setMap(null);
-    }
-    clickMarkerRef.current = null;
-  };
+  // const removeClickMarker = () => {
+  //   if (clickMarkerRef.current) {
+  //     clickMarkerRef.current.setMap(null);
+  //   }
+  //   clickMarkerRef.current = null;
+  // };
 
-  const onClick = (e: TMapEvent) => {
-    removeClickMarker();
-    const { Tmapv2 } = window;
-    if (!Tmapv2 || !map) return;
+  // const onClick = (e: TMapEvent) => {
+  //   removeClickMarker();
+  //   const { Tmapv2 } = window;
+  //   if (!Tmapv2 || !map) return;
 
-    const lonlat = e.latLng;
+  //   const lonlat = e.latLng;
 
-    const marker = new Tmapv2.Marker({
-      position: new Tmapv2.LatLng(lonlat._lat, lonlat._lng),
-      icon: "/imgs/click-marker.png",
-      map,
-    });
-    clickMarkerRef.current = marker;
-  };
+  //   const marker = new Tmapv2.Marker({
+  //     position: new Tmapv2.LatLng(lonlat._lat, lonlat._lng),
+  //     icon: "/imgs/click-marker.png",
+  //     map,
+  //   });
+  //   clickMarkerRef.current = marker;
+  // };
 
-  useEffect(() => {
-    if (map) {
-      map.addListener("click", onClick);
-    }
-  }, [map]);
+  // useEffect(() => {
+  //   if (map) {
+  //     map.addListener("click", onClick);
+  //   }
+  // }, [map]);
 
   const [mapType, setMapType] = useState<number>(map?._data.mapType || 1);
   const TMAP_TYPE = {

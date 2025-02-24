@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import {
   BuildingOffice2Icon,
   BuildingOfficeIcon,
+  ClockIcon,
   HomeIcon,
   MapPinIcon,
   PhoneIcon,
@@ -31,6 +32,7 @@ import {
 import Link from "next/link";
 import { ILocation } from "@/src/hooks/useGeoLocation";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   search: z.string(),
@@ -42,6 +44,8 @@ type Props = {
 };
 
 export default function MapSearch({ map, location }: Props) {
+  const router = useRouter();
+
   const [isFocus, setIsFocus] = useState<boolean>(false);
   const [results, setResults] = useState<Poi[]>([]);
   const [welfares, setWelfares] = useState<Poi[]>([]);
@@ -119,7 +123,7 @@ export default function MapSearch({ map, location }: Props) {
       ),
       map: map,
       title: lonlatoption.title,
-      icon: "/imgs/poi-marker.png",
+      icon: "/imgs/click-marker.png",
       iconSize: new Tmapv2.Size(40, 50),
     });
     targetMarker.current = marker;
@@ -218,6 +222,13 @@ export default function MapSearch({ map, location }: Props) {
     addTargetMarker(newTarget);
   };
 
+  const handleClickDirection = (poi: PoiDetail) => {
+    console.log(poi);
+    router.push(
+      `/map/direction?end=${poi.frontLon},${poi.frontLat},${poi.name}`,
+    );
+  };
+
   useEffect(() => {
     const handleGetNear = async () => {
       try {
@@ -292,23 +303,40 @@ export default function MapSearch({ map, location }: Props) {
         {target ? (
           <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
             <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
-              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:p-4 rounded-xl">
+              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:py-4 rounded-xl">
                 <div className="flex items-center justify-between">
                   <div className="flex gap-1 text-sm font-semibold text-gray-500">
                     {target.detailBizName || "기타"}
                   </div>
-                  <Button onClick={handleRemoveTargetMarker}>
+                  <Button onClick={handleRemoveTargetMarker} size={"icon"}>
                     <XMarkIcon className="!size-5" />
                   </Button>
                 </div>
                 <div className="font-bold text-2xl">{target.name}</div>
+
                 <div className="flex">
-                  <Button className="w-full flex items-center text-lg bg-teal text-white hover:opacity-80">
+                  <Button
+                    onClick={() => handleClickDirection(target)}
+                    className="w-full flex items-center text-lg bg-teal text-white hover:opacity-80"
+                  >
                     <MapPinIcon className="size-7" /> 도착지 설정
                   </Button>
                 </div>
               </div>
-              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:p-4 rounded-xl text-sm font-semibold text-gray-500">
+              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:py-4 rounded-xl text-sm font-semibold text-gray-500">
+                {target.desc && (
+                  <div className="font-semibold text-sm text-gray-700">
+                    {target.desc}
+                  </div>
+                )}
+                {target.additionalInfo && (
+                  <div className="whitespace-pre flex gap-4 items-center">
+                    <div>
+                      <ClockIcon className="size-4 min-w-4" />
+                    </div>
+                    {target.additionalInfo.replaceAll(";", "\n")}
+                  </div>
+                )}
                 {target.address && (
                   <div className="flex gap-4 items-center">
                     <div>
@@ -365,8 +393,8 @@ export default function MapSearch({ map, location }: Props) {
         ) : (
           <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
             <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
-              <div className="flex flex-col gap-2 bg-white px-2 py-3 md:p-4 rounded-md">
-                <div className="text-sm text-gray-500 font-medium">
+              <div className="flex flex-col gap-2 bg-white px-2 py-3 md:py-4 rounded-md">
+                <div className="text-sm text-gray-500 font-medium mb-2">
                   주변 복지시설{" "}
                   <span className="text-xs font-bold">{welfares.length}</span>
                 </div>
@@ -374,7 +402,7 @@ export default function MapSearch({ map, location }: Props) {
                   <div
                     key={item.id}
                     onClick={() => handleClickItem(item)}
-                    className="bg-white p-4 rounded-md cursor-pointer hover:bg-gray-200 transition-all font-semibold"
+                    className="bg-white py-3 md:py-4 rounded-md cursor-pointer hover:bg-gray-200 transition-all font-semibold"
                   >
                     {item.name}
                   </div>
