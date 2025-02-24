@@ -10,7 +10,7 @@ import { DatePicker } from "@/src/components/admin/ui/DatePicker";
 import { Button } from "@/components/ui/button";
 import CustomCheckboxGroup from "../CustomCheckboxGroup";
 
-export default function Toolbar() {
+export default function FeedbackToolbar() {
   return (
     <div className="rounded-[12px] h-auto bg-white w-full p-3 flex flex-col gap-4">
       <div className="flex gap-20">
@@ -41,51 +41,41 @@ export default function Toolbar() {
             </div>
           </div>
 
-          {/* 회원 유형 */}
+          {/* 피드백 유형 */}
           <CustomCheckboxGroup
-            label="회원 유형"
+            label="피드백 유형"
             options={[
-              { id: "user-category-all", label: "전체" },
-              { id: "user-category-email", label: "일반회원" },
-              { id: "user-category-naver", label: "네이버" },
-              { id: "user-category-kakao", label: "카카오" },
-              { id: "user-category-google", label: "구글" },
-            ]}
-          />
-
-          {/* 회원 등급 */}
-          <CustomCheckboxGroup
-            label="회원 등급"
-            options={[
-              { id: "user-rank-all", label: "전체" },
-              { id: "user-rank-email", label: "일반회원" },
-              { id: "user-rank-admin", label: "관리자" },
+              { id: "feedback-category-all", label: "전체" },
+              { id: "feedback-category-1", label: "유형1" },
+              { id: "feedback-category-2", label: "유형2" },
+              { id: "feedback-category-3", label: "유형3" },
+              { id: "feedback-category-4", label: "유형4" },
             ]}
           />
         </div>
 
         {/* 오른쪽 필터 */}
         <div className="w-full flex flex-col gap-4">
-          {/* 가입일 */}
+          {/* 작성일 */}
           <div className="flex gap-[72px] h-10 items-center">
             <label
-              htmlFor="join-date"
+              htmlFor="createdAt"
               className="text-xs font-semibold text-gray-700"
             >
-              가입일
+              작성일
             </label>
             <div className="flex gap-1 text-sm font-medium text-gray-500">
-              <DatePicker id="join-date" />
+              <DatePicker id="createdAt" />
             </div>
           </div>
 
-          {/* 회원 상태 */}
+          {/* 답변 여부 */}
           <CustomCheckboxGroup
-            label="회원 상태"
+            label="답변 여부"
             options={[
-              { id: "user-status-all", label: "전체" },
-              { id: "user-status-active", label: "정상" },
-              { id: "user-status-deleted", label: "탈퇴" },
+              { id: "answer-status-all", label: "전체" },
+              { id: "answer-status-true", label: "답변" },
+              { id: "answer-status-false", label: "미답변" },
             ]}
           />
         </div>

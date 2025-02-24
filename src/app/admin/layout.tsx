@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             </div>
             <p className="text-sm font-semibold text-gray-700">로그아웃</p>
           </div>
-          <div className="mx-5 mb-[22px] mt-[23px] h-full rounded-xl bg-gray-100 px-[12px] py-[10px]">
+          <div className="mx-5 mb-[22px] mt-[23px] h-full rounded-xl bg-gray-100 px-[12px] py-[10px] min-w-[1200px]">
             {children}
           </div>
         </main>

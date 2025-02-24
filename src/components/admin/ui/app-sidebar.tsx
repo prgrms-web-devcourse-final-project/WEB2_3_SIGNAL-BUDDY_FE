@@ -42,11 +42,11 @@ const items = [
     url: "/admin/users", // 사용자 관리 페이지
     icon: Users,
   },
-  {
-    title: "포스트잇 관리",
-    url: "/admin/postits", // 포스트잇 관리 페이지
-    icon: Files,
-  },
+  // {
+  //   title: "포스트잇 관리",
+  //   url: "/admin/postits", // 포스트잇 관리 페이지
+  //   icon: Files,
+  // },
   {
     title: "피드백 관리",
     url: "/admin/feedback", // 사용자 피드백 관리

@@ -1,4 +1,4 @@
-import Toolbar from "@/src/components/admin/ui/users/toolbar";
+import Toolbar from "@/src/components/admin/ui/users/Toolbar";
 import UserTable from "@/src/components/admin/ui/users/UserTable";
 
 export default function page() {
