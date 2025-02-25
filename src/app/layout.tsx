@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Signal Buddy | 모두를 위한 보행 파트너",
@@ -33,6 +34,7 @@ export default function RootLayout({
         cz-shortcut-listen="true"
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
