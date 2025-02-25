@@ -7,7 +7,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import Image from "next/image";
 import logo from "@/public/imgs/Logo.png";
 import Link from "next/link";
-import { signIn } from "@/src/auth";
 import { SocialLogin } from "./social-login";
 import { useState } from "react";
 
@@ -18,15 +17,15 @@ export function LoginForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-      callbackUrl: "/", // 로그인 후 이동
-    });
-    if (result?.error) {
-      alert(result.error);
-    }
+    // const result = await signIn("credentials", {
+    //   email,
+    //   password,
+    //   redirect: false,
+    //   callbackUrl: "/", // 로그인 후 이동
+    // });
+    // if (result?.error) {
+    //   alert(result.error);
+    // }
   };
 
   return (

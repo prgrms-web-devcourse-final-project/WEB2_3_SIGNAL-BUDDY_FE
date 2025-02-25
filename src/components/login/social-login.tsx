@@ -5,7 +5,6 @@ import Image from "next/image";
 import googleLogo from "@/public/imgs/Google.svg";
 import kakaoLogo from "@/public/imgs/Kakao.svg";
 import naverLogo from "@/public/imgs/Naver.svg";
-import { kakaoLogin } from "@/lib/auth";
 
 export function SocialLogin() {
   return (
@@ -28,7 +27,7 @@ export function SocialLogin() {
         </Button>
         <Button
           type="button"
-          onClick={() => kakaoLogin()}
+          // onClick={() => kakaoLogin()}
           variant="outline"
           className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-[#FEE500]"
         >
