@@ -27,11 +27,8 @@
     "@types/web-push": "^3.6.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-<<<<<<< HEAD
     "dayjs": "^1.11.13",
-=======
     "date-fns": "^4.1.0",
->>>>>>> 23eaf5a8ae7ac986eb250a1b50ccbcbd563c7259
     "input-otp": "^1.4.2",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
