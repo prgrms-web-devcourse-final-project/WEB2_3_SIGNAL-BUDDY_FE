@@ -1,4 +1,3 @@
-// JoinForm.tsx
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,7 +9,7 @@ import cameraIcon from "@/public/imgs/Camera.png";
 
 export function JoinForm() {
   return (
-    <form className="w-[360px] md:bg-white">
+    <form className="w-full max-w-[360px] md:bg-white">
       <div className="flex flex-col ">
         <Image
           src={logo}
@@ -22,8 +21,8 @@ export function JoinForm() {
           시그널 버디에 오신 것을 환영합니다.
         </p>
       </div>
-      <div className="flex flex-col items-center mt-[32px]">
-        <p className="self-start text-xs mt-4 font-medium text-gray-500">
+      <div className="flex flex-col items-center mt-8">
+        <p className="self-start text-xs font-medium text-gray-500">
           프로필 이미지
         </p>
         <div className="relative w-[100px] h-[100px] rounded-full bg-white border border-gray-300 flex items-center justify-center mt-2">
@@ -34,7 +33,7 @@ export function JoinForm() {
             height={58}
             className="object-cover"
           />
-          <div className="absolute bottom-[6px] right-[10px] w-[26px] h-[26px] bg-white border border-gray-400 rounded-full flex items-center justify-center transform translate-x-1/4 translate-y-1/4">
+          <div className="absolute bottom-[8px] right-[4px] w-[26px] h-[26px] bg-white border border-gray-400 rounded-full flex items-center justify-center transform translate-x-1/4 translate-y-1/4">
             <label htmlFor="profileImage">
               <Image src={cameraIcon} alt="이미지 추가" width={16} height={14} />
             </label>
@@ -117,7 +116,7 @@ export function JoinForm() {
       </div>
       <Button
         type="submit"
-        className="w-full bg-teal text-white text-sm h-10 mt-6 rounded-md"
+        className="w-full bg-teal text-white text-sm h-10 mt-6 rounded-md mb-2"
       >
         회원가입
       </Button>
