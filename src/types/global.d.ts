@@ -56,6 +56,13 @@ declare global {
         outline: boolean;
         map: Tmap;
       }) => TMapPolyline;
+      Circle: new (options?: {
+        center: TMapLatLng;
+        radius: number;
+        fillColor: string;
+        strokeColor: string;
+        map: Tmap;
+      }) => TMapCircle;
     };
   }
 }

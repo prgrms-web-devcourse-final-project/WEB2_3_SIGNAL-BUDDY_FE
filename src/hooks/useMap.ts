@@ -10,7 +10,7 @@ export default function useMap(
     width: "100%",
     height: "calc(100vh - 70px)",
     zoom: DEFAULT_ZOOM_LEVEL,
-    zoomControl: true,
+    zoomControl: false,
     scrollwheel: true,
   },
 ) {
@@ -33,6 +33,7 @@ export default function useMap(
         center: position,
         httpsMode: true,
         pinchZoom: true,
+        scaleBar: false,
         ...options,
       });
 

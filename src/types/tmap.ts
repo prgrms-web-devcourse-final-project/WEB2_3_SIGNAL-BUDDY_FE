@@ -118,6 +118,8 @@ interface PointProperties extends BaseProperties {
   intersectionName: string;
   turnType: number;
   pointType: "SP" | "GP" | "EP"; // 출발(SP), 경유(GP), 도착(EP)
+  totalTime?: number;
+  totalDistance?: number;
 }
 
 // LineString 데이터의 Properties 타입 정의

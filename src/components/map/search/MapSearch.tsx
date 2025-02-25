@@ -33,6 +33,9 @@ import Link from "next/link";
 import { ILocation } from "@/src/hooks/useGeoLocation";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import useMapSearch from "@/src/hooks/useMapSearch";
+import MapSearchList from "./MapSearchList";
+import MapSearchResult from "./MapSearchResult";
 
 const formSchema = z.object({
   search: z.string(),
@@ -102,7 +105,6 @@ export default function MapSearch({ map, location }: Props) {
     const { Tmapv2 } = window;
     if (!Tmapv2 || !map) return;
     if (targetMarker.current) {
-      console.log(targetMarker.current);
       targetMarker.current.setMap(null);
     }
     const id = poi.id;
@@ -169,29 +171,7 @@ export default function MapSearch({ map, location }: Props) {
     map.setZoom(14);
   };
 
-  const search = (value: string) => {
-    const { Tmapv2 } = window;
-    if (!Tmapv2) return;
-    if (!map) return;
-    const center = map.getCenter();
-    const optionObj = {
-      reqCoordType: "WGS84GEO", //요청 좌표계 옵셥 설정입니다.
-      resCoordType: "WGS84GEO", //응답 좌표계 옵셥 설정입니다.
-      centerLon: center._lng, //POI검색시 중앙좌표의 경도입니다.
-      centerLat: center._lat, //POI검색시 중앙좌표의 위도입니다.
-    };
-    const params = {
-      onComplete,
-      onProgress: () => console.log("진행중..."),
-      onError: () => alert("Error: 그런 건 없을지도..?"),
-    };
-    const tData = new Tmapv2.extension.TData();
-    tData.getPOIDataFromSearchJson(
-      encodeURIComponent(value),
-      optionObj,
-      params,
-    );
-  };
+  const { search } = useMapSearch(onComplete, map);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     reset();
@@ -223,7 +203,6 @@ export default function MapSearch({ map, location }: Props) {
   };
 
   const handleClickDirection = (poi: PoiDetail) => {
-    console.log(poi);
     router.push(
       `/map/direction?end=${poi.frontLon},${poi.frontLat},${poi.name}`,
     );
@@ -301,95 +280,13 @@ export default function MapSearch({ map, location }: Props) {
       </Form>
       <div className={cn("hidden md:block", isFocus && "block")}>
         {target ? (
-          <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
-            <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
-              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:py-4 rounded-xl">
-                <div className="flex items-center justify-between">
-                  <div className="flex gap-1 text-sm font-semibold text-gray-500">
-                    {target.detailBizName || "기타"}
-                  </div>
-                  <Button onClick={handleRemoveTargetMarker} size={"icon"}>
-                    <XMarkIcon className="!size-5" />
-                  </Button>
-                </div>
-                <div className="font-bold text-2xl">{target.name}</div>
-
-                <div className="flex">
-                  <Button
-                    onClick={() => handleClickDirection(target)}
-                    className="w-full flex items-center text-lg bg-teal text-white hover:opacity-80"
-                  >
-                    <MapPinIcon className="size-7" /> 도착지 설정
-                  </Button>
-                </div>
-              </div>
-              <div className="flex flex-col gap-4 bg-white px-2 py-3 md:py-4 rounded-xl text-sm font-semibold text-gray-500">
-                {target.desc && (
-                  <div className="font-semibold text-sm text-gray-700">
-                    {target.desc}
-                  </div>
-                )}
-                {target.additionalInfo && (
-                  <div className="whitespace-pre flex gap-4 items-center">
-                    <div>
-                      <ClockIcon className="size-4 min-w-4" />
-                    </div>
-                    {target.additionalInfo.replaceAll(";", "\n")}
-                  </div>
-                )}
-                {target.address && (
-                  <div className="flex gap-4 items-center">
-                    <div>
-                      <BuildingOffice2Icon className="size-4 min-w-4" />
-                    </div>
-                    {target.address} {target.firstNo ? target.firstNo : ""}
-                    {target.secondNo ? `-${target.secondNo}` : ""}
-                  </div>
-                )}
-                {target.bldAddr && (
-                  <div className="flex gap-4 items-center">
-                    <div>
-                      <BuildingOfficeIcon className="size-4 min-w-4" />
-                    </div>
-                    {target.bldAddr} {target.bldNo1 ? target.bldNo1 : ""}{" "}
-                    {target.bldNo2 ? target.bldNo2 : ""}
-                  </div>
-                )}
-                {target.tel && (
-                  <div className="flex gap-4 items-center">
-                    <PhoneIcon className="size-4 min-w-4" />
-                    {target.tel}
-                  </div>
-                )}
-                {target.homepageURL && (
-                  <div className="flex gap-4 items-center break-all">
-                    <HomeIcon className="size-4 min-w-4" />
-                    <Link
-                      href={target.homepageURL}
-                      target="_blank"
-                      className="hover:underline"
-                    >
-                      {target.homepageURL}
-                    </Link>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
+          <MapSearchResult
+            target={target}
+            onClose={handleRemoveTargetMarker}
+            onClick={handleClickDirection}
+          />
         ) : searchValue ? (
-          <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
-            <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
-              {results.map((result) => (
-                <div
-                  onClick={() => handleClickItem(result)}
-                  key={result.id}
-                  className="bg-white p-4 rounded-md cursor-pointer hover:bg-gray-200 transition-all font-semibold"
-                >
-                  {result.name}
-                </div>
-              ))}
-            </div>
-          </div>
+          <MapSearchList results={results} onClick={handleClickItem} />
         ) : (
           <div className="flex flex-col py-2 max-h-[calc(100vh-126px)]">
             <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
