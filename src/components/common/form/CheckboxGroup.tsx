@@ -60,7 +60,7 @@ export function CheckboxGroup({ control, name, items }: Props) {
                         {item.name}
                       </Link>
                     ) : (
-                      <FormLabel className="text-xs font-bold underline text-gray-500">
+                      <FormLabel className="text-xs font-bold text-gray-500">
                         {item.name}
                       </FormLabel>
                     )}

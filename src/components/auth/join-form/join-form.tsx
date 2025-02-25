@@ -20,6 +20,7 @@ import { CheckboxGroup } from "../../common/form/CheckboxGroup";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { join } from "@/src/services/auth.service";
+import { useRouter } from "next/navigation";
 
 const formSchema = z
   .object({
@@ -70,6 +71,7 @@ const formSchema = z
   });
 
 export function JoinForm() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -104,7 +106,11 @@ export function JoinForm() {
 
       const data = await join(formData);
       console.log(data);
-    } catch (err) {
+      if (data.status === 200) {
+        toast("성공적으로 회원가입 되었습니다.");
+        router.push("/login");
+      }
+    } catch (err: unknown) {
       console.error(err);
     }
   };
