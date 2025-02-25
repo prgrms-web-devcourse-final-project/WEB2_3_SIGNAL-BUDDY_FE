@@ -117,7 +117,7 @@ interface PointProperties extends BaseProperties {
   nearPoiY: string;
   intersectionName: string;
   turnType: number;
-  pointType: "SP" | "GP" | "EP"; // 출발(SP), 경유(GP), 도착(EP)
+  pointType: "SP" | "PP" | "EP"; // 출발(SP), 경유(PP), 도착(EP)
   totalTime?: number;
   totalDistance?: number;
 }

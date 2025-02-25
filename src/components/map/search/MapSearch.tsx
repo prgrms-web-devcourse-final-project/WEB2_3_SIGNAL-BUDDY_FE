@@ -20,16 +20,7 @@ import {
 } from "@/src/types";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  BuildingOffice2Icon,
-  BuildingOfficeIcon,
-  ClockIcon,
-  HomeIcon,
-  MapPinIcon,
-  PhoneIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/solid";
-import Link from "next/link";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import { ILocation } from "@/src/hooks/useGeoLocation";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";

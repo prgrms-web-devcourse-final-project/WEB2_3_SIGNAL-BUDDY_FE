@@ -28,6 +28,7 @@ import { Button } from "@/components/ui/button";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import useMapDirection from "@/src/hooks/useMapDirection";
 import MapSearchList from "../search/MapSearchList";
+import MapDirectionItem from "./MapDirectionItem";
 
 const formSchema = z.object({
   start: z.string(),
@@ -112,19 +113,18 @@ export default function MapDirection({ map, location }: Props) {
     setResults([]);
     const params = new URLSearchParams(searchParams);
     if (startTarget) {
-      const startStr = `
-      ${Number(startTarget.frontLon)},
-      ${Number(startTarget.frontLat)},
-      ${startTarget.name},
-    `;
+      const startStr =
+        startTarget.frontLon +
+        "," +
+        startTarget.frontLat +
+        "," +
+        startTarget.name;
+
       params.set("start", startStr);
     }
     if (endTarget) {
-      const endStr = `
-      ${Number(endTarget.frontLon)},
-      ${Number(endTarget.frontLat)},
-      ${endTarget.name},
-    `;
+      const endStr =
+        endTarget.frontLon + "," + endTarget.frontLat + "," + endTarget.name;
       params.set("end", endStr);
     }
     router.replace(`${pathname}?${params.toString()}`);
@@ -188,11 +188,18 @@ export default function MapDirection({ map, location }: Props) {
     form.setValue(focus, newTarget.name);
     if (focus === "start") setStartTarget(newTarget);
     else setEndTarget(newTarget);
+
+    if (window.innerWidth < 768) {
+      setResults([]);
+    }
+  };
+
+  const handleSelectRoute = () => {
+    setIsSelect(true);
   };
 
   useEffect(() => {
     if (location) {
-      console.log(start, end);
       getRoute(formatLatLng(start), formatLatLng(end));
     }
   }, [location, start, end]);
@@ -263,7 +270,7 @@ export default function MapDirection({ map, location }: Props) {
                 <>
                   {!isSelect ? (
                     <div
-                      onClick={() => setIsSelect(true)}
+                      onClick={handleSelectRoute}
                       className="w-full bg-white rounded-md py-3 px-2 cursor-pointer hover:opacity-70 transition-all"
                     >
                       <span className="text-xs text-gray-500 font-semibold mb-2">
@@ -295,12 +302,11 @@ export default function MapDirection({ map, location }: Props) {
                   ) : (
                     <>
                       {routeFeatures.map((feature, idx) => (
-                        <div
+                        <MapDirectionItem
+                          feature={feature}
                           key={`${feature.type}${Date.now()}${idx}`}
-                          className="bg-white p-2"
-                        >
-                          {feature.properties.description}
-                        </div>
+                          onClick={() => console.log(feature)}
+                        />
                       ))}
                     </>
                   )}
