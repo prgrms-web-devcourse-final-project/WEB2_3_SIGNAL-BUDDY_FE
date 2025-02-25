@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
+import QueryProvider from "../components/utils/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Signal Buddy | 모두를 위한 보행 파트너",
@@ -32,7 +33,7 @@ export default function RootLayout({
         className="bg-grey-100 flex min-h-screen flex-col font-Pretendard antialiased"
         cz-shortcut-listen="true"
       >
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );

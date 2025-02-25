@@ -10,3 +10,12 @@ export interface IFeedbackCommentProps {
 export interface FeedbackCommentListProps {
   comments: IFeedbackCommentProps[];
 }
+
+export interface IFeedbackData {
+  uid: number;
+  status: string;
+  title: string;
+  content: string;
+  nickname: string;
+  date: string;
+}

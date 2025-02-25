@@ -69,7 +69,7 @@ export default function MapButtons({ map, getGEO }: Props) {
     if (!map)
       return "bg-white border border-gray-300 max-w-none whitespace-nowrap";
     return cn(
-      "bg-white border border-gray-300 max-w-none whitespace-nowrap",
+      "bg-white border border-gray-300 max-w-none whitespace-nowrap text-black hover:text-white",
       mapType === TMAP_TYPE[type] && "bg-black text-white",
     );
   };

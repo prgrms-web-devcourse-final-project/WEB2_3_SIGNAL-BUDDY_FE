@@ -1,41 +1,6 @@
 import Link from "next/link";
 import { UserIcon } from "../utils/icons";
-
-interface Feedback {
-  uid: number;
-  status: string;
-  title: string;
-  content: string;
-  nickname: string;
-  date: string;
-}
-
-const feedbackData: Feedback[] = [
-  {
-    uid: 1,
-    status: "답변 후",
-    title: "피드백 제목",
-    content: "피드백 내용",
-    nickname: "닉네임",
-    date: "2025.02.20",
-  },
-  {
-    uid: 2,
-    status: "답변 후",
-    title: "피드백 제목",
-    content: "피드백 내용",
-    nickname: "닉네임",
-    date: "2025.02.20",
-  },
-  {
-    uid: 3,
-    status: "답변 전",
-    title: "피드백 제목",
-    content: "피드백 내용",
-    nickname: "닉네임",
-    date: "2025.02.20",
-  },
-];
+import { IFeedbackData } from "@/src/types/feedback";
 
 function FeedbackItem({
   uid,
@@ -44,7 +9,7 @@ function FeedbackItem({
   content,
   nickname,
   date,
-}: Feedback) {
+}: IFeedbackData) {
   const statusColor = status === "답변 후" ? "bg-teal" : "bg-red";
 
   return (
@@ -71,10 +36,14 @@ function FeedbackItem({
   );
 }
 
-export default function FeedbackList() {
+export default function FeedbackList({
+  feedbackListData,
+}: {
+  feedbackListData: IFeedbackData[];
+}) {
   return (
     <>
-      {feedbackData.map((feedback, index) => (
+      {feedbackListData.map((feedback, index) => (
         <FeedbackItem key={index} {...feedback} />
       ))}
     </>
