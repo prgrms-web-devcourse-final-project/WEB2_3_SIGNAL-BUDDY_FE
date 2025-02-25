@@ -3,6 +3,7 @@ import {
   TMap,
   TMapLatLng,
   TMapMarker,
+  TMapPolyline,
   TMapMarkerOptions,
   TMapSize,
 } from "@/src/types";
@@ -20,6 +21,14 @@ declare global {
               centerLon: number,
               centerLat: number,
             },
+            {},
+          ) => void;
+          getRoutePlanForPeopleJson: (
+            startLatLng: TMapLatLng,
+            endLatLng: TMapLatLng,
+            starName: string,
+            endName: string,
+            optionObj,
             {},
           ) => void;
         };
@@ -40,6 +49,20 @@ declare global {
       MarkerOptions: {
         [key: string]: number;
       };
+      Polyline: new (options?: {
+        path: TMapLatLng[];
+        strokeColor: string;
+        strokeWeight: number;
+        outline: boolean;
+        map: Tmap;
+      }) => TMapPolyline;
+      Circle: new (options?: {
+        center: TMapLatLng;
+        radius: number;
+        fillColor: string;
+        strokeColor: string;
+        map: Tmap;
+      }) => TMapCircle;
     };
   }
 }
