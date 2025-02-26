@@ -7,25 +7,6 @@ import FeedbackSidebar from "@/src/components/feedback/FeedbackSidebar";
 import FeedbackSearchbar from "@/src/components/feedback/FeedbackSearchbar";
 import MobileFeedbackFilterButtons from "@/src/components/feedback/MobileFeedbackFilterButtons";
 
-// 필터 버튼 컴포넌트
-// const FeedbackFilterButtons = () => {
-//   const filterOptions = ["ALL", "답변 전", "답변 후"];
-//   return (
-//     <div className="flex items-center gap-1">
-//       {filterOptions.map((filter, index) => (
-//         <div
-//           key={index}
-//           className={`flex h-[30px] w-[80px] items-center justify-center rounded-[30px] text-sm font-semibold ${
-//             index === 0 ? "bg-gray-800 text-white" : "bg-gray-300 text-gray-600"
-//           }`}
-//         >
-//           {filter}
-//         </div>
-//       ))}
-//     </div>
-//   );
-// };
-
 // data fetch 함수
 const fetchData = async (searchParams: Record<string, string | undefined>) => {
   const params = await searchParams;
@@ -49,7 +30,6 @@ export default async function Page({
 }) {
   const res = await fetchData(searchParams || {});
   const feedbackList = res.data.searchResults;
-  console.log(res.data.searchResults);
 
   return (
     <div className="flex justify-center">
