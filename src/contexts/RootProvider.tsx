@@ -1,5 +1,6 @@
 "use client";
 
+import QueryProvider from "../components/utils/QueryProvider";
 import AuthContext from "./AuthContext";
 
 type Props = {
@@ -7,5 +8,9 @@ type Props = {
 };
 
 export default function RootProvider({ children }: Props) {
-  return <AuthContext>{children}</AuthContext>;
+  return (
+    <AuthContext>
+      <QueryProvider>{children}</QueryProvider>
+    </AuthContext>
+  );
 }
