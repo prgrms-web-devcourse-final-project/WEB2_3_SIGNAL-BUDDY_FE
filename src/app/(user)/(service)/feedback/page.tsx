@@ -5,25 +5,26 @@ import Link from "next/link";
 import { EditIcon } from "lucide-react";
 import FeedbackSidebar from "@/src/components/feedback/FeedbackSidebar";
 import FeedbackSearchbar from "@/src/components/feedback/FeedbackSearchbar";
+import MobileFeedbackFilterButtons from "@/src/components/feedback/MobileFeedbackFilterButtons";
 
 // 필터 버튼 컴포넌트
-const FeedbackFilterButtons = () => {
-  const filterOptions = ["ALL", "답변 전", "답변 후"];
-  return (
-    <div className="flex items-center gap-1">
-      {filterOptions.map((filter, index) => (
-        <div
-          key={index}
-          className={`flex h-[30px] w-[80px] items-center justify-center rounded-[30px] text-sm font-semibold ${
-            index === 0 ? "bg-gray-800 text-white" : "bg-gray-300 text-gray-600"
-          }`}
-        >
-          {filter}
-        </div>
-      ))}
-    </div>
-  );
-};
+// const FeedbackFilterButtons = () => {
+//   const filterOptions = ["ALL", "답변 전", "답변 후"];
+//   return (
+//     <div className="flex items-center gap-1">
+//       {filterOptions.map((filter, index) => (
+//         <div
+//           key={index}
+//           className={`flex h-[30px] w-[80px] items-center justify-center rounded-[30px] text-sm font-semibold ${
+//             index === 0 ? "bg-gray-800 text-white" : "bg-gray-300 text-gray-600"
+//           }`}
+//         >
+//           {filter}
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
 
 // data fetch 함수
 const fetchData = async (searchParams: Record<string, string | undefined>) => {
@@ -56,7 +57,7 @@ export default async function Page({
         {/* 툴바 영역 */}
         <div className="sticky top-0 z-10 flex w-full flex-col bg-gray-100 pb-[11px]">
           <div className="relative mt-2 flex h-[30px] items-center justify-between md:hidden">
-            <FeedbackFilterButtons />
+            <MobileFeedbackFilterButtons />
             <MobileToolbarHandleButton />
             <MobileToolbar />
           </div>

@@ -11,7 +11,6 @@ export interface FeedbackCommentListProps {
   comments: IFeedbackCommentProps[];
 }
 
-
 interface Member {
   memberId: number;
   email: string;
@@ -25,10 +24,10 @@ export interface IFeedbackData {
   feedbackId: number;
   subject: string;
   content: string;
-  category: string;
+  category: "DELAY" | "MALFUNCTION" | "ADD-SIGNAL" | "ETC";
   likeCount: number;
   secret: boolean;
-  answerStatus: "BEFORE" | "ANSWERED"; // 상태가 정해져 있다면 유니온 타입 사용
+  answerStatus: "BEFORE" | "COMPLETION"; // 상태가 정해져 있다면 유니온 타입 사용
   imageUrl: string;
   createdAt: string;
   updatedAt: string;
