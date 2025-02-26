@@ -1,6 +1,11 @@
-import NextAuth from "next-auth";
+import NextAuth, { CredentialsSignin } from "next-auth";
 import Kakao from "next-auth/providers/kakao";
 import Credentials from "next-auth/providers/credentials";
+import { login } from "./services/auth.service";
+
+class InvalidLoginError extends CredentialsSignin {
+  code = "사용자를 찾을 수 없습니다.";
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -13,20 +18,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!credentials) return null;
         const { id, password } = credentials;
 
-        const response = await fetch("http://52.79.71.9/api/auth/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id,
-            password,
-          }),
+        const response = await login({
+          id: id as string,
+          password: password as string,
         });
 
-        if (!response.ok) return null;
+        if (response.status === 404) {
+          throw new InvalidLoginError();
+        }
 
-        const data = await response.json();
-        console.log(1, data);
-        return data;
+        const token = response.headers["authorization"];
+        const cookies = response.headers["set-cookie"];
+        const user = response.data;
+        const refreshToken = cookies ? cookies[0] : null;
+        console.log(token);
+        console.log(refreshToken);
+        console.log(user);
+        return { ...user, token, refreshToken };
+
+        // if (!response.ok) {
+        //   throw new Error("알 수 없는 에러가 발생했습니다.");
+        // }
+
+        // const headers = response.headers;
+        // console.log(headers.getSetCookie());
+        // const token = headers.get("Authorization");
+        // const refreshToken = headers.getSetCookie()[0];
+        // const data = await response.json();
+        // return { ...data, token, refreshToken };
       },
     }),
     Kakao({
@@ -46,9 +65,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     jwt: async ({ token, user }) => {
+      if (user) {
+        token.token = user.token;
+        token.refreshToken = user.refreshToken;
+      }
       return token;
     },
     session: async ({ session, token }) => {
+      if (session.user) {
+        session.user.id = token.id as string;
+        session.user.token = token.token as string;
+        session.user.refreshToken = token.refreshToken as string;
+      }
       return session;
     },
   },

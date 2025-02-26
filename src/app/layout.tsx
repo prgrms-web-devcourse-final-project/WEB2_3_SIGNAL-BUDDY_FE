@@ -3,6 +3,7 @@ import "./globals.css";
 import Script from "next/script";
 import QueryProvider from "../components/utils/QueryProvider";
 import { Toaster } from "@/components/ui/sonner";
+import RootProvider from "../contexts/RootProvider";
 
 export const metadata: Metadata = {
   title: "Signal Buddy | 모두를 위한 보행 파트너",
@@ -30,15 +31,15 @@ export default function RootLayout({
           strategy="beforeInteractive"
         />
       </head>
-      <body
-        className="bg-grey-100 flex min-h-screen flex-col font-Pretendard antialiased"
-        cz-shortcut-listen="true"
-      >
-        <QueryProvider>
+      <RootProvider>
+        <body
+          className="bg-grey-100 flex min-h-screen flex-col font-Pretendard antialiased"
+          cz-shortcut-listen="true"
+        >
           {children}
           <Toaster />
-        </QueryProvider>
-      </body>
+        </body>
+      </RootProvider>
     </html>
   );
 }
