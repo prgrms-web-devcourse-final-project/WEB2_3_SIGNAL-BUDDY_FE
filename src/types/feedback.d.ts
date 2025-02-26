@@ -11,11 +11,40 @@ export interface FeedbackCommentListProps {
   comments: IFeedbackCommentProps[];
 }
 
-export interface IFeedbackData {
-  uid: number;
-  status: string;
-  title: string;
-  content: string;
+
+interface Member {
+  memberId: number;
+  email: string;
   nickname: string;
-  date: string;
+  profileImageUrl: string;
+  role: "USER" | "ADMIN"; // 역할이 정해져 있다면 유니온 타입 사용
+  memberStatus: "ACTIVITY" | "INACTIVE";
+}
+
+export interface IFeedbackData {
+  feedbackId: number;
+  subject: string;
+  content: string;
+  category: string;
+  likeCount: number;
+  secret: boolean;
+  answerStatus: "BEFORE" | "ANSWERED"; // 상태가 정해져 있다면 유니온 타입 사용
+  imageUrl: string;
+  createdAt: string;
+  updatedAt: string;
+  member: Member;
+}
+
+interface FeedbackResponse {
+  status: string;
+  message: string | null;
+  data: {
+    totalElements: number;
+    totalPages: number;
+    currentPageNumber: number;
+    pageSize: number;
+    hasNext: boolean;
+    hasPrevious: boolean;
+    searchResults: Feedback[];
+  };
 }
