@@ -31,21 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const cookies = response.headers["set-cookie"];
         const user = response.data;
         const refreshToken = cookies ? cookies[0] : null;
-        console.log(token);
-        console.log(refreshToken);
-        console.log(user);
-        return { ...user, token, refreshToken };
-
-        // if (!response.ok) {
-        //   throw new Error("알 수 없는 에러가 발생했습니다.");
-        // }
-
-        // const headers = response.headers;
-        // console.log(headers.getSetCookie());
-        // const token = headers.get("Authorization");
-        // const refreshToken = headers.getSetCookie()[0];
-        // const data = await response.json();
-        // return { ...data, token, refreshToken };
+        return { ...user.data, token, refreshToken };
       },
     }),
     Kakao({
@@ -66,14 +52,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     jwt: async ({ token, user }) => {
       if (user) {
-        token.token = user.token;
-        token.refreshToken = user.refreshToken;
+        token = { ...token, ...user };
       }
       return token;
     },
     session: async ({ session, token }) => {
       if (session.user) {
-        session.user.id = token.id as string;
+        session.user.memberId = token.memberId as number;
+        session.user.nickname = token.nickname as string;
+        session.user.profileImageUrl = token.profileImageUrl as string;
+        session.user.email = token.email as string;
+        session.user.role = token.role as "USER" | "ADMIN";
         session.user.token = token.token as string;
         session.user.refreshToken = token.refreshToken as string;
       }
