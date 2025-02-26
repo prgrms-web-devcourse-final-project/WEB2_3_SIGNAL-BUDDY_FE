@@ -1,5 +1,6 @@
-import Navbar from "@/src/components/nav/Navbar";
-import Footer from "@/src/components/footer/Footer";
+import Navbar from "@/src/components/common/nav/Navbar";
+import Footer from "@/src/components/common/footer/Footer";
+import Test from "@/src/components/common/Test";
 
 type Props = {
   children: React.ReactNode;
@@ -13,6 +14,7 @@ export default function UserRootLayout({ children }: Props) {
         className="mx-4 md:mx-[30px]"
       >
         <Navbar />
+        <Test />
       </header>
       <main
         className="mx-4 flex flex-grow flex-col md:mx-[30px]"
