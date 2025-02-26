@@ -6,8 +6,8 @@ import Image from "next/image";
 import logo from "@/public/imgs/Logo.png";
 import Link from "next/link";
 import { SocialLogin } from "./social-login";
-import { useEffect } from "react";
-import { signIn } from "next-auth/react";
+import { useEffect, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/form";
 import { toast } from "sonner";
 import { CheckboxGroup } from "../../common/form/CheckboxGroup";
+import { redirect } from "next/navigation";
 
 const formSchema = z.object({
   email: z
@@ -34,6 +35,8 @@ const formSchema = z.object({
 });
 
 export function LoginForm() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const { data: session } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,15 +55,32 @@ export function LoginForm() {
   }, [error]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    const { email, password } = values;
-    console.log(email, password);
-    const result = await signIn("credentials", {
-      id: email,
-      password,
-      redirect: false,
-    });
-    console.log(result);
+    try {
+      setLoading(true);
+      const { email, password } = values;
+      const result = await signIn("credentials", {
+        id: email,
+        password,
+        redirect: false,
+      });
+      if (result && result.error) {
+        toast(result.code);
+      }
+    } catch (err) {
+      console.error(err);
+      toast(err as string);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    console.log(session);
+    if (session && session.user) {
+      toast("로그인에 성공했습니다.");
+      redirect("/");
+    }
+  }, [session]);
 
   return (
     <div>
@@ -140,6 +160,7 @@ export function LoginForm() {
           <Button
             type="submit"
             className="w-full bg-teal text-white text-sm h-10 mt-6 rounded-md"
+            disabled={loading}
           >
             로그인
           </Button>
