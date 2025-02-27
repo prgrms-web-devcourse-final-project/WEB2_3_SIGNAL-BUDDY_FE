@@ -34,7 +34,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const refreshToken = resCookies ? resCookies[0] : "";
         const cookieStore = await cookies();
         const match = refreshToken.match(/refresh-token=([^;]+)/);
-        console.log(match ? match[1] : refreshToken);
         cookieStore.set({
           name: "refresh-token",
           value: match ? decodeURIComponent(match[1]) : refreshToken,

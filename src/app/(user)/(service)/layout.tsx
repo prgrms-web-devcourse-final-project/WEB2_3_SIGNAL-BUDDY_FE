@@ -10,7 +10,7 @@ export default function UserRootLayout({ children }: Props) {
       <header
         role="banner"
         aria-label="주요 네비게이션"
-        className="mx-4 md:mx-[30px]"
+        className="w-[calc(100vw-32px)] md:w-[calc(100vw-60px)] flex h-[70px] max-w-[1240px] justify-center mx-auto sticky top-0 left-0 right-0"
       >
         <Navbar />
       </header>
