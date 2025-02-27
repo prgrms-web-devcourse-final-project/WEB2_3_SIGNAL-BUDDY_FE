@@ -248,7 +248,7 @@ export default function MapDirection({ map, location }: Props) {
             <Button
               type="submit"
               size="icon"
-              className="bg-gray-700 text-white p-2"
+              className="bg-gray-700 text-white p-2 h-full"
             >
               <MagnifyingGlassIcon />
             </Button>
