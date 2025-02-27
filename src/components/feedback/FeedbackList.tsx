@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { IFeedbackData } from "@/src/types/feedback";
 import { formatDate } from "@/src/utils/formatDate";
 import Image from "next/image";
 
@@ -10,7 +9,7 @@ function FeedbackItem({
   content,
   member,
   createdAt,
-}: IFeedbackData) {
+}: IFeedbackListItem) {
   const statusColor = answerStatus === "COMPLETION" ? "bg-teal" : "bg-red";
 
   return (
@@ -26,17 +25,16 @@ function FeedbackItem({
           <p className="text-sm font-medium text-gray-600">{content}</p>
         </Link>
       </div>
-      <div className="mt-4 flex">
-        <div className="outline-grey-300 mr-1 flex aspect-square w-6 items-center justify-center rounded-full bg-white outline outline-1">
-          {/* <div>{member.profileImageUrl}</div> */}
-          {/* <img
-            src={member.profileImageUrl}
-            alt="작성자 프로필 이미지입니다."
-            width={16}
-            height={16}
-          /> */}
-        </div>
-        <p className="mr-4">{member.nickname}</p>
+      <div className="mt-4 flex items-center gap-1 text-gray-500 text-xs font-medium">
+        <Image
+          src={member?.profileImageUrl || "/default-profile.png"}
+          alt="작성자 프로필 이미지입니다."
+          width={24}
+          height={24}
+          className="rounded-full"
+        />
+
+        <p className="mr-2">{member.nickname}</p>
         <p>{formatDate(createdAt)}</p>
       </div>
     </div>
@@ -44,14 +42,15 @@ function FeedbackItem({
 }
 
 export default function FeedbackList({
-  feedbackListData,
+  feedbackList,
 }: {
-  feedbackListData: IFeedbackData[];
+  feedbackList: IFeedbackListItem[];
 }) {
+  
   return (
     <>
-      {feedbackListData.map((feedback, index) => (
-        <FeedbackItem key={index} {...feedback} />
+      {feedbackList.map((feedbackListItem, index) => (
+        <FeedbackItem key={index} {...feedbackListItem} />
       ))}
     </>
   );

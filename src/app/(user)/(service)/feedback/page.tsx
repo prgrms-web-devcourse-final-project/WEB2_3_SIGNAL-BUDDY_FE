@@ -1,34 +1,21 @@
+import { EditIcon } from "lucide-react";
 import FeedbackList from "@/src/components/feedback/FeedbackList";
 import MobileToolbar from "@/src/components/feedback/MobileToolbar";
-import MobileToolbarHandleButton from "@/src/components/feedback/MobileToolbarHandleButton";
-import Link from "next/link";
-import { EditIcon } from "lucide-react";
 import FeedbackSidebar from "@/src/components/feedback/FeedbackSidebar";
 import FeedbackSearchbar from "@/src/components/feedback/FeedbackSearchbar";
 import MobileFeedbackFilterButtons from "@/src/components/feedback/MobileFeedbackFilterButtons";
+import MobileToolbarHandleButton from "@/src/components/feedback/MobileToolbarHandleButton";
 
-// data fetch 함수
-const fetchData = async (searchParams: Record<string, string | undefined>) => {
-  const params = await searchParams;
-  const query = new URLSearchParams(
-    params as Record<string, string>,
-  ).toString();
-  const res = await fetch(
-    `http://52.79.71.9/api/feedbacks?${decodeURI(query)}`,
-    {
-      cache: "no-store",
-    },
-  );
-  if (!res.ok) throw new Error("데이터를 가져오는 데 실패했습니다.");
-  return res.json();
-};
+import Link from "next/link";
+
+import { fetchFeedbackList } from "@/src/app/api/feedback/fetchFeedbackList";
 
 export default async function Page({
   searchParams = {},
 }: {
   searchParams?: Record<string, string | undefined>;
 }) {
-  const res = await fetchData(searchParams || {});
+  const res = await fetchFeedbackList(searchParams || {});
   const feedbackList = res.data.searchResults;
 
   return (
@@ -57,7 +44,7 @@ export default async function Page({
           <section className="flex flex-grow flex-col gap-3 md:ml-[22px]">
             <FeedbackSearchbar />
             {feedbackList.length ? (
-              <FeedbackList feedbackListData={feedbackList} />
+              <FeedbackList feedbackList={feedbackList} />
             ) : (
               <div className="flex justify-center mt-[100px]">
                 <p className="text-gray-500 text-sm">검색 결과가 없습니다.</p>
