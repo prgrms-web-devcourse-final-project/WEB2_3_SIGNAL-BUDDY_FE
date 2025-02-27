@@ -36,6 +36,7 @@ export const TMAP_TURN_TYPE = {
   218: "엘리베이터",
   233: "직진 임시",
 } as { [key: number]: string };
+
 export const TMAP_FACILITY_TYPE = {
   1: "교량",
   2: "터널",

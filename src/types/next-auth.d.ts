@@ -6,7 +6,7 @@ declare module "next-auth" {
       id: string;
       memberId: number;
       nickname: string;
-      profileImageUrl: string | null;
+      profileImageUrl?: string;
       email: string;
       role: "USER" | "ADMIN";
       token: string;
@@ -18,7 +18,7 @@ declare module "next-auth" {
     id: string;
     memberId: number;
     nickname: string;
-    profileImageUrl: string | null;
+    profileImageUrl?: string;
     email: string;
     role: "USER" | "ADMIN";
     token: string;
@@ -29,7 +29,7 @@ declare module "next-auth" {
     id: string;
     memberId: number;
     nickname: string;
-    profileImageUrl: string | null;
+    profileImageUrl?: string;
     email: string;
     role: "USER" | "ADMIN";
     token: string;
