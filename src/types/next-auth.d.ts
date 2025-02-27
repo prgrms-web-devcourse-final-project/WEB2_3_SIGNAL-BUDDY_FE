@@ -4,8 +4,11 @@ declare module "next-auth" {
   interface Session {
     user: {
       id: string;
+      memberId: number;
       nickname: string;
+      profileImageUrl: string | null;
       email: string;
+      role: "USER" | "ADMIN";
       token: string;
       refreshToken: string;
     } & DefaultSession["user"];
@@ -13,12 +16,22 @@ declare module "next-auth" {
 
   interface User {
     id: string;
+    memberId: number;
+    nickname: string;
+    profileImageUrl: string | null;
+    email: string;
+    role: "USER" | "ADMIN";
     token: string;
     refreshToken: string;
   }
 
   interface JWT {
     id: string;
+    memberId: number;
+    nickname: string;
+    profileImageUrl: string | null;
+    email: string;
+    role: "USER" | "ADMIN";
     token: string;
     refreshToken: string;
   }
