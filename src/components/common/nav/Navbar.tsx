@@ -1,12 +1,17 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import logo from "@/public/imgs/Logo Symbol.png";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
+import Profile from "../profile/Profile";
 
 export default function Navbar() {
+  const { data: session } = useSession();
   return (
-    <nav className="flex h-[70px] justify-center" aria-label="Main Navigation">
-      <div className="flex w-[1240px] items-center justify-between">
+    <nav className="w-full flex justify-center" aria-label="Main Navigation">
+      <div className="flex w-full items-center justify-between">
         {/* 로고 영역 */}
         <div>
           <Link href="/" aria-label="Homepage">
@@ -40,9 +45,18 @@ export default function Navbar() {
           <Link href="/feedback" className="hover:underline">
             피드백
           </Link>
-          <Link href="/login" className="hover:underline">
-            로그인
-          </Link>
+          {session ? (
+            <>
+              <Link href="/my-page/profile">나의 경로</Link>
+              <Link href="/my-page/profile">
+                <Profile src={session.user.profileImageUrl} />
+              </Link>
+            </>
+          ) : (
+            <Link href="/login" className="hover:underline">
+              로그인
+            </Link>
+          )}
         </div>
       </div>
     </nav>

@@ -2,6 +2,7 @@ import NextAuth, { CredentialsSignin } from "next-auth";
 import Kakao from "next-auth/providers/kakao";
 import Credentials from "next-auth/providers/credentials";
 import { login } from "./services/auth.service";
+import { cookies } from "next/headers";
 
 class InvalidLoginError extends CredentialsSignin {
   code = "사용자를 찾을 수 없습니다.";
@@ -28,9 +29,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         const token = response.headers["authorization"];
-        const cookies = response.headers["set-cookie"];
+        const resCookies = response.headers["set-cookie"];
         const user = response.data;
-        const refreshToken = cookies ? cookies[0] : null;
+        const refreshToken = resCookies ? resCookies[0] : "";
+        const cookieStore = await cookies();
+        const match = refreshToken.match(/refresh-token=([^;]+)/);
+        cookieStore.set({
+          name: "refresh-token",
+          value: match ? decodeURIComponent(match[1]) : refreshToken,
+          path: "/",
+          httpOnly: true,
+          secure: true,
+          sameSite: "none",
+          maxAge: 60 * 60 * 24 * 7,
+        });
         return { ...user.data, token, refreshToken };
       },
     }),

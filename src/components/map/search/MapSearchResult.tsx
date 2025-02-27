@@ -25,7 +25,7 @@ export default function MapSearchResult({ target, onClose, onClick }: Props) {
             <div className="flex gap-1 text-sm font-semibold text-gray-500">
               {target.detailBizName || "기타"}
             </div>
-            <Button onClick={onClose} size={"icon"}>
+            <Button onClick={onClose} size={"icon"} variant={"ghost"}>
               <XMarkIcon className="!size-5" />
             </Button>
           </div>
