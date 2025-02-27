@@ -1,21 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import Image from "next/image";
 import logo from "@/public/imgs/Logo.png";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
-import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useState } from "react";
 import { EmailForm } from "./email-form";
 import { OTPForm } from "./OTP-form";
 
-export function ResetPassword2() {
+export function ResetPasswordVerification() {
   const [otp, setOtp] = useState("");
   const [isEmailSent, setIsEmailSent] = useState(false);
 
