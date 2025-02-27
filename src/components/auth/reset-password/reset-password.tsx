@@ -91,37 +91,39 @@ export function ResetPassword() {
           </p>
         </div>
         <div className="flex flex-col mt-[32px]">
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs text-gray-500">
-                  비밀번호
-                </FormLabel>
-                <FormControl>
-                  <PasswordInput field={field} />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="passwordConfirm"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-xs text-gray-500">
-                  비밀번호 확인
-                </FormLabel>
-                <FormControl>
-                  <PasswordInput
-                    field={field}
-                    placeholder="다시 한번 비밀번호를 입력해 주세요."
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
+          <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs text-gray-500">
+                    비밀번호
+                  </FormLabel>
+                  <FormControl>
+                    <PasswordInput field={field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="passwordConfirm"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-xs text-gray-500">
+                    비밀번호 확인
+                  </FormLabel>
+                  <FormControl>
+                    <PasswordInput
+                      field={field}
+                      placeholder="다시 한번 비밀번호를 입력해 주세요."
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+          </div>
           <Button
             type="submit"
             className="w-full bg-teal text-white text-sm h-10 mt-[148px] rounded-md mb-2"

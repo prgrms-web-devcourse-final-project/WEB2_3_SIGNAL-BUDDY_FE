@@ -38,14 +38,16 @@ export function ResetPasswordVerification() {
           이메일을 인증하고 비밀번호를 재설정하세요.
         </p>
       </div>
-      <div className="flex flex-col mt-[32px]">
+      <div className="flex flex-col mt-8">
         <EmailForm onEmailSend={handleSendEmail} isEmailSent={isEmailSent} />
         {isEmailSent && (
-          <OTPForm
-            isOtpComplete={isOtpComplete}
-            setOtpValue={setOtp}
-            onSubmitOtp={handleOtpSubmit}
-          />
+          <div className="mt-2">
+            <OTPForm
+              isOtpComplete={isOtpComplete}
+              setOtpValue={setOtp}
+              onSubmitOtp={handleOtpSubmit}
+            />
+          </div>
         )}
         <Button
           type="button"

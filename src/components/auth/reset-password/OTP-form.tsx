@@ -64,9 +64,7 @@ export function OTPForm({
           name="otp"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-xs text-gray-500 my-2">
-                인증번호
-              </FormLabel>
+              <FormLabel className="text-xs text-gray-500">인증번호</FormLabel>
               <div className="flex w-full max-w-sm items-center">
                 <FormControl>
                   <InputOTP

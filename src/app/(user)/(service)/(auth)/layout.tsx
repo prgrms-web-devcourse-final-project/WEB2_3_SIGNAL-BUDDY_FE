@@ -10,7 +10,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         <div className={cn("flex flex-col gap-6 md:bg-white")}>
           <Card className="overflow-hidden border-none shadow-none">
             <CardContent className="grid min-h-[770px] p-0 md:grid-cols-2">
-              <div className="flex max-w-[calc(100%-16px)] w-full mx-auto justify-center mt-[40px] md:items-center md:mt-0 py-10">
+              <div className="flex max-w-[calc(100%-16px)] w-full mx-auto justify-center md:items-center md:mt-0 py-10">
                 {children}
               </div>
               <AuthSideImage />
