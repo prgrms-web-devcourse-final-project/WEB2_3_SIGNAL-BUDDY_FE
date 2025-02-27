@@ -244,6 +244,7 @@ export default function MapSearch({ map, location }: Props) {
           onClick={() => setIsFocus(false)}
           className="absolute top-[10px] right-5 flex md:hidden w-7 h-7"
           size="icon"
+          variant={"ghost"}
         >
           <XMarkIcon className="!size-5" />
         </Button>
@@ -258,7 +259,7 @@ export default function MapSearch({ map, location }: Props) {
                 <FormControl>
                   <Input
                     placeholder="검색어를 입력해주세요."
-                    className="h-12 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300 px-2 !m-0"
+                    className="h-12 bg-white placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300 px-2 !m-0"
                     onFocus={() => setIsFocus(true)}
                     {...field}
                   />

@@ -8,9 +8,11 @@ export default function Footer() {
     <footer
       className="mb-2 mt-[60px] flex justify-center pb-2 sm:mx-0"
       aria-labelledby="footer-heading"
+      role="contentinfo"
+      aria-label="사이트 하단 정보"
     >
       <div
-        className="flex h-[117px] w-full max-w-[calc(100vw-32px)] flex-col rounded-[20px] bg-white px-6 sm:h-[190px] sm:px-5 sm:pt-5 md:max-w-[calc(100vw-60px)]"
+        className="flex h-[117px] w-[calc(100vw-32px)] max-w-[1240px] flex-col rounded-[20px] bg-white px-6 sm:h-[190px] sm:px-5 sm:pt-5 md:w-[calc(100vw-60px)]"
         role="contentinfo"
       >
         <h2 id="footer-heading" className="sr-only">
