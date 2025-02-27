@@ -150,7 +150,7 @@ export function LoginForm() {
                 />
               </div>
               <Link
-                href="/reset-password"
+                href="/reset-password/verify"
                 className="text-xs font-medium text-gray-500 ml-auto underline-offset-2 hover:underline"
               >
                 비밀번호 재설정

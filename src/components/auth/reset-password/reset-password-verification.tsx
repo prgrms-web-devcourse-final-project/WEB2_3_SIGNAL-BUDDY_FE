@@ -6,8 +6,10 @@ import logo from "@/public/imgs/Logo.png";
 import { useState } from "react";
 import { EmailForm } from "./email-form";
 import { OTPForm } from "./OTP-form";
+import { useRouter } from "next/navigation";
 
 export function ResetPasswordVerification() {
+  const router = useRouter();
   const [otp, setOtp] = useState("");
   const [isEmailSent, setIsEmailSent] = useState(false);
 
@@ -21,6 +23,11 @@ export function ResetPasswordVerification() {
   const handleOtpSubmit = (enteredOtp: string) => {
     console.log("OTP 제출:", enteredOtp);
     // OTP 인증 로직 추가
+  };
+
+  const handleNext = () => {
+    // OTP 인증 성공 후 이동하도록 수정하기
+    router.push("/reset-password/reset");
   };
 
   return (
@@ -42,6 +49,7 @@ export function ResetPasswordVerification() {
         )}
         <Button
           type="button"
+          onClick={handleNext}
           className={`w-full  text-white text-sm h-10 mt-[148px] rounded-md mb-2 ${
             isOtpComplete ? "bg-teal" : "bg-gray-400"
           } ${isEmailSent ? "mt-[148px]" : "mt-[226px]"}`}
