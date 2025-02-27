@@ -21,6 +21,7 @@ import {
 import { toast } from "sonner";
 import { CheckboxGroup } from "../../common/form/CheckboxGroup";
 import { redirect } from "next/navigation";
+import { PasswordInput } from "../password-input";
 
 const formSchema = z.object({
   email: z
@@ -125,12 +126,7 @@ export function LoginForm() {
                     비밀번호
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="비밀번호를 입력해 주세요."
-                      type="password"
-                      className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300"
-                      {...field}
-                    />
+                    <PasswordInput field={field} />
                   </FormControl>
                 </FormItem>
               )}

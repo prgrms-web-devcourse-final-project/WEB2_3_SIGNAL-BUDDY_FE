@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import logo from "@/public/imgs/Logo.png";
 import {
@@ -14,6 +13,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { PasswordInput } from "../password-input";
 
 const formSchema = z
   .object({
@@ -64,13 +64,7 @@ export function ResetPassword() {
                   비밀번호
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="비밀번호를 입력해 주세요."
-                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300"
-                    {...field}
-                  />
+                  <PasswordInput field={field} />
                 </FormControl>
               </FormItem>
             )}
@@ -84,12 +78,9 @@ export function ResetPassword() {
                   비밀번호 확인
                 </FormLabel>
                 <FormControl>
-                  <Input
-                    id="checkPassword"
-                    type="password"
+                  <PasswordInput
+                    field={field}
                     placeholder="다시 한번 비밀번호를 입력해 주세요."
-                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300"
-                    {...field}
                   />
                 </FormControl>
               </FormItem>
