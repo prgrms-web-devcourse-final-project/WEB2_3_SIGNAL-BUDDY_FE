@@ -17,6 +17,8 @@ import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const otpSchema = z.object({
   otp: z.string().length(6, { message: "6자리 인증번호를 입력해주세요." }),
@@ -35,6 +37,15 @@ export function OTPForm({
     resolver: zodResolver(otpSchema),
     defaultValues: { otp: "" },
   });
+
+  const error = form.formState.errors;
+
+  useEffect(() => {
+    if (error) {
+      const arr = Object.values(error)[0];
+      if (arr) toast(arr.message);
+    }
+  }, [error]);
 
   const handleOtpChange = (value: string) => {
     setOtpValue(value);

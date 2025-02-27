@@ -12,6 +12,8 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z
@@ -33,6 +35,15 @@ export function EmailForm({
       email: "",
     },
   });
+
+  const error = form.formState.errors;
+
+  useEffect(() => {
+    if (error) {
+      const arr = Object.values(error)[0];
+      if (arr) toast(arr.message);
+    }
+  }, [error]);
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log("EmailForm 제출:", values.email);

@@ -14,18 +14,45 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { PasswordInput } from "../password-input";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 const formSchema = z
   .object({
     password: z
       .string()
       .min(8, { message: "비밀번호를 최소 8자 이상 입력해주세요." })
-      .max(50, { message: "최대 50자까지 입력 가능합니다." }),
-    checkPassword: z.string(),
+      .max(50, { message: "최대 50자까지 입력 가능합니다." })
+      .refine(
+        (pw) => {
+          const hasLetters = /[A-Za-z]/.test(pw);
+          const hasNumbers = /\d/.test(pw);
+          const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(pw);
+
+          const typesIncluded = [
+            hasLetters,
+            hasNumbers,
+            hasSpecialChars,
+          ].filter(Boolean).length;
+          return typesIncluded >= 2;
+        },
+        {
+          message: "영문, 숫자, 특수문자 중 2가지 이상 입력해주세요.",
+        },
+      ),
+
+    passwordConfirm: z
+      .string()
+      .min(1, { message: "비밀번호 확인을 입력해주세요." }),
   })
-  .refine((data) => data.password === data.checkPassword, {
-    message: "비밀번호가 일치하지 않습니다.",
-    path: ["checkPassword"],
+  .superRefine(({ passwordConfirm, password }, ctx) => {
+    if (passwordConfirm !== password) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["pwConfirm"],
+        message: "비밀번호가 일치하지 않습니다.",
+      });
+    }
   });
 
 export function ResetPassword() {
@@ -33,14 +60,23 @@ export function ResetPassword() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       password: "",
-      checkPassword: "",
+      passwordConfirm: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log("비밀번호 재설정:", values);
-    // 비밀번호 재설정 로직 추가
+    // 비밀번호 재설정 로직 추가하기
   };
+
+  const error = form.formState.errors;
+
+  useEffect(() => {
+    if (error) {
+      const arr = Object.values(error)[0];
+      if (arr) toast(arr.message);
+    }
+  }, [error]);
 
   return (
     <Form {...form}>
@@ -71,7 +107,7 @@ export function ResetPassword() {
           />
           <FormField
             control={form.control}
-            name="checkPassword"
+            name="passwordConfirm"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-xs text-gray-500">
