@@ -16,7 +16,7 @@ export default function MapDirectionItem({ feature, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="bg-white p-2 flex gap-2 items-center cursor-pointer transiton-all hover:opacity-70 justify-between rounded-md"
+      className="bg-white p-2 flex gap-2 items-center cursor-pointer h-full transiton-all hover:opacity-70 justify-between rounded-md"
     >
       <div className="flex flex-col gap-2">
         {"pointType" in feature.properties && (
