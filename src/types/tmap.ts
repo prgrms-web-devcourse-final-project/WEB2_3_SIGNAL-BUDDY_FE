@@ -210,6 +210,7 @@ export type TmapAddressInfo = {
 export type TmapResponse = {
   searchPoiInfo: SearchPoiInfo;
   features: RouteFeature[];
+  poiDetailInfo: PoiDetail;
 };
 export type TmapReverseGeocodingResponse = {
   addressInfo: TmapAddressInfo;

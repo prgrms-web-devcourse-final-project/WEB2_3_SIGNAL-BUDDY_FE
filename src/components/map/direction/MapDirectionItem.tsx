@@ -5,6 +5,7 @@ import {
 } from "@/src/constants";
 import { RouteFeature } from "@/src/types";
 import { formatDistance } from "@/src/utils";
+import Image from "next/image";
 
 type Props = {
   feature: RouteFeature;
@@ -15,7 +16,7 @@ export default function MapDirectionItem({ feature, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="bg-white p-2 flex gap-2 items-center justify-between rounded-md"
+      className="bg-white p-2 flex gap-2 items-center cursor-pointer transiton-all hover:opacity-70 justify-between rounded-md"
     >
       <div className="flex flex-col gap-2">
         {"pointType" in feature.properties && (
@@ -30,7 +31,7 @@ export default function MapDirectionItem({ feature, onClick }: Props) {
         )}
         {"turnType" in feature.properties && (
           <div className="text-lg font-semibold">
-            {TMAP_TURN_TYPE[feature.properties.turnType]}
+            {TMAP_TURN_TYPE[feature.properties.turnType].value}
           </div>
         )}
         {"distance" in feature.properties && (
@@ -40,7 +41,17 @@ export default function MapDirectionItem({ feature, onClick }: Props) {
         )}
       </div>
       {"turnType" in feature.properties && (
-        <div className="min-w-14 min-h-14 border border-gray-300 rounded"></div>
+        <div className="min-w-14 min-h-14  rounded flex items-center justify-center">
+          <Image
+            src={
+              (TMAP_TURN_TYPE[feature.properties.turnType].icon as string) ||
+              "/imgs/nav-walk.svg"
+            }
+            alt="nav icon"
+            width={40}
+            height={40}
+          />
+        </div>
       )}
     </div>
   );

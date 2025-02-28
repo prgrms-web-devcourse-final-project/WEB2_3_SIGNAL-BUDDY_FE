@@ -4,6 +4,7 @@ import { ILocation } from "@/src/hooks/useGeoLocation";
 import {
   Poi,
   PoiDetail,
+  RouteFeature,
   TMap,
   TMapLatLng,
   TMapMarker,
@@ -175,16 +176,22 @@ export default function MapDirection({ map, location }: Props) {
       Number(newTarget.frontLat),
       Number(newTarget.frontLon),
     );
-    const res = await fetch(
-      `https://apis.openapi.sk.com/tmap/pois/${newTarget.id}?version=1&appKey=${process.env.NEXT_PUBLIC_TMAP_API_KEY}`,
+    const tData = new Tmapv2.extension.TData();
+    tData.getPOIDataFromIdJson(
+      newTarget.id,
+      {},
+      {
+        onComplete: (res: { _responseData: TmapResponse }) => {
+          setMapCenter(lonlat);
+          setTarget(newTarget);
+          const data = res._responseData.poiDetailInfo;
+          setTarget({ ...newTarget, ...data });
+          addTargetMarker(newTarget);
+        },
+        onProgress: () => console.log("POI 데이터 패칭 중.."),
+        onError: () => alert("알수없는 오류가 발생했습니다."),
+      },
     );
-
-    setMapCenter(lonlat);
-    setTarget(newTarget);
-    if (!res.ok) return;
-    const data = (await res.json()).poiDetailInfo;
-    setTarget({ ...newTarget, ...data });
-    addTargetMarker(newTarget);
     form.setValue(focus, newTarget.name);
     if (focus === "start") setStartTarget(newTarget);
     else setEndTarget(newTarget);
@@ -198,10 +205,22 @@ export default function MapDirection({ map, location }: Props) {
     setIsSelect(true);
   };
 
-  useEffect(() => {
-    if (location) {
-      getRoute(formatLatLng(start), formatLatLng(end));
+  const handleClickFeatureItem = (feature: RouteFeature) => {
+    const { Tmapv2 } = window;
+    if (!Tmapv2) return;
+    if (!map) return;
+    if (feature.geometry.type === "Point") {
+      const coord = feature.geometry.coordinates;
+      map.setCenter(new Tmapv2.LatLng(coord[1], coord[0]));
+    } else {
+      const coord = feature.geometry.coordinates;
+      map.setCenter(new Tmapv2.LatLng(coord[0][1], coord[0][0]));
     }
+    map.setZoom(24);
+  };
+
+  useEffect(() => {
+    getRoute(formatLatLng(start), formatLatLng(end));
   }, [location, start, end]);
 
   return (
@@ -305,7 +324,7 @@ export default function MapDirection({ map, location }: Props) {
                         <MapDirectionItem
                           feature={feature}
                           key={`${feature.type}${Date.now()}${idx}`}
-                          onClick={() => console.log(feature)}
+                          onClick={() => handleClickFeatureItem(feature)}
                         />
                       ))}
                     </>

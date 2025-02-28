@@ -28,7 +28,7 @@ export const useGeoLocation = (options = {}) => {
 
   useEffect(() => {
     const { geolocation } = navigator;
-
+    console.log(geolocation);
     if (!geolocation) {
       setError("Geolocation is not supported.");
       return;
