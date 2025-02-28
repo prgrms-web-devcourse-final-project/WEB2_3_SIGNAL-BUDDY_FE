@@ -47,7 +47,7 @@ export default function Navbar() {
           </Link>
           {session ? (
             <>
-              <Link href="/my-page/profile">나의 경로</Link>
+              <Link href="/my-place">즐겨찾기</Link>
               <Link href="/my-page/profile">
                 <Profile src={session.user.profileImageUrl} />
               </Link>
