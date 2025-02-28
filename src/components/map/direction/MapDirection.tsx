@@ -215,7 +215,12 @@ export default function MapDirection({ map, location }: Props) {
   };
 
   const handleSelectRoute = () => {
+    if (targetMarker.current && target) {
+      targetMarker.current.setMap(null);
+      setTarget(null);
+    }
     setIsSelect(true);
+    setResults([]);
   };
 
   const handleClickFeatureItem = (feature: RouteFeature) => {
@@ -272,7 +277,7 @@ export default function MapDirection({ map, location }: Props) {
                   onSwiper={(s) => setSwiperIns(s)}
                   pagination={{
                     dynamicBullets: true,
-                    dynamicMainBullets: 4,
+                    dynamicMainBullets: 3,
                   }}
                   modules={[Pagination]}
                   className="mySwiper"
@@ -416,7 +421,7 @@ export default function MapDirection({ map, location }: Props) {
         <div className="fixed bottom-0 left-0 right-0 bg-gray-100 p-2 md:hidden">
           {!isSelect ? (
             <div
-              onClick={() => setIsSelect(true)}
+              onClick={handleSelectRoute}
               className="w-full md:hidden bg-white rounded-md py-3 px-2 cursor-pointer hover:opacity-70 transition-all"
             >
               <span className="text-xs text-gray-500 font-semibold mb-2">
