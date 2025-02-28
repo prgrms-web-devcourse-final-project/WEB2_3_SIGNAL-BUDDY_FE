@@ -31,6 +31,7 @@ declare global {
             optionObj,
             {},
           ) => void;
+          getPOIDataFromIdJson: (string, {}, {}) => void;
         };
       };
       Map: {

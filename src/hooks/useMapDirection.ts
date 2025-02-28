@@ -29,7 +29,6 @@ export default function useMapDirection(map: TMap | null) {
     }
     const features = data._responseData.features;
     drawRoute(features);
-    console.log(features);
     setRouteFeatures(features);
   };
 
