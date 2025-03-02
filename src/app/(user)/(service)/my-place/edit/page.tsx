@@ -9,11 +9,9 @@ export default function Page() {
           <div className="flex">
             <p className="text-grey-700">{`홈 > 나의 목적지`}</p>
           </div>
-          <Link href={`/my-place`}>
-            완료
-          </Link>
+          <Link href={`/my-place`}>완료</Link>
         </div>
-        <div className="  flex min-h-[917px] w-full">
+        <div className="flex min-h-[917px] w-full">
           <section className="flex flex-grow flex-col gap-2 ">
             <MyPlaceListEdit />
           </section>

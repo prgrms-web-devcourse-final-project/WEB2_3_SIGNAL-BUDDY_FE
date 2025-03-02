@@ -15,7 +15,7 @@ interface Bookmark {
 }
 
 export default function MyPlaceList() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
 
   const page = 0;
@@ -32,16 +32,9 @@ export default function MyPlaceList() {
       const userId = session?.user?.memberId;
       if (!userId) return;
 
-      console.log(userId);
-      console.log(session.user.token);
-
       const response = await client.get(`/api/members/${userId}/bookmarks`, {
         params: { page, size },
       });
-
-      console.log("여기야", userId);
-
-      console.log(response);
 
       const { data: apiData } = response;
       if (apiData.status === "성공") {
@@ -54,16 +47,16 @@ export default function MyPlaceList() {
 
   fetchMyPlaces.displayName = "abc";
 
-  // if (status === "loading") {
-  //   return <div>로딩중...</div>;
-  // }
+  if (status === "loading") {
+    return <div>로딩중...</div>;
+  }
 
   if (!session) {
     return <div>로그인 해주세요</div>;
   }
 
   return (
-    <div>
+    <div className="space-y-2">
       {bookmarks.map((item) => (
         <MyPlaceItem
           key={item.bookmarkId}
