@@ -2,8 +2,8 @@
 
 import { useSession } from "next-auth/react";
 import client from "@/src/lib/api/client";
-import { useEffect, useState } from "react";
 import MyPlaceItem from "./MyPlaceItem";
+import { useQuery } from "@tanstack/react-query";
 
 interface Bookmark {
   bookmarkId: number;
@@ -15,45 +15,44 @@ interface Bookmark {
 }
 
 export default function MyPlaceList() {
-  const { data: session, status } = useSession();
-  const [bookmarks, setBookmarks] = useState<Bookmark[]>([]);
+  const { data: session } = useSession();
 
   const page = 0;
   const size = 10;
 
-  useEffect(() => {
-    if (session?.user?.memberId) {
-      fetchMyPlaces();
-    }
-  }, [session?.user.memberId]);
+  const {
+    data: bookmarks = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Bookmark[]>({
+    queryKey: ["myPlaces", session?.user?.memberId],
+    queryFn: async () => {
+      if (!session?.user?.memberId) return [];
 
-  const fetchMyPlaces = async () => {
-    try {
-      const userId = session?.user?.memberId;
-      if (!userId) return;
-
-      const response = await client.get(`/api/members/${userId}/bookmarks`, {
-        params: { page, size },
-      });
-
-      const { data: apiData } = response;
+      const response = await client.get(
+        `/api/members/${session.user.memberId}/bookmarks`,
+        {
+          params: { page, size },
+        },
+      );
+      const apiData = response.data;
       if (apiData.status === "성공") {
-        setBookmarks(apiData.data.searchResults);
+        return apiData.data.searchResults as Bookmark[];
       }
-    } catch (error) {
-      console.error("나의 장소 목록 불러오기 에러:", error);
-    }
-  };
+      throw new Error("북마크 불러오기 실패");
+    },
+    enabled: !!session?.user?.memberId,
+  });
 
-  fetchMyPlaces.displayName = "abc";
-
-  if (status === "loading") {
-    return <div>로딩중...</div>;
-  }
+  if (isLoading) return <div>로딩 중...</div>;
 
   if (!session) {
     return <div>로그인 해주세요</div>;
   }
+
+  if (isError && error instanceof Error)
+    return <div>에러가 발생했습니다: {error.message}</div>;
 
   return (
     <div className="space-y-2">
