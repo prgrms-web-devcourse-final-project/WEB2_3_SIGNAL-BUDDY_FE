@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import MyPlaceListEdit from "@/src/components/my-place/MyPlaceListEdit";
 import { useSession } from "next-auth/react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -8,20 +7,7 @@ import client from "@/src/lib/api/client";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { DropResult } from "@hello-pangea/dnd";
-
-interface Bookmark {
-  bookmarkId: number;
-  lat: number;
-  lng: number;
-  address: string;
-  name: string;
-  sequence: number;
-}
-
-interface ReorderBody {
-  id: number;
-  targetSequence: number;
-}
+import { Bookmark, ReorderBody } from "@/src/types/my-place";
 
 export default function Page() {
   const { data: session, status } = useSession();

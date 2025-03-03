@@ -4,21 +4,13 @@ import { useSession } from "next-auth/react";
 import client from "@/src/lib/api/client";
 import MyPlaceItem from "./MyPlaceItem";
 import { useQuery } from "@tanstack/react-query";
-
-interface Bookmark {
-  bookmarkId: number;
-  lat: number;
-  lng: number;
-  address: string;
-  name: string;
-  sequence: number;
-}
+import { Bookmark } from "@/src/types/my-place";
 
 export default function MyPlaceList() {
   const { data: session } = useSession();
 
   const page = 0;
-  const size = 10;
+  const size = 20;
 
   const {
     data: bookmarks = [],
