@@ -18,16 +18,21 @@ interface Bookmark {
   sequence: number;
 }
 
+interface ReorderBody {
+  id: number;
+  targetSequence: number;
+}
+
 export default function Page() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const queryClient = useQueryClient();
 
   const page = 0;
-  const size = 10;
+  const size = 20;
 
   const {
-    data: bookmarks = [],
+    data: bookmarks,
     isLoading,
     isError,
     error,
@@ -49,11 +54,10 @@ export default function Page() {
   });
 
   const [items, setItems] = useState<Bookmark[]>([]);
-
   const [deletedIds, setDeletedIds] = useState<number[]>([]);
 
   useEffect(() => {
-    setItems(bookmarks);
+    if (bookmarks?.length) setItems(bookmarks);
   }, [bookmarks]);
 
   const deleteBookmarksMutation = useMutation({
@@ -65,6 +69,23 @@ export default function Page() {
           bookmarkIds: bookmarkIds.join(","),
         },
       });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["myPlaces", session?.user?.memberId],
+      });
+    },
+  });
+
+  const reorderMutation = useMutation({
+    mutationFn: async (body: ReorderBody[]) => {
+      if (!session?.user?.memberId) return;
+
+      const response = await client.patch(
+        `/api/members/${session.user.memberId}/bookmarks/sequence/reorder`,
+        body,
+      );
+      return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -89,11 +110,19 @@ export default function Page() {
     setDeletedIds((prev) => [...prev, bookmarkId]);
   };
 
-  const handleComplete = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleComplete = async (e: React.MouseEvent) => {
     e.preventDefault();
 
     if (deletedIds.length > 0) {
       await deleteBookmarksMutation.mutateAsync(deletedIds);
+    }
+
+    if (items.length > 0) {
+      const reorderBody = items.map((item, idx) => ({
+        id: item.bookmarkId,
+        targetSequence: idx + 1,
+      }));
+      await reorderMutation.mutateAsync(reorderBody);
     }
 
     router.push("/my-place");
@@ -108,17 +137,10 @@ export default function Page() {
   return (
     <div className="flex justify-center">
       <div className="flex w-full max-w-[1240px] flex-col items-center justify-center">
-        {/* 상단 헤더 */}
         <div className="border-grey-300 flex h-10 w-full items-center justify-between border-b text-sm font-extrabold mb-5 md:mb-2">
           <p className="text-grey-700">{`홈 > 즐겨찾기`}</p>
-
-          {/* “완료” 버튼 (링크) → onClick에서 삭제 처리 후 이동 */}
-          <Link href="/my-place" onClick={handleComplete}>
-            완료
-          </Link>
+          <button onClick={handleComplete}>완료</button>
         </div>
-
-        {/* DnD 리스트 */}
         <div className="flex min-h-[917px] w-full">
           <section className="flex flex-grow flex-col gap-2">
             <MyPlaceListEdit
