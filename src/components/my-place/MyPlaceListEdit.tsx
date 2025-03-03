@@ -3,7 +3,6 @@
 import Image from "next/image";
 import deleteImage from "@/public/imgs/Delete.svg";
 import twoLineHamburger from "@/public/imgs/two-line-hamburger.svg";
-import { useEffect, useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -11,9 +10,6 @@ import {
   DropResult,
   DraggableProvidedDragHandleProps,
 } from "@hello-pangea/dnd";
-import { useSession } from "next-auth/react";
-import client from "@/src/lib/api/client";
-import { useQuery } from "@tanstack/react-query";
 
 interface Bookmark {
   bookmarkId: number;
@@ -24,18 +20,19 @@ interface Bookmark {
   sequence: number;
 }
 
-interface MyPlaceItemProps extends Bookmark {
+interface MyPlaceItemProps {
+  bookmark: Bookmark;
   dragHandleProps?: DraggableProvidedDragHandleProps | null;
-  onDelete?: () => void;
+  onDelete: () => void;
 }
 
 function MyPlaceItem({
-  bookmarkId,
-  name,
-  address,
+  bookmark,
   dragHandleProps,
   onDelete,
 }: MyPlaceItemProps) {
+  const { bookmarkId, name, address } = bookmark;
+
   return (
     <article>
       {/* 모바일 화면 */}
@@ -81,76 +78,23 @@ function MyPlaceItem({
   );
 }
 
-export default function MyPlaceListEdit() {
-  const { data: session } = useSession();
-  const [items, setItems] = useState<Bookmark[]>([]);
+interface MyPlaceListEditProps {
+  items: Bookmark[];
+  handleDragEnd: (result: DropResult) => void;
+  handleDelete: (bookmarkId: number) => void;
+}
 
-  const page = 0;
-  const size = 10;
-
-  const {
-    data: bookmarks = [],
-    isLoading,
-    isError,
-    error,
-  } = useQuery<Bookmark[]>({
-    queryKey: ["myPlaces", session?.user?.memberId],
-    queryFn: async () => {
-      if (!session?.user?.memberId) return [];
-
-      const response = await client.get(
-        `/api/members/${session.user.memberId}/bookmarks`,
-        {
-          params: { page, size },
-        },
-      );
-      const apiData = response.data;
-      if (apiData.status === "성공") {
-        return apiData.data.searchResults as Bookmark[];
-      }
-      throw new Error("북마크 불러오기 실패");
-    },
-    enabled: !!session?.user?.memberId,
-  });
-
-  useEffect(() => {
-    setItems(bookmarks);
-  }, [bookmarks]);
-
-  if (isLoading) return <div>로딩 중...</div>;
-
-  if (!session) {
-    return <div>로그인 해주세요</div>;
-  }
-
-  if (isError && error instanceof Error)
-    return <div>에러가 발생했습니다: {error.message}</div>;
-
-  // 드래그 앤 드랍 처리
-  const handleDragEnd = (result: DropResult) => {
-    const { destination, source } = result;
-
-    if (!destination || destination.index === source.index) {
-      return;
-    }
-
-    const updated = Array.from(items);
-    const [movedItem] = updated.splice(source.index, 1);
-    updated.splice(destination.index, 0, movedItem);
-
-    setItems(updated);
-  };
-
-  const handleDelete = (bookmarkId: number) => {
-    setItems((prev) => prev.filter((item) => item.bookmarkId !== bookmarkId));
-  };
-
+export default function MyPlaceListEdit({
+  items,
+  handleDragEnd,
+  handleDelete,
+}: MyPlaceListEditProps) {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="myPlaceList">
         {(provided) => (
           <div
-            className="flex flex-col "
+            className="flex flex-col"
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
@@ -167,7 +111,7 @@ export default function MyPlaceListEdit() {
                     className="mb-2"
                   >
                     <MyPlaceItem
-                      {...bookmark}
+                      bookmark={bookmark}
                       dragHandleProps={provided.dragHandleProps}
                       onDelete={() => handleDelete(bookmark.bookmarkId)}
                     />
