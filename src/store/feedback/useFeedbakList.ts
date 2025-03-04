@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { IFeedbackData } from "@/src/types/feedback";
+import { IFeedbackData } from "@/src/types/feedback/feedbackList";
 
 interface FeedbackStore {
   feedbackListData: IFeedbackData[];
