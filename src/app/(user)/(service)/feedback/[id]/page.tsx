@@ -13,6 +13,8 @@ import {
 import { IFeedbackDetailResponse } from "@/src/types/feedback/feedbackList";
 import FeedbackLikeButton from "@/src/components/feedback/FeedbackLikeButton";
 import { gerIsLiked } from "@/src/app/api/feedback/likeButton";
+import { formatDate } from "@/src/utils/formatDate";
+import FeedbackComment from "@/src/components/feedback/FeedbackComment";
 
 export default async function Page({
   params,
@@ -23,7 +25,7 @@ export default async function Page({
   const session = await auth();
   const TOKEN = session?.user.token;
   const userId = session?.user.memberId || null;
-  
+
   let isLiked = false;
   let res: IFeedbackDetailResponse | null = null;
 
@@ -33,7 +35,6 @@ export default async function Page({
   }
 
   const feedbackData = res?.data;
-  console.log(feedbackData);
 
   return (
     <div className="">
@@ -87,7 +88,7 @@ export default async function Page({
                   {feedbackData?.subject}
                 </h1>
                 <p className="mb-4 text-xs font-medium text-gray-500">
-                  {feedbackData?.createdAt}
+                  {formatDate(String(feedbackData?.createdAt))}
                 </p>
                 <p className="mb-10 text-gray-600">{feedbackData?.content}</p>
                 {/* 지도 표시 */}
@@ -106,7 +107,9 @@ export default async function Page({
             </div>
           </div>
           {/* 댓글 입력창 */}
-          <div className="mt-5 flex w-full justify-between rounded-[20px] bg-white px-2 py-3">
+          <FeedbackComment id={id} userId={userId} token={TOKEN} />
+
+          {/* <div className="mt-5 flex w-full justify-between rounded-[20px] bg-white px-2 py-3">
             <input
               placeholder="답변을 입력해주세요."
               className="w-full pl-3 text-xs font-semibold text-gray-500 outline-none"
@@ -114,7 +117,7 @@ export default async function Page({
             <PaperAirplaneIcon />
           </div>
           {/* 댓글 목록 */}
-          <FeedbackCommentList id={id} userId={userId} />
+          {/* <FeedbackCommentList id={id} userId={userId} />  */}
         </div>
       ) : (
         <div>로그인 후 사용하세용</div>

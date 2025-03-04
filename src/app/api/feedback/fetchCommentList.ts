@@ -1,11 +1,11 @@
 import { IFeedbackCommentListResponse } from "@/src/types/feedback/feedbackList";
 
 export const fetchCommentList = async (
-  id: string
+  id: string,
 ): Promise<IFeedbackCommentListResponse | null> => {
   try {
     const res = await fetch(
-      `${process.env.API_BASE_URL}/api/feedbacks/${id}/comments`
+      `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/feedbacks/${id}/comments`,
     );
 
     if (!res.ok) {
