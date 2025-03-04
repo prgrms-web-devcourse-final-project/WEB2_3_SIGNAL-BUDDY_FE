@@ -143,8 +143,6 @@
   }
 }
 
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -152,4 +150,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+.swiper-pagination {
+  position: absolute;
+  bottom: 0% !important;
 }

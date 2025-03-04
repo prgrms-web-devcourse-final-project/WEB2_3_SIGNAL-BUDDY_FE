@@ -1,10 +1,8 @@
-"use client"
+"use client";
 
 import Image from "next/image";
 import deleteImage from "@/public/imgs/Delete.svg";
 import twoLineHamburger from "@/public/imgs/two-line-hamburger.svg";
-import { MyPlace, myPlaceData } from "./MyPlaceData";
-import { useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -13,12 +11,28 @@ import {
   DraggableProvidedDragHandleProps,
 } from "@hello-pangea/dnd";
 
-interface MyPlaceItemProps extends MyPlace {
-  dragHandleProps?: DraggableProvidedDragHandleProps | null;
-  onDelete?: () => void;
+interface Bookmark {
+  bookmarkId: number;
+  lat: number;
+  lng: number;
+  address: string;
+  name: string;
+  sequence: number;
 }
 
-function MyPlaceItem({ name, address, dragHandleProps, onDelete, }: MyPlaceItemProps) {
+interface MyPlaceItemProps {
+  bookmark: Bookmark;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
+  onDelete: () => void;
+}
+
+function MyPlaceItem({
+  bookmark,
+  dragHandleProps,
+  onDelete,
+}: MyPlaceItemProps) {
+  const { bookmarkId, name, address } = bookmark;
+
   return (
     <article>
       {/* 모바일 화면 */}
@@ -35,7 +49,7 @@ function MyPlaceItem({ name, address, dragHandleProps, onDelete, }: MyPlaceItemP
         <div className="bg-white w-[58px] h-[58px] rounded-full flex items-center justify-center">
           <div className="bg-gray-500 w-[50px] h-[50px] rounded-full"></div>
         </div>
-        <div className="ml-1" {...dragHandleProps || {}}>
+        <div className="ml-1" {...(dragHandleProps || {})}>
           <Image src={twoLineHamburger} alt="순서 바꾸기 아이콘" />
         </div>
       </div>
@@ -55,7 +69,7 @@ function MyPlaceItem({ name, address, dragHandleProps, onDelete, }: MyPlaceItemP
           <div className="bg-white w-[58px] h-[58px] rounded-xl border border-gray-300 flex items-center justify-center">
             <div className="bg-gray-500 w-[50px] h-[50px] rounded-lg"></div>
           </div>
-          <div className="ml-5" {...dragHandleProps || {}}>
+          <div className="ml-5" {...(dragHandleProps || {})}>
             <Image src={twoLineHamburger} alt="순서 바꾸기 아이콘" />
           </div>
         </div>
@@ -64,36 +78,32 @@ function MyPlaceItem({ name, address, dragHandleProps, onDelete, }: MyPlaceItemP
   );
 }
 
+interface MyPlaceListEditProps {
+  items: Bookmark[];
+  handleDragEnd: (result: DropResult) => void;
+  handleDelete: (bookmarkId: number) => void;
+}
 
-export default function MyPlaceListEdit() {
-
-  const [items, setItems] = useState<MyPlace[]>(myPlaceData);
-
-  const handleDragEnd = (result: DropResult) => {
-    const { destination, source } = result;
-
-    if (!destination || destination.index === source.index) {
-      return;
-    }
-
-    const updated = Array.from(items);
-    const [movedItem] = updated.splice(source.index, 1);
-    updated.splice(destination.index, 0, movedItem);
-
-    setItems(updated);
-  };
-
-  const handleDelete = (id: string) => {
-    setItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
+export default function MyPlaceListEdit({
+  items,
+  handleDragEnd,
+  handleDelete,
+}: MyPlaceListEditProps) {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="myPlaceList">
         {(provided) => (
-          <div className="flex flex-col " {...provided.droppableProps} ref={provided.innerRef}>
-            {items.map((myPlace, index) => (
-              <Draggable key={myPlace.id} draggableId={myPlace.id} index={index}>
+          <div
+            className="flex flex-col"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {items.map((bookmark, index) => (
+              <Draggable
+                key={bookmark.bookmarkId.toString()}
+                draggableId={bookmark.bookmarkId.toString()}
+                index={index}
+              >
                 {(provided) => (
                   <div
                     ref={provided.innerRef}
@@ -101,9 +111,9 @@ export default function MyPlaceListEdit() {
                     className="mb-2"
                   >
                     <MyPlaceItem
-                      {...myPlace}
+                      bookmark={bookmark}
                       dragHandleProps={provided.dragHandleProps}
-                      onDelete={() => handleDelete(myPlace.id)}
+                      onDelete={() => handleDelete(bookmark.bookmarkId)}
                     />
                   </div>
                 )}

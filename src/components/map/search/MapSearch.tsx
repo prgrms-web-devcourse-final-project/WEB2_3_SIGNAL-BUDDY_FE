@@ -181,16 +181,23 @@ export default function MapSearch({ map, location }: Props) {
       Number(newTarget.frontLat),
       Number(newTarget.frontLon),
     );
-    const res = await fetch(
-      `https://apis.openapi.sk.com/tmap/pois/${newTarget.id}?version=1&appKey=${process.env.NEXT_PUBLIC_TMAP_API_KEY}`,
-    );
+    const tData = new Tmapv2.extension.TData();
 
-    setMapCenter(lonlat);
-    setTarget(newTarget);
-    if (!res.ok) return;
-    const data = (await res.json()).poiDetailInfo;
-    setTarget({ ...newTarget, ...data });
-    addTargetMarker(newTarget);
+    tData.getPOIDataFromIdJson(
+      newTarget.id,
+      {},
+      {
+        onComplete: (res: { _responseData: TmapResponse }) => {
+          setMapCenter(lonlat);
+          setTarget(newTarget);
+          const data = res._responseData.poiDetailInfo;
+          setTarget({ ...newTarget, ...data });
+          addTargetMarker(newTarget);
+        },
+        onProgress: () => console.log("POI 데이터 패칭 중.."),
+        onError: () => alert("알수없는 오류가 발생했습니다."),
+      },
+    );
   };
 
   const handleClickDirection = (poi: PoiDetail) => {
@@ -203,8 +210,7 @@ export default function MapSearch({ map, location }: Props) {
     const handleGetNear = async () => {
       try {
         const { Tmapv2 } = window;
-        if (!Tmapv2) return;
-        if (!map) return;
+        if (!Tmapv2 || !map) return;
         const center = map.getCenter();
         map.setCenter(new Tmapv2.LatLng(center._lat, center._lng));
         const res = await fetch(
