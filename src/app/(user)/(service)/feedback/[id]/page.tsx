@@ -12,6 +12,7 @@ import {
 } from "@/src/components/utils/icons";
 import { IFeedbackDetailResponse } from "@/src/types/feedback/feedbackList";
 import FeedbackLikeButton from "@/src/components/feedback/FeedbackLikeButton";
+import { gerIsLiked } from "@/src/app/api/feedback/likeButton";
 
 export default async function Page({
   params,
@@ -22,11 +23,13 @@ export default async function Page({
   const session = await auth();
   const TOKEN = session?.user.token;
   const userId = session?.user.memberId || null;
-
+  
+  let isLiked = false;
   let res: IFeedbackDetailResponse | null = null;
 
   if (TOKEN) {
     res = await fetchDataFeedbackItem(id, TOKEN);
+    isLiked = await gerIsLiked(id, TOKEN);
   }
 
   const feedbackData = res?.data;
@@ -97,6 +100,7 @@ export default async function Page({
                 <FeedbackLikeButton
                   feedbackId={id}
                   likeCount={feedbackData?.likeCount}
+                  likeStatus={isLiked}
                 />
               </div>
             </div>

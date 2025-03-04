@@ -47,7 +47,8 @@ export const getLikes = async (id: string, token: string) => {
         );
       }
       const resData = await res.json();
-      return;
+      console.log(resData.data.likeCount);
+      return resData.data.likeCount;
     } catch (error) {
       console.error("❌ fetchData Error:", error);
       throw error;
@@ -58,9 +59,34 @@ export const getLikes = async (id: string, token: string) => {
   }
 };
 
+export const gerIsLiked = async (id: string, token: string) => {
+  try {
+    const res = await fetch(`${BASE_URL}/${id}/like/exist`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(
+        errorData.message || "데이터를 가져오는 데 실패했습니다.",
+      );
+    }
+    const resJson = await res.json();
+    return resJson.data.status;
+  } catch (error) {
+    console.error("❌ fetchData Error:", error);
+    throw error;
+  }
+};
+
 export const addLikes = async (id: string, token: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/${id}`, {
+    const res = await fetch(`${BASE_URL}/${id}/like`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -84,7 +110,7 @@ export const addLikes = async (id: string, token: string) => {
 
 export const deleteLikes = async (id: string, token: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/${id}`, {
+    const res = await fetch(`${BASE_URL}/${id}/like`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
