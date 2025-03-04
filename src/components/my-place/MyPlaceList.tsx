@@ -1,49 +1,60 @@
-import { MyPlace, myPlaceData } from "./MyPlaceData";
+"use client";
 
-
-function MyPlaceItem({
-  name,
-  address,
-}: MyPlace) {
-
-  return (
-    <article>
-      {/* 모바일 화면 */}
-      <div className="flex items-center gap-2 md:hidden">
-      <div className="bg-white rounded-full px-5 py-2 h-[58px] flex-1">
-          <p className="text-base font-extrabold h-5 overflow-hidden">{name}</p>
-          <p className="text-sm font-medium text-gray-500 h-4 mt-1 overflow-hidden">{address}</p>
-        </div>
-        <div className="bg-white w-[58px] h-[58px] rounded-full flex items-center justify-center">
-          <div className="bg-gray-500 w-[50px] h-[50px] rounded-full "></div>
-        </div>
-      </div>
-
-      {/* pc 화면 */}
-      <div className="hidden md:flex items-center gap-2 py-5 px-4 bg-white rounded-lg h-[80px] w-full justify-between">
-        <div className="flex">
-          <div>
-            <p className="text-base font-extrabold">{name}</p>
-            <p className="text-sm font-medium text-gray-500  ">{address}</p>
-          </div>
-        </div>
-        
-        <div className="flex items-center">
-          <div className="bg-white w-[58px] h-[58px] rounded-xl border border-gray-300 flex items-center justify-center">
-            <div className="bg-gray-500 w-[50px] h-[50px] rounded-lg "></div>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
+import { useSession } from "next-auth/react";
+import client from "@/src/lib/api/client";
+import MyPlaceItem from "./MyPlaceItem";
+import { useQuery } from "@tanstack/react-query";
+import { Bookmark } from "@/src/types/my-place";
 
 export default function MyPlaceList() {
+  const { data: session } = useSession();
+
+  const page = 0;
+  const size = 20;
+
+  const {
+    data: bookmarks = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery<Bookmark[]>({
+    queryKey: ["myPlaces", session?.user?.memberId],
+    queryFn: async () => {
+      if (!session?.user?.memberId) return [];
+
+      const response = await client.get(
+        `/api/members/${session.user.memberId}/bookmarks`,
+        {
+          params: { page, size },
+        },
+      );
+      const apiData = response.data;
+      if (apiData.status === "성공") {
+        return apiData.data.searchResults as Bookmark[];
+      }
+      throw new Error("북마크 불러오기 실패");
+    },
+    enabled: !!session?.user?.memberId,
+  });
+
+  if (isLoading) return <div>로딩 중...</div>;
+
+  if (!session) {
+    return <div>로그인 해주세요</div>;
+  }
+
+  if (isError && error instanceof Error)
+    return <div>에러가 발생했습니다: {error.message}</div>;
+
   return (
-    <>
-      {myPlaceData.map((myPlace, index) => (
-        <MyPlaceItem key={index} {...myPlace} />
+    <div className="space-y-2">
+      {bookmarks.map((item) => (
+        <MyPlaceItem
+          key={item.bookmarkId}
+          name={item.name}
+          address={item.address}
+        />
       ))}
-    </>
+    </div>
   );
 }
