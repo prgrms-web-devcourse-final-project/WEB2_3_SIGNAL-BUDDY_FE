@@ -48,7 +48,7 @@ export default async function Page({
                   : "답변 후"}
               </div>
             </Link>
-            <MeatballMenu />
+            <MeatballMenu id={id} />
           </div>
           {/* 본문 영역 */}
           <div className="pt-2">
