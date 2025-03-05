@@ -102,5 +102,37 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function myPlugin({
+      addUtilities,
+    }: {
+      addUtilities: (
+        utilities: Record<string, Record<string, string>>,
+        options?: {
+          variants?: string[];
+          respectPrefix?: boolean;
+          respectImportant?: boolean;
+        },
+      ) => void;
+    }) {
+      addUtilities({
+        ".theme-bg": {
+          "@apply bg-grey-100 dark:bg-grey-900": "",
+        },
+        ".theme-nav": {
+          "@apply text-grey-700 dark:text-grey-100": "",
+        },
+        ".theme-title": {
+          "@apply bg-grey-100 dark:bg-black": "",
+        },
+        ".theme-content-bg": {
+          "@apply bg-white dark:bg-grey-800": "",
+        },
+        ".theme-content-address": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+      });
+    },
+  ],
 } satisfies Config;
