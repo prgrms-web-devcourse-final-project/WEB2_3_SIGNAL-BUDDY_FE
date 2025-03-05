@@ -19,7 +19,9 @@ const AVATAR_SIZES = {
 
 export default function Profile({ src, size = "md" }: Props) {
   return (
-    <Avatar className={cn("bg-white", AVATAR_SIZES[size])}>
+    <Avatar
+      className={cn("bg-white border border-gray-300", AVATAR_SIZES[size])}
+    >
       <AvatarImage src={src ? src : DEFATUL_PROFILE} alt="@shadcn" />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
