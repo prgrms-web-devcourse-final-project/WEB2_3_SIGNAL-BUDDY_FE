@@ -70,7 +70,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     signIn: async ({ account, profile }) => {
-      console.log("profile", profile);
       if (account && account.provider !== "credentials" && profile) {
         const body = {
           provider: account.provider,
