@@ -83,7 +83,7 @@ export default function UserConfirm({ onConfirm }: Props) {
             <FormItem>
               <FormLabel className="text-xs text-gray-500 ">이메일</FormLabel>
               <FormControl>
-                <PasswordInput field={field} />
+                <PasswordInput field={field} hasBg />
               </FormControl>
             </FormItem>
           )}
