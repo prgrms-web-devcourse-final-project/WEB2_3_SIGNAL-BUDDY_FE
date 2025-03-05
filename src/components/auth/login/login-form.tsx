@@ -65,7 +65,8 @@ export function LoginForm() {
         redirect: false,
       });
       if (result && result.error) {
-        toast(result.code);
+        if (result.code) toast(result.code);
+        else toast("이메일 혹은 비밀번호를 확인해주세요.");
       }
     } catch (err) {
       console.error(err);
@@ -79,7 +80,7 @@ export function LoginForm() {
     console.log(session);
     if (session && session.user) {
       toast("로그인에 성공했습니다.");
-      
+
       redirect("/");
     }
   }, [session]);
@@ -118,7 +119,11 @@ export function LoginForm() {
             />
           </div>
           <div className="grid mt-2">
-            <FormField
+            <FormField<{
+              email: string;
+              password: string;
+              agree: string[];
+            }>
               control={form.control}
               name="password"
               render={({ field }) => (
