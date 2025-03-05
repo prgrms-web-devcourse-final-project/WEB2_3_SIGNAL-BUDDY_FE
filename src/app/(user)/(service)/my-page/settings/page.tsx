@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import LogoutButton from "@/src/components/auth/logout/LogoutButton";
+import DarkModeToggle from "@/src/components/display-mode/DarkModeToggle";
 import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { clickPushHandler } from "@/src/firebase/firebase";
 import { signOutWithForm } from "@/src/services/auth.server.service";
@@ -35,7 +36,8 @@ export default function Page() {
           </div>
           <div className="text-grey-700 flex h-[60px] items-center justify-between font-extrabold">
             <p>디스플레이 모드</p>
-            <div>드롭박스</div>
+            <DarkModeToggle />
+            {/* <div>드롭박스</div> */}
           </div>
         </section>
         <LogoutButton />
