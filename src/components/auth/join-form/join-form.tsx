@@ -20,7 +20,7 @@ import { CheckboxGroup } from "../../common/form/CheckboxGroup";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { join } from "@/src/services/auth.service";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordInput } from "../password-input";
 
 const formSchema = z
@@ -72,13 +72,19 @@ const formSchema = z
   });
 
 export function JoinForm() {
+  const searchParams = useSearchParams();
+  const provider = searchParams.get("provider");
+  const id = searchParams.get("id");
+  const nickname = searchParams.get("nickname");
+  const email = searchParams.get("email");
+
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: "",
-      nickname: "",
+      email: email || "",
+      nickname: nickname || "",
       password: "",
       passwordConfirm: "",
       agree: [],
@@ -166,6 +172,7 @@ export function JoinForm() {
                   <Input
                     placeholder="이메일을 입력해 주세요."
                     className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300"
+                    disabled={!!email}
                     {...field}
                   />
                 </FormControl>

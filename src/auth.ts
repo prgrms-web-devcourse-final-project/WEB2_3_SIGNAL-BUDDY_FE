@@ -1,5 +1,7 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Kakao from "next-auth/providers/kakao";
+import Naver from "next-auth/providers/naver";
+import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { login } from "./services/auth.service";
 import { cookies } from "next/headers";
@@ -50,6 +52,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientId: process.env.AUTH_KAKAO_CLIENT_ID || "",
       clientSecret: process.env.AUTH_KAKAO_CLIENT_SECRET || "",
     }),
+    Naver({
+      clientId: process.env.AUTH_NAVER_CLIENT_ID || "",
+      clientSecret: process.env.AUTH_NAVER_CLIENT_SECRET || "",
+    }),
+    Google({
+      clientId: process.env.AUTH_GOOGLE_CLIENT_ID || "",
+      clientSecret: process.env.AUTH_GOOGLE_CLIENT_SECRET || "",
+    }),
   ],
   session: {
     strategy: "jwt", // JSON Web Token 사용
@@ -59,14 +69,47 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    signIn: async () => {
+    signIn: async ({ account, profile }) => {
+      console.log("profile", profile);
+      if (account && account.provider !== "credentials" && profile) {
+        const body = {
+          provider: account.provider,
+          socialUserId: account.providerAccountId,
+        };
+        console.log(body);
+        // const res = await server.post("/api/auth/social-login", body);
+        // console.log(res);
+        const params = new URLSearchParams();
+        params.set("provider", account.provider);
+        params.set("id", account.providerAccountId);
+        if (account.provider === "naver") {
+          if (profile.response.nickname)
+            params.set("nickname", profile.response.nickname);
+          if (profile.response.email)
+            params.set("email", profile.response.email);
+        }
+        if (account.provider === "kakao") {
+          if (profile.kakao_account.profile.nickname)
+            params.set("nickname", profile.kakao_account.profile.nickname);
+          if (profile.kakao_account.email)
+            params.set("email", profile.kakao_account.email);
+        }
+        if (account.provider === "google") {
+          if (profile.name) params.set("nickname", profile.name);
+          if (profile.email) params.set("email", profile.email);
+        }
+
+        return `/join?${params.toString()}`;
+      }
       return true;
     },
-    jwt: async ({ token, user, trigger, session }) => {
+    jwt: async ({ token, user, account, trigger, session }) => {
+      console.log("token", token);
+      console.log("account", account);
       if (user) {
         token = { ...token, ...user };
       }
-      if (trigger === "update" && session !== null) {
+      if (trigger === "update" && session) {
         const { nickname, profileImageUrl } = session;
         token.nickname = nickname;
         token.profileImageUrl = profileImageUrl;
