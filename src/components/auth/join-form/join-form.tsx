@@ -97,7 +97,7 @@ export function JoinForm() {
     const { email, password, nickname } = values;
     try {
       const body = { email, password, nickname };
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append(
         "memberJoinRequest",
         new Blob([JSON.stringify(body)], {
