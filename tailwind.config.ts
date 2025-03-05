@@ -132,6 +132,24 @@ export default {
         ".theme-content-address": {
           "@apply text-grey-500 dark:text-grey-400": "",
         },
+        ".theme-footer-bg": {
+          "@apply bg-white dark:bg-grey-800": "",
+        },
+        ".theme-footer-nav": {
+          "@apply text-grey-500 dark:text-grey-200": "",
+        },
+        ".theme-footer-menu": {
+          "@apply text-grey-400 dark:text-grey-300": "",
+        },
+        ".theme-footer-rights": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-footer-catchphrase": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-footer-line": {
+          "@apply border-grey-300 dark:border-grey-700": "",
+        },
       });
     },
   ],
