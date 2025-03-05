@@ -3,7 +3,6 @@
 import Image from "next/image";
 import deleteImage from "@/public/imgs/Delete.svg";
 import twoLineHamburger from "@/public/imgs/two-line-hamburger.svg";
-import twoLineHamburgerWhiteVersion from "@/public/imgs/two-line-hamburger-white.svg";
 import {
   DragDropContext,
   Droppable,
