@@ -79,6 +79,7 @@ export function LoginForm() {
     console.log(session);
     if (session && session.user) {
       toast("로그인에 성공했습니다.");
+      
       redirect("/");
     }
   }, [session]);

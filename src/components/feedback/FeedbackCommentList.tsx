@@ -66,7 +66,7 @@ export default function FeedbackCommentList({
 
   // ✅ 새로운 댓글을 추가하는 함수 (낙관적 업데이트)
   const addNewComment = (newComment: IFeedbackCommentProps["commentItem"]) => {
-    setComments((prev) => [newComment, ...prev]);
+    setComments((prev) => [...prev, newComment]);
 
     // `useQueryClient`를 이용해 서버 데이터 동기화
     queryClient.setQueryData(["comments", id], (oldData: any) => {
@@ -74,7 +74,7 @@ export default function FeedbackCommentList({
         ...oldData,
         data: {
           ...oldData.data,
-          searchResults: [newComment, ...oldData.data.searchResults],
+          searchResults: [...oldData.data.searchResults, newComment],
         },
       };
     });
@@ -91,7 +91,7 @@ export default function FeedbackCommentList({
 
   return (
     <section
-      className="mt-5 w-full rounded-[20px] bg-white px-2 py-3"
+      className="mt-5 w-full rounded-[20px] bg-white px-2 py-3 h-auto"
       aria-label="댓글 리스트"
     >
       <div className="flex flex-col gap-2">

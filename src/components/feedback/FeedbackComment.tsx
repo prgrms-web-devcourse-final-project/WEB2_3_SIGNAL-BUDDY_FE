@@ -15,7 +15,7 @@ export default function FeedbackComment({
   user,
 }: {
   id: string;
-  user: User;
+  user: User | undefined;
 }) {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -27,7 +27,7 @@ export default function FeedbackComment({
         ...oldData,
         data: {
           ...oldData.data,
-          searchResults: [newComment, ...oldData.data.searchResults],
+          searchResults: [...oldData.data.searchResults, newComment],
         },
       };
     });
@@ -65,6 +65,10 @@ export default function FeedbackComment({
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!user) {
+      alert("로그인 오류입니다.");
+      return;
+    }
     if (!newComment.trim()) {
       toast.error("댓글을 입력해주세요.");
       return;
@@ -109,7 +113,7 @@ export default function FeedbackComment({
       </form>
 
       {/* 댓글 목록 */}
-      <FeedbackCommentList id={id} userId={user.id} />
+      <FeedbackCommentList id={id} userId={user!.id} />
     </>
   );
 }
