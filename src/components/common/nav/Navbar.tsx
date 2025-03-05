@@ -65,24 +65,24 @@ export default function Navbar() {
         {/* 모바일 내비게이션 메뉴 */}
         <div
           className={cn(
-            "fixed bg-gray-100 w-screen top-0 right-0 bottom-0 -z-10 pt-[70px] pb-5 px-4 transition-all flex flex-col items-center gap-2",
+            "fixed theme-bg w-screen top-0 right-0 bottom-0 -z-10 pt-[70px] pb-5 px-4 transition-all flex flex-col items-center gap-2",
             open ? "left-0" : "left-full",
           )}
           onClick={handleClickMenuBtn}
         >
           <Link
             href={session ? "/my-page/profile" : "/login"}
-            className="bg-white w-full py-3 px-4 rounded-md flex gap-4 items-center"
+            className="theme-content-bg w-full py-3 px-4 rounded-md flex gap-4 items-center"
           >
             <Profile
               src={session ? session.user.profileImageUrl : undefined}
               size="xl"
             />
-            <div className="flex flex-col font-bold text-gray-700 flex-1">
+            <div className="flex flex-col font-bold theme-menu-nickname flex-1">
               {session ? (
                 <>
                   <div>{session.user.nickname}</div>
-                  <div className="text-xs text-gray-500 font-medium">
+                  <div className="text-xs theme-menu-email font-medium">
                     {session.user.email}
                   </div>
                 </>
@@ -90,10 +90,10 @@ export default function Navbar() {
                 "로그인이 필요합니다."
               )}
             </div>
-            <ChevronRight className="text-gray-500" />
+            <ChevronRight className="theme-menu-chevron" />
           </Link>
 
-          <div className="w-full h-10 border-b border-gray-300 flex items-center text-sm font-extrabold text-gray-500">
+          <div className="w-full h-10 border-b theme-menu-line flex items-center text-sm font-extrabold theme-menu-menu">
             메뉴
           </div>
           <div className="w-full font-bold flex flex-col gap-2 flex-grow">

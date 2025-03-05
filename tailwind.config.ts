@@ -150,6 +150,21 @@ export default {
         ".theme-footer-line": {
           "@apply border-grey-300 dark:border-grey-700": "",
         },
+        ".theme-menu-nickname": {
+          "@apply text-grey-700 dark:text-grey-100": "",
+        },
+        ".theme-menu-email": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-menu-line": {
+          "@apply border-grey-300 dark:border-grey-700": "",
+        },
+        ".theme-menu-menu": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-menu-chevron": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
       });
     },
   ],
