@@ -41,7 +41,7 @@ export default function Navbar() {
         </div>
 
         {/* 내비게이션 메뉴 */}
-        <div className="text-grey-700 hidden items-center gap-5 font-semibold sm:flex">
+        <div className="theme-nav hidden items-center gap-5 font-semibold sm:flex">
           <Link href="/map" className="hover:underline">
             지도
           </Link>

@@ -33,7 +33,7 @@ export default function RootLayout({
       </head>
       <RootProvider>
         <body
-          className="bg-grey-100 flex min-h-screen flex-col font-Pretendard antialiased"
+          className="theme-bg flex min-h-screen flex-col font-Pretendard antialiased"
           cz-shortcut-listen="true"
         >
           <FCMNotification />
