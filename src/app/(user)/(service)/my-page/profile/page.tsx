@@ -11,6 +11,8 @@ import {
   SettingIcon,
   UserIcon,
 } from "@/src/components/utils/icons";
+import { auth } from "@/src/auth";
+import { redirect } from "next/navigation";
 
 const activities = [
   {
@@ -35,7 +37,9 @@ const activities = [
   },
 ];
 
-export default function Page() {
+export default async function Page() {
+  const session = await auth();
+  if (!session) redirect("/");
   return (
     <div className="flex w-full justify-center">
       <div className="flex w-[400px] flex-col gap-5 pt-2">
@@ -53,9 +57,9 @@ export default function Page() {
               <UserIcon />
             </div>
             <div className="flex flex-col">
-              <p className="text-grey-700 font-bold">User</p>
+              <p className="text-grey-700 font-bold">{session.user.nickname}</p>
               <p className="text-grey-500 text-xs font-medium">
-                example@gmail.com
+                {session.user.email}
               </p>
             </div>
           </div>
