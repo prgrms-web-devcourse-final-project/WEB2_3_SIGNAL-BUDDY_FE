@@ -132,6 +132,9 @@ export default {
         ".theme-line": {
           "@apply border-grey-300 dark:border-grey-700": "",
         },
+        ".theme-line-light": {
+          "@apply border-grey-300 dark:border-grey-400": "",
+        },
         ".theme-content-address": {
           "@apply text-grey-500 dark:text-grey-400": "",
         },
@@ -156,7 +159,13 @@ export default {
         ".theme-menu-nickname": {
           "@apply text-grey-700 dark:text-grey-100": "",
         },
+        ".theme-nickname": {
+          "@apply text-grey-700 dark:text-grey-100": "",
+        },
         ".theme-menu-email": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-email": {
           "@apply text-grey-500 dark:text-grey-400": "",
         },
         ".theme-menu-line": {
@@ -176,7 +185,7 @@ export default {
             "",
         },
         ".theme-feedback-nav": {
-          "@apply text-grey-700 dark:text-grey-300": "",
+          "@apply text-grey-700 dark:text-grey-900": "",
         },
         ".theme-edit-icon": {
           "@apply text-grey-500 dark:text-grey-400": "",
@@ -186,6 +195,12 @@ export default {
         },
         ".theme-feedback-content": {
           "@apply text-grey-600 dark:text-grey-300": "",
+        },
+        ".theme-content-text": {
+          "@apply text-grey-600 dark:text-grey-300": "",
+        },
+        ".theme-content-text-dark": {
+          "@apply text-grey-500 dark:text-grey-400": "",
         },
         ".theme-feedback-user": {
           "@apply text-grey-500 dark:text-grey-400": "",
@@ -229,11 +244,32 @@ export default {
         ".theme-label": {
           "@apply text-grey-500 dark:text-grey-300": "",
         },
+        ".theme-label-dark": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
         ".theme-map-bg": {
           "@apply bg-white dark:bg-grey-900": "",
         },
         ".theme-map-content-text": {
           "@apply text-grey-500 dark:text-grey-200": "",
+        },
+        ".theme-camera-border": {
+          "@apply border-grey-400 dark:border-grey-700": "",
+        },
+        ".theme-login-border": {
+          "@apply border-grey-300 dark:border-grey-400": "",
+        },
+        ".theme-feedback-subject": {
+          "@apply text-grey-950 dark:text-grey-100": "",
+        },
+        ".theme-date-text": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-comment-text": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-header-text": {
+          "@apply text-grey-700 dark:text-grey-300": "",
         },
       });
     },

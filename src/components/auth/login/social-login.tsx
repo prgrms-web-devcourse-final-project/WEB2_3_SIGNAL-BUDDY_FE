@@ -11,7 +11,7 @@ export function SocialLogin() {
     <div>
       <div className="flex items-center mt-[60px]">
         <div className="flex-grow border-t border-gray-300"></div>
-        <span className="mx-2 text-gray-500 font-Pretendard text-xs">
+        <span className="mx-2 theme-label font-Pretendard text-xs">
           SNS 로그인
         </span>
         <div className="flex-grow border-t border-gray-300"></div>

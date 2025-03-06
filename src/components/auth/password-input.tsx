@@ -25,7 +25,7 @@ export function PasswordInput<T extends FieldValues>({
         placeholder={placeholder || "비밀번호를 입력해 주세요."}
         type={showPassword ? "text" : "password"}
         className={cn(
-          "h-12 pl-3 pr-10 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border theme-line",
+          "h-12 pl-3 pr-10 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border theme-line theme-content-bg",
           hasBg && "theme-content-bg",
         )}
         {...field}
