@@ -1,5 +1,5 @@
 "use client";
-import { CameraIcon, UserIcon } from "@/src/components/utils/icons";
+import { CameraIcon } from "@/src/components/utils/icons";
 import { User } from "next-auth";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
