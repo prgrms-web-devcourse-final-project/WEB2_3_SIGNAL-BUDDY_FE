@@ -21,7 +21,7 @@ export default function Home() {
   }
 
   const bgImageSrc =
-    theme === "dark" ? home_background_img_dark.src : home_background_img.ssrc;
+    theme === "dark" ? home_background_img_dark.src : home_background_img.src;
   return (
     <section
       className="flex-grow-1 flex w-full justify-center rounded-[20px] py-[203px] lg:pb-[359px] lg:pt-[311px] shadow-md"
