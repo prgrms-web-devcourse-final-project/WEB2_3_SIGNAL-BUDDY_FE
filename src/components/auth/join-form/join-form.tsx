@@ -150,16 +150,22 @@ export function JoinForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full max-w-[360px] md:bg-white"
+        className="w-full max-w-[360px] md:theme-content-bg"
       >
         <div className="flex flex-col ">
-          <Image src={logo} alt="Signal Buddy 로고" width={206} height={38} />
-          <p className="text-sm mt-4 text-gray-500">
+          <Image
+            src={logo}
+            alt="Signal Buddy 로고"
+            width={206}
+            height={38}
+            className="dark:invert"
+          />
+          <p className="text-sm mt-4 theme-label">
             시그널 버디에 오신 것을 환영합니다.
           </p>
         </div>
         <div className="flex flex-col items-center mt-8">
-          <p className="self-start text-xs font-medium text-gray-500">
+          <p className="self-start text-xs font-medium theme-label-dark">
             프로필 이미지
           </p>
           <label className="relative aspect-square w-[100px] cursor-pointer">
@@ -167,7 +173,7 @@ export function JoinForm() {
               src={profileFile ? URL.createObjectURL(profileFile) : undefined}
               size="3xl"
             />
-            <div className="hover:bg-grey-300 outline-grey-300 absolute bottom-0 right-0 flex aspect-square w-[26px] cursor-pointer items-center justify-center rounded-full bg-white outline outline-1">
+            <div className="hover:bg-grey-300 outline-grey-300 absolute bottom-0 right-0 flex aspect-square w-[26px] cursor-pointer items-center justify-center rounded-full bg-white outline outline-1 theme-content-bg theme-camera-border">
               <CameraIcon className="aspect-square w-[18px]" />
             </div>
             <input type="file" className="hidden" onChange={handleChangeFile} />
@@ -179,11 +185,13 @@ export function JoinForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs text-gray-500 ">이메일</FormLabel>
+                <FormLabel className="text-xs theme-label-dark ">
+                  이메일
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="이메일을 입력해 주세요."
-                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300"
+                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300 theme-line theme-content-bg"
                     disabled={!!email}
                     {...field}
                   />
@@ -198,11 +206,13 @@ export function JoinForm() {
             name="nickname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs text-gray-500 ">닉네임</FormLabel>
+                <FormLabel className="text-xs theme-label-dark ">
+                  닉네임
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="닉네임을 입력해 주세요."
-                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300"
+                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border theme-line theme-content-bg"
                     {...field}
                   />
                 </FormControl>
@@ -222,7 +232,7 @@ export function JoinForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs text-gray-500 ">
+                <FormLabel className="text-xs text-gray-500">
                   비밀번호
                 </FormLabel>
                 <FormControl>

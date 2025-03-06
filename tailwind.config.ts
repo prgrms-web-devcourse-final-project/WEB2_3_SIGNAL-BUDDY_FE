@@ -102,5 +102,176 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function myPlugin({
+      addUtilities,
+    }: {
+      addUtilities: (
+        utilities: Record<string, Record<string, string>>,
+        options?: {
+          variants?: string[];
+          respectPrefix?: boolean;
+          respectImportant?: boolean;
+        },
+      ) => void;
+    }) {
+      addUtilities({
+        ".theme-bg": {
+          "@apply bg-grey-100 dark:bg-grey-900": "",
+        },
+        ".theme-nav": {
+          "@apply text-grey-700 dark:text-grey-100": "",
+        },
+        ".theme-title": {
+          "@apply bg-grey-100 dark:bg-black": "",
+        },
+        ".theme-content-bg": {
+          "@apply bg-white dark:bg-grey-800": "",
+        },
+        ".theme-line": {
+          "@apply border-grey-300 dark:border-grey-700": "",
+        },
+        ".theme-line-light": {
+          "@apply border-grey-300 dark:border-grey-400": "",
+        },
+        ".theme-content-address": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-footer-bg": {
+          "@apply bg-white dark:bg-grey-800": "",
+        },
+        ".theme-footer-nav": {
+          "@apply text-grey-500 dark:text-grey-200": "",
+        },
+        ".theme-footer-menu": {
+          "@apply text-grey-400 dark:text-grey-300": "",
+        },
+        ".theme-footer-rights": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-footer-catchphrase": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-footer-line": {
+          "@apply border-grey-300 dark:border-grey-700": "",
+        },
+        ".theme-menu-nickname": {
+          "@apply text-grey-700 dark:text-grey-100": "",
+        },
+        ".theme-nickname": {
+          "@apply text-grey-700 dark:text-grey-100": "",
+        },
+        ".theme-menu-email": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-email": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-menu-line": {
+          "@apply border-grey-300 dark:border-grey-700": "",
+        },
+        ".theme-menu-menu": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-menu-chevron": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-feedback-button-checked": {
+          "@apply bg-grey-600 dark:bg-grey-400": "",
+        },
+        ".theme-feedback-button-unchecked": {
+          "@apply bg-grey-300 text-grey-600 dark:bg-grey-800 dark:text-grey-300":
+            "",
+        },
+        ".theme-edit-icon": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-feedback-title": {
+          "@apply text-black dark:text-white": "",
+        },
+        ".theme-feedback-content": {
+          "@apply text-grey-600 dark:text-grey-300": "",
+        },
+        ".theme-content-text": {
+          "@apply text-grey-600 dark:text-grey-300": "",
+        },
+        ".theme-content-text-dark": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-feedback-user": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-feedback-filter": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-feedback-filter-answer-checked": {
+          "@apply text-grey-900 dark:text-white": "",
+        },
+        ".theme-feedback-filter-answer-unchecked": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-feedback-filter-category": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-feedback-filter-search": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-feedback-filter-search-button": {
+          "@apply bg-grey-800 dark:bg-grey-400": "",
+        },
+        ".theme-my-profile": {
+          "@apply text-grey-700 dark:text-grey-300": "",
+        },
+        ".theme-my-profile-name": {
+          "@apply text-grey-700 dark:text-grey-200": "",
+        },
+        ".theme-my-profile-email": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-my-profile-location-name": {
+          "@apply text-grey-800 dark:text-grey-200": "",
+        },
+        ".theme-my-profile-location-address": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-category-title": {
+          "@apply text-grey-700 dark:text-grey-200": "",
+        },
+        ".theme-label": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-label-dark": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-map-bg": {
+          "@apply bg-white dark:bg-grey-900": "",
+        },
+        ".theme-map-content-text": {
+          "@apply text-grey-500 dark:text-grey-200": "",
+        },
+        ".theme-camera-border": {
+          "@apply border-grey-400 dark:border-grey-700": "",
+        },
+        ".theme-login-border": {
+          "@apply border-grey-300 dark:border-grey-400": "",
+        },
+        ".theme-feedback-subject": {
+          "@apply text-grey-950 dark:text-grey-100": "",
+        },
+        ".theme-date-text": {
+          "@apply text-grey-500 dark:text-grey-400": "",
+        },
+        ".theme-comment-text": {
+          "@apply text-grey-500 dark:text-grey-300": "",
+        },
+        ".theme-header-text": {
+          "@apply text-grey-700 dark:text-grey-200": "",
+        },
+        ".theme-hover": {
+          "@apply bg-grey-200 dark:bg-grey-300 dark:text-grey-950": "",
+        },
+      });
+    },
+  ],
 } satisfies Config;
