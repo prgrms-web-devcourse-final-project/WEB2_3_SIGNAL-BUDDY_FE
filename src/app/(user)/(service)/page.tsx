@@ -2,6 +2,9 @@ import Image from "next/image";
 import logo from "@/public/imgs/Logo.svg";
 import Link from "next/link";
 import home_background_img from "@/public/imgs/noisy-gradients.svg";
+import { A2HS } from "@/src/components/home/A2HS";
+import { Button } from "@/src/components/shadcn/components/ui/button";
+import InstallPrompt from "@/src/components/home/InstallPrompt";
 
 export default function Home() {
   return (
@@ -32,11 +35,15 @@ export default function Home() {
           이동할 수 있도록 돕는 서비스입니다. 보행 데이터를 분석해 맞춤형 경로를
           제공하며, 이동의 즐거움을 더하는 스마트한 기능을 제공합니다.
         </p>
-        <Link href="/map" passHref>
-          <button className="mx-auto mt-10 h-[40px] w-[200px] rounded-lg bg-black font-bold text-white sm:mx-0 sm:h-[50px] sm:text-xl">
-            지도로 바로가기
-          </button>
-        </Link>
+        <div className="flex gap-2 items-center justify-center mt-10">
+          <Link href="/map" passHref>
+            <Button className="mx-auto h-[50px] w-[200px] rounded-lg bg-black font-bold text-white hover:text-black hover:bg-white sm:mx-0 sm:h-[50px] sm:text-xl">
+              지도로 바로가기
+            </Button>
+          </Link>
+          <A2HS />
+          {/* <InstallPrompt /> */}
+        </div>
       </div>
     </section>
   );
