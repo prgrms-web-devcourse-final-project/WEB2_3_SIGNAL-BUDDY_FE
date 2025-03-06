@@ -77,8 +77,8 @@ export default function FeedbackEditPost({
           className="cursor-pointer flex h-10 items-center gap-1"
           onClick={() => onCancel(router, feedbackId)}
         >
-          <ArrowLeftIcon className="h-6 w-6 text-gray-700" />
-          <p className="text-sm font-semibold">뒤로가기</p>
+          <ArrowLeftIcon className="h-6 w-6" />
+          <p className="text-sm font-semibold theme-feedback-nav">뒤로가기</p>
         </div>
       </div>
 
@@ -113,7 +113,7 @@ export default function FeedbackEditPost({
         <div className="flex flex-col gap-2">
           <p className="text-sm font-medium theme-feedback-filter">본문</p>
           <textarea
-            className="h-[409px] resize-none rounded-[4px] p-4 border theme-line placeholder:text-sm placeholder:text-gray-400 text-gray-500 text-[14px]"
+            className="h-[409px] resize-none rounded-[4px] p-4 border theme-line theme-content-bg placeholder:text-sm placeholder:text-gray-400 text-gray-500 text-[14px]"
             placeholder="내용을 입력해주세요."
             value={feedbackContent}
             onChange={(e) => setFeedbackContent(e.target.value)}
@@ -130,7 +130,7 @@ export default function FeedbackEditPost({
 
         {/* 숨김처리 여부 */}
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-medium text-gray-500">숨김처리</p>
+          <p className="text-sm font-medium theme-label">숨김처리</p>
           <div
             className="mb-[187px] flex cursor-pointer items-center gap-1 transition-all"
             onClick={() => setIsSecret(!isSecret)}
