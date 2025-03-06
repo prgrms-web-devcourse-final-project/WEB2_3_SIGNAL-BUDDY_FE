@@ -72,7 +72,7 @@ export default function FeedbackEditPost({
   return (
     <div className="flex flex-col md:mx-auto md:w-[821px]">
       {/* 헤더 영역 */}
-      <div className="flex h-10 items-center gap-1 border-b border-gray-300">
+      <div className="flex h-10 items-center gap-1 border-b theme-line">
         <div
           className="cursor-pointer flex h-10 items-center gap-1"
           onClick={() => onCancel(router, feedbackId)}
@@ -85,12 +85,15 @@ export default function FeedbackEditPost({
       <form className="flex flex-col gap-4 pt-2" onSubmit={submitHandle}>
         {/* 제목 입력 */}
         <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="title" className="text-sm font-medium text-gray-500">
+          <Label
+            htmlFor="title"
+            className="text-sm font-medium theme-feedback-filter"
+          >
             제목
           </Label>
           <Input
             type="text"
-            className="h-12 rounded-[4px] p-4 border border-gray-300 bg-white shadow-none text-gray-500 font-medium placeholder:text-gray-400"
+            className="h-12 rounded-[4px] p-4 border theme-line theme-content-bg shadow-none text-gray-500 font-medium placeholder:text-gray-400"
             placeholder="제목을 입력해주세요."
             id="title"
             value={title}
@@ -100,15 +103,17 @@ export default function FeedbackEditPost({
 
         {/* 피드백 유형 선택 */}
         <div className="flex flex-col gap-2">
-          <p className="text-sm text-gray-500 font-medium">피드백 유형</p>
+          <p className="text-sm theme-feedback-filter font-medium">
+            피드백 유형
+          </p>
           <DropDownMenu addCategory={setFeedbackCategory} />
         </div>
 
         {/* 본문 입력 */}
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-medium text-gray-500">본문</p>
+          <p className="text-sm font-medium theme-feedback-filter">본문</p>
           <textarea
-            className="h-[409px] resize-none rounded-[4px] p-4 border border-gray-300 placeholder:text-sm placeholder:text-gray-400 text-gray-500 text-[14px]"
+            className="h-[409px] resize-none rounded-[4px] p-4 border theme-line placeholder:text-sm placeholder:text-gray-400 text-gray-500 text-[14px]"
             placeholder="내용을 입력해주세요."
             value={feedbackContent}
             onChange={(e) => setFeedbackContent(e.target.value)}
