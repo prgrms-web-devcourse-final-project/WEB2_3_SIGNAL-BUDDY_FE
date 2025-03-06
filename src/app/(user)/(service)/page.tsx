@@ -1,17 +1,38 @@
+"use client";
+
 import Image from "next/image";
 import logo from "@/public/imgs/Logo.svg";
 import Link from "next/link";
 import home_background_img from "@/public/imgs/noisy-gradients.svg";
+<<<<<<< HEAD
 import { A2HS } from "@/src/components/home/A2HS";
 import { Button } from "@/src/components/shadcn/components/ui/button";
 import InstallPrompt from "@/src/components/home/InstallPrompt";
+=======
+import home_background_img_dark from "@/public/imgs/noisy-gradients-dark.png";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
+>>>>>>> dev
 
 export default function Home() {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const bgImageSrc =
+    theme === "dark" ? home_background_img_dark.src : home_background_img.src;
   return (
     <section
       className="flex-grow-1 flex w-full justify-center rounded-[20px] py-[203px] lg:pb-[359px] lg:pt-[311px] shadow-md"
       style={{
-        backgroundImage: `url(${home_background_img.src})`,
+        backgroundImage: `url(${bgImageSrc})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
