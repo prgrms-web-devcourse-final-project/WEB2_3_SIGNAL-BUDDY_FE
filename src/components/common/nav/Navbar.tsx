@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import logo from "@/public/imgs/Logo Symbol.png";
+import logoLight from "@/public/imgs/Logo Symbol.png";
+import logoDark from "@/public/imgs/Logo Symbol White.png";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Profile from "../profile/Profile";
@@ -10,6 +11,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import { useTheme } from "next-themes";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -19,13 +21,31 @@ export default function Navbar() {
     setOpen((prev) => !prev);
   };
 
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
+
+  const logoSrc = theme === "dark" ? logoDark : logoLight;
+
   return (
     <nav className="w-full flex justify-center" aria-label="Main Navigation">
       <div className="flex w-full items-center justify-between">
         {/* 로고 영역 */}
         <div>
           <Link href="/" aria-label="Homepage">
-            <Image src={logo} alt="Signal Buddy 로고" width={85} height={31} />
+            <Image
+              src={logoSrc}
+              alt="Signal Buddy 로고"
+              width={85}
+              height={31}
+            />
           </Link>
         </div>
 
