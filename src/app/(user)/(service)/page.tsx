@@ -4,7 +4,7 @@ import Image from "next/image";
 import logo from "@/public/imgs/Logo.svg";
 import Link from "next/link";
 import home_background_img from "@/public/imgs/noisy-gradients.svg";
-import home_background_img_dark from "@/public/imgs/noisy-gradients-dark.svg";
+import home_background_img_dark from "@/public/imgs/noisy-gradients-dark.png";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 
