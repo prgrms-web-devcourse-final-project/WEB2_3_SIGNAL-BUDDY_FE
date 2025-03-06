@@ -12,3 +12,13 @@ export const join = async (body: FormData) => {
 export const refresh = async () => {
   return await client.post("/api/auth/reissue");
 };
+export const sendAuthCode = async (email: string) => {
+  return await client.post("/api/auth/auth-code", { email });
+};
+export const verifyAuthCode = async (body: {
+  purpose: string;
+  email: string;
+  code: string;
+}) => {
+  return await client.post("/api/auth/verify-code", body);
+};

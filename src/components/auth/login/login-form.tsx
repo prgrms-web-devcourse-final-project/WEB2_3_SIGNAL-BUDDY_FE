@@ -70,6 +70,8 @@ export function LoginForm() {
       }
       if (agree.length) {
         localStorage.setItem("signal-email", email);
+      } else {
+        localStorage.removeItem("signal-email");
       }
     } catch (err) {
       console.error(err);
