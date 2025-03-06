@@ -173,7 +173,7 @@ export function JoinForm() {
               src={profileFile ? URL.createObjectURL(profileFile) : undefined}
               size="3xl"
             />
-            <div className="hover:bg-grey-300 outline-grey-300 absolute bottom-0 right-0 flex aspect-square w-[26px] cursor-pointer items-center justify-center rounded-full bg-white outline outline-1 theme-content-bg theme-camera-border">
+            <div className="hover:bg-gray-300 outline-gray-300 absolute bottom-0 right-0 flex aspect-square w-[26px] cursor-pointer items-center justify-center rounded-full bg-white outline outline-1 theme-content-bg theme-camera-border">
               <CameraIcon className="aspect-square w-[18px]" />
             </div>
             <input type="file" className="hidden" onChange={handleChangeFile} />

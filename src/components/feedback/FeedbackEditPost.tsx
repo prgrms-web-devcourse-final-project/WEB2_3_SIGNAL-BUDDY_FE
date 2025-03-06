@@ -11,6 +11,8 @@ import Swal from "sweetalert2";
 import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";
 import { onCancel } from "@/src/app/api/feedback/edit/onCancelEdit";
 import { updateFeedback } from "@/src/app/api/feedback/edit/updateFeedback";
+import InputFile from "./ui/InputFile";
+import { toast } from "sonner";
 
 export default function FeedbackEditPost({
   feedbackData,
@@ -19,13 +21,17 @@ export default function FeedbackEditPost({
   feedbackData: IFeedbackListItem;
   token: string;
 }) {
-  const { feedbackId, subject, content, category, crossroad } = feedbackData;
+  const { feedbackId, subject, content, category, crossroad, imageUrl } =
+    feedbackData;
 
   const [title, setTitle] = useState<string>(subject);
   const [feedbackContent, setFeedbackContent] = useState<string>(content);
   const [feedbackCategory, setFeedbackCategory] = useState<string>(category);
   const [isSecret, setIsSecret] = useState(false);
   const [crossroadId, setCrossroadId] = useState<number>(crossroad.crossroadId);
+  const [newImageUrl, setNewImageUrl] = useState<string | File | null>(
+    imageUrl || null,
+  );
 
   const router = useRouter();
 
@@ -42,6 +48,24 @@ export default function FeedbackEditPost({
       crossroadId,
       updatedAt: new Date().toISOString(),
     };
+
+    const imageFile = {
+      newImageUrl,
+    };
+
+    if (!title || !content || !category) {
+      console.log(formData);
+      toast.error("내용을 모두 입력해주세요.");
+      return;
+    }
+    console.log("뉴 이미지", imageFile);
+
+    if (newImageUrl) {
+      formData.delete("imageFile");
+      formData.append("imageFile", newImageUrl);
+    } else {
+      formData.delete("imageFile");
+    }
 
     formData.append(
       "request",
@@ -126,6 +150,11 @@ export default function FeedbackEditPost({
             addCrossRoad={setCrossroadId}
             crossroadId={crossroadId}
           />
+        </div>
+
+        {/* 이미지 입력 */}
+        <div className="flex flex-col gap-2">
+          <InputFile setImageUrl={setNewImageUrl} newImageUrl={newImageUrl} />
         </div>
 
         {/* 숨김처리 여부 */}

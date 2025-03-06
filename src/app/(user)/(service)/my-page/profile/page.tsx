@@ -134,7 +134,7 @@ export default async function Page() {
                     </p>
                   </div>
                 </div>
-                <div className="outline-grey-300 flex h-6 w-6 items-center justify-center rounded-full outline outline-1">
+                <div className="outline-gray-300 flex h-6 w-6 items-center justify-center rounded-full outline outline-1">
                   <StarIcon />
                 </div>
               </div>

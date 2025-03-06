@@ -36,6 +36,7 @@ export default async function Page({
   }
 
   const feedbackData = res?.data;
+  console.log("이미지: ", feedbackData?.imageUrl);
 
   return (
     <div className="">
@@ -83,6 +84,19 @@ export default async function Page({
               </div>
               {/* 본문 메인 */}
               <div className="mt-4">
+                {/* 이미지 영역 */}
+                {feedbackData?.imageUrl && (
+                  <div className="flex justify-center">
+                    <div className="w-full max-w-[393px] h-[400px] relative">
+                      <Image
+                        src={feedbackData?.imageUrl}
+                        alt="게시물 이미지 영역입니다."
+                        fill
+                        className="object-contain rounded-lg"
+                      />
+                    </div>
+                  </div>
+                )}
                 <h1 className="mb-2 text-lg font-bold theme-feedback-subject">
                   {feedbackData?.subject}
                 </h1>

@@ -65,7 +65,7 @@ export default function FeedbackSearchbar() {
       <form onSubmit={handleSubmit} className="flex items-center gap-1">
         <input
           type="text"
-          className="border-1 h-10 w-[264px] rounded-[8px] border theme-line theme-content-bg p-3 text-sm font-medium text-grey-500"
+          className="border-1 h-10 w-[264px] rounded-[8px] border theme-line theme-content-bg p-3 text-sm font-medium text-gray-500"
           placeholder="검색어를 입력해주세요."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
