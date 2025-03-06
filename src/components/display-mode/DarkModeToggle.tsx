@@ -1,33 +1,48 @@
 "use client";
-import { useState, useEffect } from "react";
 
-export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
+import * as React from "react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+} from "@/components/ui/dropdown-menu";
+import { useTheme } from "next-themes";
+import { ArrowDownIcon } from "../utils/icons";
 
-  useEffect(() => {
-    // 초기 로드 시 localStorage 등에서 저장된 모드 확인 가능
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    }
+export function DropdownThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
   }, []);
 
-  const toggleTheme = () => {
-    if (isDark) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-      setIsDark(false);
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-      setIsDark(true);
-    }
+  if (!mounted) return null;
+
+  const handleChange = (value: string) => {
+    setTheme(value);
   };
 
   return (
-    <button onClick={toggleTheme}>
-      {isDark ? "Switch to Light Mode" : "Switch to Dark Mode"}
-    </button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button
+          variant="outline"
+          className="border-none theme-bg shadow-none pr-0 hover:theme-bg"
+        >
+          {theme}
+          <ArrowDownIcon className="w-4 text-gray-500" />
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-5">
+        <DropdownMenuRadioGroup value={theme} onValueChange={handleChange}>
+          <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

@@ -184,9 +184,6 @@ export default {
           "@apply bg-grey-300 text-grey-600 dark:bg-grey-800 dark:text-grey-300":
             "",
         },
-        ".theme-feedback-nav": {
-          "@apply text-grey-700 dark:text-grey-900": "",
-        },
         ".theme-edit-icon": {
           "@apply text-grey-500 dark:text-grey-400": "",
         },
@@ -269,7 +266,10 @@ export default {
           "@apply text-grey-500 dark:text-grey-300": "",
         },
         ".theme-header-text": {
-          "@apply text-grey-700 dark:text-grey-300": "",
+          "@apply text-grey-700 dark:text-grey-200": "",
+        },
+        ".theme-hover": {
+          "@apply bg-grey-200 dark:bg-grey-300 dark:text-grey-950": "",
         },
       });
     },

@@ -297,7 +297,7 @@ export default function MapSearch({ map, location }: Props) {
                   <div
                     key={item.id}
                     onClick={() => handleClickItem(item)}
-                    className="theme-content-bg py-3 md:py-4 rounded-md cursor-pointer hover:bg-gray-200 transition-all font-semibold"
+                    className="theme-content-bg py-3 md:py-4 rounded-md cursor-pointer hover:theme-hover transition-all font-semibold"
                   >
                     {item.name}
                   </div>

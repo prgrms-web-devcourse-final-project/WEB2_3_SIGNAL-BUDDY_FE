@@ -76,7 +76,11 @@ function MyPlaceItem({
             <div className="bg-grey-500 w-[50px] h-[50px] rounded-lg"></div>
           </div>
           <div className="ml-5" {...(dragHandleProps || {})}>
-            <Image src={twoLineHamburger} alt="순서 바꾸기 아이콘" />
+            <Image
+              src={twoLineHamburger}
+              alt="순서 바꾸기 아이콘"
+              className="dark:invert"
+            />
           </div>
         </div>
       </div>

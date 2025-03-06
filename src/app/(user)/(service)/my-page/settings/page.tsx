@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import LogoutButton from "@/src/components/auth/logout/LogoutButton";
-import DarkModeToggle from "@/src/components/display-mode/DarkModeToggle";
+import { DropdownThemeToggle } from "@/src/components/display-mode/DarkModeToggle";
 import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { clickPushHandler } from "@/src/firebase/firebase";
 import { signOutWithForm } from "@/src/services/auth.server.service";
@@ -36,7 +36,7 @@ export default function Page() {
           </div>
           <div className="theme-category-title flex h-[60px] items-center justify-between font-extrabold">
             <p>디스플레이 모드</p>
-            <DarkModeToggle />
+            <DropdownThemeToggle />
             {/* <div>드롭박스</div> */}
           </div>
         </section>

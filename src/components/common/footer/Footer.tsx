@@ -19,7 +19,7 @@ export default function Footer() {
           Footer Navigation
         </h2>
 
-        <div className="sm:border-grey-300 flex h-[128px] justify-between sm:border-b">
+        <div className="sm:theme-line flex h-[128px] justify-between sm:border-b">
           {/* 로고 및 슬로건 */}
           <div className="mb-3 flex w-full flex-col items-center gap-[14px] pt-[21px] sm:mb-0 sm:items-start">
             <Link

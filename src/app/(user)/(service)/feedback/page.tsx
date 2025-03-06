@@ -32,7 +32,7 @@ export default async function Page({
 
         {/* 네비게이션 */}
         <div className="theme-line flex h-10 w-full items-center justify-between border-b text-sm font-extrabold">
-          <p className="theme-feedback-nav">{`홈 > 피드백 게시판`}</p>
+          <p className="theme-header-text">{`홈 > 피드백 게시판`}</p>
           <Link href={`/feedback/write`}>
             <EditIcon className="theme-edit-icon" />
           </Link>

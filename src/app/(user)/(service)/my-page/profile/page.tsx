@@ -103,7 +103,7 @@ export default async function Page() {
             ))}
           </ul>
         </section>
-        <section className="rounded-[8px] theme-bg px-2 pb-4 pt-3">
+        <section className="rounded-[8px] theme-content-bg px-2 pb-4 pt-3">
           <h2 className="theme-feedback-filter-category mb-2 text-xs font-semibold">
             최근 경로
           </h2>
