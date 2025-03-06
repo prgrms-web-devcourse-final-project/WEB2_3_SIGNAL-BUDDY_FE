@@ -76,8 +76,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           socialUserId: account.providerAccountId,
         };
         console.log(body);
-        // const res = await server.post("/api/auth/social-login", body);
-        // console.log(res);
+        const res = await server.post("/api/auth/social-login", body);
+        console.log(res);
         const params = new URLSearchParams();
         params.set("provider", account.provider);
         params.set("id", account.providerAccountId);
