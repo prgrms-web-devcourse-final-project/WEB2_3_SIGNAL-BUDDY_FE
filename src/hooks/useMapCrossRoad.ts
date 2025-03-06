@@ -1,18 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { TMap, TMapCluster, TMapLatLng, TMapMarker } from "../types";
-
-export type CrossRoadType = {
-  crossroadId: number;
-  crossroadApiId: string;
-  name: string;
-  lat: number;
-  lng: number;
-  status: string;
-};
+import {
+  CrossRoadStateType,
+  CrossRoadType,
+  TMap,
+  TMapCluster,
+  TMapLatLng,
+  TMapMarker,
+} from "../types";
+import { getCrossroadState } from "../services/crossroad.service";
+import { toast } from "sonner";
+import axios from "axios";
 
 export default function useMapCrossRoad(map: TMap | null) {
   const ws = useRef<WebSocket | null>(null);
   const mapRef = useRef<TMap | null>(map);
+  const target = useRef<CrossRoadStateType | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [center, setCenter] = useState<TMapLatLng>(
@@ -40,11 +42,17 @@ export default function useMapCrossRoad(map: TMap | null) {
     if (!Tmapv2 || !currentMap) return null;
 
     const marker = new Tmapv2.Marker({
-      id: cross.crossroadApiId,
+      id: String(cross.crossroadId),
       position: new Tmapv2.LatLng(cross.lat, cross.lng),
       map: currentMap,
       title: cross.name,
       icon: "/imgs/cross-marker.png",
+    });
+    marker.addListener("click", async () => {
+      handleClickItem(cross);
+    });
+    marker.addListener("touchend", async () => {
+      handleClickItem(cross);
     });
     return marker;
   };
@@ -57,8 +65,35 @@ export default function useMapCrossRoad(map: TMap | null) {
       markers,
       map: currentMap,
     });
-    console.log(markerCluster);
     setCrossCluster(markerCluster);
+  };
+
+  const handleClickItem = async (cross: CrossRoadType) => {
+    try {
+      const { Tmapv2 } = window;
+      const currentMap = mapRef.current;
+      if (!Tmapv2 || !currentMap) return null;
+      if (target) target.current = null;
+      currentMap.setCenter(new Tmapv2.LatLng(cross.lat, cross.lng));
+      currentMap.setZoom(19);
+      const res = await getCrossroadState(cross.crossroadId);
+      const data = res.data;
+      if (data.status === "성공" && data.data) {
+        console.log(data.data);
+        target.current = data.data;
+      } else if (data.code && data.message) {
+        toast(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      if (axios.isAxiosError(err) && err.response) {
+        toast(err.response.data.message);
+      }
+    }
+  };
+
+  const removeCrossStateTarget = () => {
+    target.current = null;
   };
 
   useEffect(() => {
@@ -79,7 +114,7 @@ export default function useMapCrossRoad(map: TMap | null) {
         lng: center._lng,
         radius: getRadiusByZoom(mapRef.current.getZoom()),
       });
-      ws.current?.send(payload);
+      sendMessage(payload);
     };
 
     ws.current.onmessage = (event) => {
@@ -111,8 +146,24 @@ export default function useMapCrossRoad(map: TMap | null) {
     };
   }, []);
 
+  const sendMessage = (payload: string) => {
+    if (ws.current?.readyState === WebSocket.OPEN) {
+      ws.current.send(payload);
+    } else if (ws.current?.readyState === WebSocket.CONNECTING) {
+      ws.current.addEventListener(
+        "open",
+        () => {
+          ws.current?.send(payload);
+        },
+        { once: true },
+      );
+    } else {
+      console.error("WebSocket is not open or connecting.");
+    }
+  };
+
   useEffect(() => {
-    if (!mapRef.current || ws.current?.readyState !== WebSocket.OPEN) return;
+    if (!mapRef.current) return;
 
     const zoom = mapRef.current.getZoom();
     const radius = getRadiusByZoom(zoom);
@@ -123,7 +174,7 @@ export default function useMapCrossRoad(map: TMap | null) {
       radius,
     });
 
-    ws.current.send(payload);
+    sendMessage(payload);
   }, [center, map]);
 
   useEffect(() => {
@@ -142,5 +193,5 @@ export default function useMapCrossRoad(map: TMap | null) {
     };
   }, [map]);
 
-  return { isLoading };
+  return { isLoading, target, removeCrossStateTarget };
 }
