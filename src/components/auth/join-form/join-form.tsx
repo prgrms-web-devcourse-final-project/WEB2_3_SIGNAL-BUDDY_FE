@@ -22,6 +22,7 @@ import { join } from "@/src/services/auth.service";
 import { useRouter, useSearchParams } from "next/navigation";
 import { PasswordInput } from "../password-input";
 import Profile from "../../common/profile/Profile";
+import axios from "axios";
 
 const formSchema = z
   .object({
@@ -113,7 +114,12 @@ export function JoinForm() {
     const { email, password, nickname } = values;
     try {
       setLoading(true);
-      const body = { email, password, nickname };
+      const body = { email, password, nickname } as { [key: string]: string };
+      if (provider && id) {
+        body.provider = provider;
+        body.socialUserId = id;
+      }
+
       const formData = new FormData();
       formData.append(
         "memberJoinRequest",
@@ -132,6 +138,9 @@ export function JoinForm() {
       }
     } catch (err: unknown) {
       console.error(err);
+      if (axios.isAxiosError(err) && err.response) {
+        toast(err.response.data.message);
+      }
     } finally {
       setLoading(false);
     }

@@ -165,7 +165,7 @@ export type TMap = {
   setMapType: (type: number) => void;
   _data: { mapType: 1 | 4 | 5 };
 };
-type EventType = "click" | "touchend";
+type EventType = "click" | "touchend" | "dragend" | "zoom_changed";
 
 export type TMapEvent = {
   latLng: TMapLatLng;
