@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { sendAuthCode, verifyAuthCode } from "@/src/services/auth.service";
 import { toast } from "sonner";
 import axios from "axios";
+import dayjs from "dayjs";
 
 export function ResetPasswordVerification() {
   const router = useRouter();
@@ -41,7 +42,6 @@ export function ResetPasswordVerification() {
   const handleOtpSubmit = async (enteredOtp: string) => {
     try {
       setLoading(true);
-      console.log("OTP 제출:", enteredOtp);
       if (!email) return toast("이메일이 유효하지 않습니다.");
       const body = {
         purpose: "NEW_PASSWORD",
@@ -50,7 +50,6 @@ export function ResetPasswordVerification() {
       };
       const res = await verifyAuthCode(body);
       const data = res.data;
-      console.log(data);
       if (data) {
         toast("인증에 성공했습니다.");
         setVerified(true);
@@ -67,7 +66,12 @@ export function ResetPasswordVerification() {
 
   const handleNext = () => {
     // OTP 인증 성공 후 이동하도록 수정하기
-    router.push("/reset-password/reset");
+    if (!email) return toast("이메일이 유효하지 않습니다.");
+    const params = new URLSearchParams();
+    params.set("email", email);
+    const now = dayjs().format("YYYY-MM-DDTHH:mm:ss");
+    params.set("date", now);
+    router.push(`/reset-password/reset?${params.toString()}`);
   };
 
   return (

@@ -22,3 +22,7 @@ export const verifyAuthCode = async (body: {
 }) => {
   return await client.post("/api/auth/verify-code", body);
 };
+
+export const resetPW = async (body: { email: string; newPassword: string }) => {
+  return await client.post("/api/members/password-reset", body);
+};

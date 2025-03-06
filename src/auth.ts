@@ -50,7 +50,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new InvalidLoginError();
         }
         const user = response.data;
-
         const tokens = tokenConvert(response);
         return { ...user.data, ...tokens };
       },
