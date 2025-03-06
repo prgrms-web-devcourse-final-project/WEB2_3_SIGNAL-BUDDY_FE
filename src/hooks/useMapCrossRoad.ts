@@ -14,7 +14,7 @@ import axios from "axios";
 export default function useMapCrossRoad(map: TMap | null) {
   const ws = useRef<WebSocket | null>(null);
   const mapRef = useRef<TMap | null>(map);
-  const target = useRef<CrossRoadStateType | null>(null);
+  const [target, setTarget] = useState<CrossRoadStateType | null>(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [center, setCenter] = useState<TMapLatLng>(
@@ -73,14 +73,14 @@ export default function useMapCrossRoad(map: TMap | null) {
       const { Tmapv2 } = window;
       const currentMap = mapRef.current;
       if (!Tmapv2 || !currentMap) return null;
-      if (target) target.current = null;
+      if (target) setTarget(null);
       currentMap.setCenter(new Tmapv2.LatLng(cross.lat, cross.lng));
       currentMap.setZoom(19);
       const res = await getCrossroadState(cross.crossroadId);
       const data = res.data;
       if (data.status === "성공" && data.data) {
         console.log(data.data);
-        target.current = data.data;
+        setTarget(data.data);
       } else if (data.code && data.message) {
         toast(data.message);
       }
@@ -90,10 +90,6 @@ export default function useMapCrossRoad(map: TMap | null) {
         toast(err.response.data.message);
       }
     }
-  };
-
-  const removeCrossStateTarget = () => {
-    target.current = null;
   };
 
   useEffect(() => {
@@ -193,5 +189,5 @@ export default function useMapCrossRoad(map: TMap | null) {
     };
   }, [map]);
 
-  return { isLoading, target, removeCrossStateTarget };
+  return { isLoading, target };
 }

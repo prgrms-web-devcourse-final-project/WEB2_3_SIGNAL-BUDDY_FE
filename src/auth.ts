@@ -6,10 +6,30 @@ import Credentials from "next-auth/providers/credentials";
 import { login } from "./services/auth.service";
 import { cookies } from "next/headers";
 import server from "./lib/api/server";
+import { AxiosResponse } from "axios";
 
 class InvalidLoginError extends CredentialsSignin {
   code = "사용자를 찾을 수 없습니다.";
 }
+
+const tokenConvert = async (response: AxiosResponse) => {
+  const token = response.headers["authorization"];
+  const resCookies = response.headers["set-cookie"];
+  const refreshToken = resCookies ? resCookies[0] : "";
+  const cookieStore = await cookies();
+  const match = refreshToken.match(/refresh-token=([^;]+)/);
+  cookieStore.set({
+    name: "refresh-token",
+    value: match ? decodeURIComponent(match[1]) : refreshToken,
+    path: "/",
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 60 * 60 * 24 * 7,
+  });
+
+  return { token, refreshToken };
+};
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -29,23 +49,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (response.status === 404) {
           throw new InvalidLoginError();
         }
-
-        const token = response.headers["authorization"];
-        const resCookies = response.headers["set-cookie"];
         const user = response.data;
-        const refreshToken = resCookies ? resCookies[0] : "";
-        const cookieStore = await cookies();
-        const match = refreshToken.match(/refresh-token=([^;]+)/);
-        cookieStore.set({
-          name: "refresh-token",
-          value: match ? decodeURIComponent(match[1]) : refreshToken,
-          path: "/",
-          httpOnly: true,
-          secure: true,
-          sameSite: "none",
-          maxAge: 60 * 60 * 24 * 7,
-        });
-        return { ...user.data, token, refreshToken };
+
+        const tokens = tokenConvert(response);
+        return { ...user.data, ...tokens };
       },
     }),
     Kakao({
@@ -69,42 +76,55 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    signIn: async ({ account, profile }) => {
+    signIn: async ({ account, profile, user }) => {
       if (account && account.provider !== "credentials" && profile) {
         const body = {
           provider: account.provider,
           socialUserId: account.providerAccountId,
         };
-        console.log(body);
         const res = await server.post("/api/auth/social-login", body);
-        console.log(res);
-        const params = new URLSearchParams();
-        params.set("provider", account.provider);
-        params.set("id", account.providerAccountId);
-        if (account.provider === "naver") {
-          if (profile.response.nickname)
-            params.set("nickname", profile.response.nickname);
-          if (profile.response.email)
-            params.set("email", profile.response.email);
-        }
-        if (account.provider === "kakao") {
-          if (profile.kakao_account.profile.nickname)
-            params.set("nickname", profile.kakao_account.profile.nickname);
-          if (profile.kakao_account.email)
-            params.set("email", profile.kakao_account.email);
-        }
-        if (account.provider === "google") {
-          if (profile.name) params.set("nickname", profile.name);
-          if (profile.email) params.set("email", profile.email);
-        }
+        const data = res.data;
+        console.log("social login", data.data);
+        if (data.status === "성공") {
+          const { token, refreshToken } = await tokenConvert(res);
+          user.memberId = data.data.memberId;
+          user.nickname = data.data.nickname;
+          user.profileImageUrl = data.data.profileImageUrl;
+          user.email = data.data.email;
+          user.role = data.data.role;
+          user.token = token;
+          user.refreshToken = refreshToken;
 
-        return `/join?${params.toString()}`;
+          return true;
+        } else {
+          const params = new URLSearchParams();
+          params.set("provider", account.provider);
+          params.set("id", account.providerAccountId);
+          if (account.provider === "naver") {
+            if (profile.response.nickname)
+              params.set("nickname", profile.response.nickname);
+            if (profile.response.email)
+              params.set("email", profile.response.email);
+          }
+          if (account.provider === "kakao") {
+            if (profile.kakao_account.profile.nickname)
+              params.set("nickname", profile.kakao_account.profile.nickname);
+            if (profile.kakao_account.email)
+              params.set("email", profile.kakao_account.email);
+          }
+          if (account.provider === "google") {
+            if (profile.name) params.set("nickname", profile.name);
+            if (profile.email) params.set("email", profile.email);
+          }
+
+          return `/join?${params.toString()}`;
+        }
       }
       return true;
     },
-    jwt: async ({ token, user, account, trigger, session }) => {
+    jwt: async ({ token, user, trigger, session }) => {
       console.log("token", token);
-      console.log("account", account);
+      console.log("user", user);
       if (user) {
         token = { ...token, ...user };
       }
