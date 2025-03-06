@@ -84,7 +84,6 @@ export default async function Page({
               </div>
               {/* 본문 메인 */}
               <div className="mt-4">
-<<<<<<< HEAD
                 {/* 이미지 영역 */}
                 {feedbackData?.imageUrl && (
                   <div className="flex justify-center">
@@ -98,10 +97,7 @@ export default async function Page({
                     </div>
                   </div>
                 )}
-                <h1 className="mb-2 text-lg font-bold text-gray-950">
-=======
                 <h1 className="mb-2 text-lg font-bold theme-feedback-subject">
->>>>>>> dev
                   {feedbackData?.subject}
                 </h1>
                 <p className="mb-4 text-xs font-medium theme-date-text">

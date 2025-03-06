@@ -3,11 +3,8 @@
 import { Button } from "@/components/ui/button";
 
 import LogoutButton from "@/src/components/auth/logout/LogoutButton";
-<<<<<<< HEAD
 import { Switch } from "@/src/components/shadcn/components/ui/switch";
-=======
 import { DropdownThemeToggle } from "@/src/components/display-mode/DarkModeToggle";
->>>>>>> dev
 import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { clickPushHandler } from "@/src/firebase/firebase";
 import { signOutWithForm } from "@/src/services/auth.server.service";
@@ -57,7 +54,7 @@ export default function Page() {
         </section>
         <LogoutButton />
         <div className="flex justify-center">
-          <button className="text-grey-500 mt-[222px] text-xs font-medium hover:text-red">
+          <button className="text-gray-500 mt-[222px] text-xs font-medium hover:text-red">
             회원탈퇴
           </button>
         </div>
