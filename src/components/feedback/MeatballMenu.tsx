@@ -51,11 +51,15 @@ export default function MeatballMenu({
         throw new Error(errorData.message || "피드백 삭제에 실패했습니다.");
       }
 
+      router.push("/feedback");
       toast.success("게시물이 삭제되었습니다.");
+
       return true;
     } catch (error) {
+      router.push(`/feedback/${feedbackId}`);
+      toast.error("게시물 삭제에 실패했습니다.");
       console.error("❌ deleteFeedback Error:", error);
-      throw error; // 에러를 호출한 곳에서 처리할 수 있도록 던지기
+      throw error;
     }
   };
 
@@ -66,8 +70,10 @@ export default function MeatballMenu({
     }
 
     Swal.fire({
+      
       title: "정말 게시물을 삭제하시겠습니까?",
       text: "삭제시 다시 복구시킬 수 없습니다.",
+      focusConfirm: false, 
       showCancelButton: true,
       confirmButtonColor: "#FF6156",
       cancelButtonColor: "#64748B",
@@ -76,13 +82,13 @@ export default function MeatballMenu({
     }).then((result) => {
       if (result.isConfirmed) {
         deleteFeedback(feedbackId, token);
-        setTimeout(() => router.push("/feedback"), 1000);
+        // setTimeout(() => router.push("/feedback"), 1000);
         // Swal.fire({
         //   title: "삭제 완료!",
         //   text: "게시물이 성공적으로 삭제되었습니다.",
         //   icon: "success",
         // });
-        router.refresh();
+        // router.refresh();
       }
     });
   };
