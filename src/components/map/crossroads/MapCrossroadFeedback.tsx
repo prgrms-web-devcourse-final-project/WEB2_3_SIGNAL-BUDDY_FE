@@ -1,6 +1,5 @@
 import { getFeedbackList } from "@/src/services/feedback.service";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import FeedbackList from "../../feedback/FeedbackList";
 
 type Props = {
@@ -26,9 +25,6 @@ export default function MapCrossroadFeedback({ crossroadId }: Props) {
     queryFn: (q) => handleGetList(q.queryKey[1] as number),
   });
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
   return (
     <>
       {isLoading ? (

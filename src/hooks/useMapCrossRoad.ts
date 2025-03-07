@@ -3,7 +3,6 @@ import {
   CrossRoadStateType,
   CrossRoadType,
   TMap,
-  TMapCluster,
   TMapLatLng,
   TMapMarker,
 } from "../types";
@@ -16,31 +15,7 @@ export default function useMapCrossRoad(map: TMap | null) {
   const mapRef = useRef<TMap | null>(map);
   const [target, setTarget] = useState<
     (CrossRoadType & CrossRoadStateType) | null
-  >({
-    crossroadId: 15,
-    crossroadApiId: "1042",
-    name: "롯데백화점관악",
-    lat: 37.4898846,
-    lng: 126.9253618,
-    status: "FALSE",
-    transTimestamp: 1741311963827,
-    northTimeLeft: null,
-    eastTimeLeft: 66,
-    southTimeLeft: null,
-    westTimeLeft: null,
-    northeastTimeLeft: null,
-    northwestTimeLeft: null,
-    southwestTimeLeft: null,
-    southeastTimeLeft: null,
-    northState: null,
-    eastState: "RED",
-    westState: null,
-    southState: null,
-    northeastState: null,
-    northwestState: null,
-    southeastState: null,
-    southwestState: null,
-  });
+  >(null);
 
   const [isLoading, setIsLoading] = useState(true);
   const [center, setCenter] = useState<TMapLatLng>(
