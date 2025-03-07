@@ -18,16 +18,6 @@ import Profile from "@/src/components/common/profile/Profile";
 const activities = [
   {
     href: "/my-page/my-postits",
-    icon: myPostit,
-    label: "내가 작성한 포스트잇",
-  },
-  {
-    href: "/my-page/my-postits",
-    icon: likedPostit,
-    label: "내가 좋아한 포스트잇",
-  },
-  {
-    href: "/my-page/my-postits",
     icon: myFeedback,
     label: "내가 작성한 피드백",
   },
