@@ -165,7 +165,7 @@ export function JoinForm() {
           </p>
         </div>
         <div className="flex flex-col items-center mt-8">
-          <p className="self-start text-xs font-medium theme-label-dark">
+          <p className="self-start text-xs font-medium theme-label">
             프로필 이미지
           </p>
           <label className="relative aspect-square w-[100px] cursor-pointer">
@@ -173,7 +173,7 @@ export function JoinForm() {
               src={profileFile ? URL.createObjectURL(profileFile) : undefined}
               size="3xl"
             />
-            <div className="hover:bg-gray-300 outline-gray-300 absolute bottom-0 right-0 flex aspect-square w-[26px] cursor-pointer items-center justify-center rounded-full bg-white outline outline-1 theme-content-bg theme-camera-border">
+            <div className="hover:bg-gray-300 absolute bottom-0 right-0 flex aspect-square w-[26px] cursor-pointer items-center justify-center rounded-full outline outline-1 theme-content-bg theme-camera-border">
               <CameraIcon className="aspect-square w-[18px]" />
             </div>
             <input type="file" className="hidden" onChange={handleChangeFile} />
@@ -185,13 +185,11 @@ export function JoinForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-xs theme-label-dark ">
-                  이메일
-                </FormLabel>
+                <FormLabel className="text-xs theme-label">이메일</FormLabel>
                 <FormControl>
                   <Input
                     placeholder="이메일을 입력해 주세요."
-                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border border-gray-300 theme-line theme-content-bg"
+                    className="h-12 pl-3 placeholder:text-gray-400 placeholder:text-sm mt-2 rounded-lg border theme-line theme-content-bg"
                     disabled={!!email}
                     {...field}
                   />

@@ -258,7 +258,7 @@ export default function MapDirection({ map, location }: Props) {
             <div className="hidden md:flex justify-between gap-5 items-center">
               <Button
                 onClick={handleClickSpeech}
-                className="rounded-3xl"
+                className="rounded-3xl theme-map-deraction-speaker-buttton"
                 variant={"outline"}
               >
                 <SpeakerWaveIcon />
@@ -369,9 +369,9 @@ export default function MapDirection({ map, location }: Props) {
                     <div className="flex-grow flex flex-col gap-2 overflow-y-auto">
                       <div
                         onClick={handleSelectRoute}
-                        className="w-full bg-white rounded-md py-3 px-2 cursor-pointer hover:opacity-70 transition-all"
+                        className="w-full theme-map-deraction-search-result-box rounded-md py-3 px-2 cursor-pointer hover:opacity-70 transition-all"
                       >
-                        <span className="text-xs text-gray-500 font-semibold mb-2">
+                        <span className="text-xs theme-map-deraction-search-result-label font-semibold mb-2">
                           도보 경로
                         </span>
                         <h2 className="text-xl font-extrabold mb-1">
@@ -381,7 +381,7 @@ export default function MapDirection({ map, location }: Props) {
                               )
                             : "0"}
                         </h2>
-                        <div className="text-sm text-gray-600 font-medium mb-1">
+                        <div className="text-sm theme-map-deraction-search-result-time font-medium mb-1">
                           {formatFutureTime(
                             "totalTime" in routeFeatures[0].properties
                               ? routeFeatures[0].properties.totalTime || 0
@@ -389,7 +389,7 @@ export default function MapDirection({ map, location }: Props) {
                           )}{" "}
                           도착
                         </div>
-                        <div className="text-xs text-gray-500">
+                        <div className="text-xs theme-map-deraction-search-result-km">
                           {formatDistance(
                             "totalDistance" in routeFeatures[0].properties
                               ? routeFeatures[0].properties.totalDistance || 0

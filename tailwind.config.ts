@@ -280,6 +280,33 @@ export default {
         ".theme-my-page-setting-icon": {
           "@apply text-gray-700 dark:text-gray-300": "",
         },
+        ".theme-my-page-arrow-right-icon": {
+          "@apply text-gray-700 dark:text-gray-300": "",
+        },
+        ".theme-my-page-arrow-left-icon": {
+          "@apply text-gray-700 dark:text-gray-300": "",
+        },
+        ".theme-my-page-setting-toggle": {
+          "@apply bg-background dark:text-gray-300": "",
+        },
+        ".theme-map-deraction-search-result-box": {
+          "@apply bg-white dark:bg-gray-800": "",
+        },
+        ".theme-map-deraction-search-result-label": {
+          "@apply text-gray-500 dark:text-gray-400": "",
+        },
+        ".theme-map-deraction-search-result-time": {
+          "@apply text-gray-600 dark:text-gray-300": "",
+        },
+        ".theme-map-deraction-search-result-km": {
+          "@apply text-gray-500 dark:text-gray-400": "",
+        },
+        ".theme-map-deraction-speaker-buttton": {
+          "@apply dark:bg-gray-600": "",
+        },
+        ".theme-map-deraction-guide-box": {
+          "@apply bg-white dark:bg-gray-800": "",
+        },
       });
     },
   ],

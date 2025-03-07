@@ -21,20 +21,18 @@ export default function Page() {
         <section className="flex flex-col gap-2">
           <div className="theme-line flex h-10 items-center gap-2 border-b">
             <Link href="/my-page/profile">
-              <ArrowLeftIcon />
+              <span className="theme-my-page-arrow-left-icon">
+                <ArrowLeftIcon />
+              </span>
             </Link>
             <h1 className="theme-my-profile text-sm font-extrabold">설정</h1>
           </div>
         </section>
         <section>
           <div className="theme-category-title flex h-[60px] items-center justify-between font-extrabold">
-            <p>글자 크기</p>
-            <div>드롭박스</div>
-          </div>
-          <div className="theme-category-title flex h-[60px] items-center justify-between font-extrabold">
             <p>음성 안내</p>
             <div className="flex items-center space-x-2">
-              <Switch id="airplane-mode" />
+              <Switch id="airplane-mode" className="" />
             </div>
           </div>
           <div className="theme-category-title flex h-[60px] items-center justify-between font-extrabold">
