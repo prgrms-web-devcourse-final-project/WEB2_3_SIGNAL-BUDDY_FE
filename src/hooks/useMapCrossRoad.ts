@@ -14,7 +14,33 @@ import axios from "axios";
 export default function useMapCrossRoad(map: TMap | null) {
   const ws = useRef<WebSocket | null>(null);
   const mapRef = useRef<TMap | null>(map);
-  const [target, setTarget] = useState<CrossRoadStateType | null>(null);
+  const [target, setTarget] = useState<
+    (CrossRoadType & CrossRoadStateType) | null
+  >({
+    crossroadId: 15,
+    crossroadApiId: "1042",
+    name: "롯데백화점관악",
+    lat: 37.4898846,
+    lng: 126.9253618,
+    status: "FALSE",
+    transTimestamp: 1741311963827,
+    northTimeLeft: null,
+    eastTimeLeft: 66,
+    southTimeLeft: null,
+    westTimeLeft: null,
+    northeastTimeLeft: null,
+    northwestTimeLeft: null,
+    southwestTimeLeft: null,
+    southeastTimeLeft: null,
+    northState: null,
+    eastState: "RED",
+    westState: null,
+    southState: null,
+    northeastState: null,
+    northwestState: null,
+    southeastState: null,
+    southwestState: null,
+  });
 
   const [isLoading, setIsLoading] = useState(true);
   const [center, setCenter] = useState<TMapLatLng>(
@@ -24,7 +50,10 @@ export default function useMapCrossRoad(map: TMap | null) {
   );
 
   const [crossRoadMarkers, setCrossRoadMarkers] = useState<TMapMarker[]>([]);
-  const [crossCluster, setCrossCluster] = useState<TMapCluster | null>(null);
+
+  const removeTarget = () => {
+    setTarget(null);
+  };
 
   const getRadiusByZoom = (zoom: number): number => {
     if (zoom >= 19) return 400;
@@ -57,17 +86,6 @@ export default function useMapCrossRoad(map: TMap | null) {
     return marker;
   };
 
-  const addCluster = (markers: TMapMarker[]) => {
-    const { Tmapv2 } = window;
-    const currentMap = mapRef.current;
-    if (!Tmapv2 || !currentMap) return null;
-    const markerCluster = new Tmapv2.extension.MarkerCluster({
-      markers,
-      map: currentMap,
-    });
-    setCrossCluster(markerCluster);
-  };
-
   const handleClickItem = async (cross: CrossRoadType) => {
     try {
       const { Tmapv2 } = window;
@@ -79,8 +97,25 @@ export default function useMapCrossRoad(map: TMap | null) {
       const res = await getCrossroadState(cross.crossroadId);
       const data = res.data;
       if (data.status === "성공" && data.data) {
+        setTarget({ ...cross, ...data.data });
+      } else if (data.code && data.message) {
+        toast(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+      if (axios.isAxiosError(err) && err.response) {
+        toast(err.response.data.message);
+      }
+    }
+  };
+
+  const refreshState = async (target: CrossRoadType & CrossRoadStateType) => {
+    try {
+      const res = await getCrossroadState(target.crossroadId);
+      const data = res.data;
+      if (data.status === "성공" && data.data) {
         console.log(data.data);
-        setTarget(data.data);
+        setTarget((prev) => ({ ...prev, ...data.data }));
       } else if (data.code && data.message) {
         toast(data.message);
       }
@@ -118,7 +153,6 @@ export default function useMapCrossRoad(map: TMap | null) {
       const data = responseData.data;
 
       crossRoadMarkers.forEach((marker) => marker.setMap(null));
-      if (crossCluster) crossCluster.setMap(null);
 
       const newMarkers = data
         .map((cross: CrossRoadType) => addTargetMarker(cross))
@@ -127,7 +161,6 @@ export default function useMapCrossRoad(map: TMap | null) {
         );
 
       setCrossRoadMarkers(newMarkers);
-      addCluster(newMarkers);
     };
 
     ws.current.onerror = () => console.log("WebSocket Error");
@@ -189,5 +222,5 @@ export default function useMapCrossRoad(map: TMap | null) {
     };
   }, [map]);
 
-  return { isLoading, target };
+  return { isLoading, target, removeTarget, refreshState };
 }
