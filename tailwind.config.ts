@@ -220,8 +220,8 @@ export default {
         ".theme-feedback-filter-search-button": {
           "@apply bg-gray-800 dark:bg-gray-400": "",
         },
-        ".theme-my-profile": {
-          "@apply text-gray-700 dark:text-gray-300": "",
+        ".theme-my-page-title": {
+          "@apply text-gray-700 dark:text-gray-200": "",
         },
         ".theme-my-profile-name": {
           "@apply text-gray-700 dark:text-gray-200": "",
@@ -270,6 +270,15 @@ export default {
         },
         ".theme-hover": {
           "@apply bg-gray-200 dark:bg-gray-300 dark:text-gray-950": "",
+        },
+        ".theme-a2h2-title": {
+          "@apply text-gray-800 dark:text-gray-100": "",
+        },
+        ".theme-a2h2-content": {
+          "@apply text-gray-600 dark:text-gray-400": "",
+        },
+        ".theme-my-page-setting-icon": {
+          "@apply text-gray-700 dark:text-gray-300": "",
         },
       });
     },
