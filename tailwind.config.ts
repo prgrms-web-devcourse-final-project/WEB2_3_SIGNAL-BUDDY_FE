@@ -307,6 +307,12 @@ export default {
         ".theme-map-deraction-guide-box": {
           "@apply bg-white dark:bg-gray-800": "",
         },
+        ".theme-map-deraction-search-button": {
+          "@apply dark:hover:text-gray-800": "",
+        },
+        ".theme-map-deraction-guide-finish-button": {
+          "@apply dark:hover:text-gray-800": "",
+        },
       });
     },
   ],
