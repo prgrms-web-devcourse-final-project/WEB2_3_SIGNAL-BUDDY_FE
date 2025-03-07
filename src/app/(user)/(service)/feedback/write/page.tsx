@@ -109,26 +109,18 @@ export default function Page() {
     Swal.fire({
       title: "피드백 제출",
       text: "작성한 내용을 제출하시겠습니까?",
-      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#8DB4AF",
+      cancelButtonColor: "#64748B",
       confirmButtonText: "제출",
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
         postNewFeedback(formData);
         router.push("/feedback");
-        Swal.fire({
-          title: "제출 완료",
-          text: "게시물이 정상적으로 제출되었습니다.",
-          icon: "success",
-        });
         setTimeout(() => router.refresh(), 1000);
       }
     });
-
-    // API 호출
   };
 
   return (

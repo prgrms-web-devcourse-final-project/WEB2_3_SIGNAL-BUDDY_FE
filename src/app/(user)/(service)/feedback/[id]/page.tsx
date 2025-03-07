@@ -36,6 +36,7 @@ export default async function Page({
   }
 
   const feedbackData = res?.data;
+  const authorId = feedbackData?.member.memberId;
   console.log("이미지: ", feedbackData?.imageUrl);
 
   return (
@@ -54,7 +55,7 @@ export default async function Page({
                   : "답변 후"}
               </div>
             </Link>
-            <MeatballMenu id={id} />
+            <MeatballMenu feedbackId={id} authorId={authorId!} />
           </div>
           {/* 본문 영역 */}
           <div className="pt-2">
