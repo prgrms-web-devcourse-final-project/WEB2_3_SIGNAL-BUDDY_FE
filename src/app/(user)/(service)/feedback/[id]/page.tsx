@@ -45,7 +45,9 @@ export default async function Page({
           {/* 헤더 영역 */}
           <div className="flex h-10 items-center justify-between border-b theme-line">
             <Link href={`/feedback`} className="flex items-center gap-1">
-              <ArrowLeftIcon className="h-6 w-6 text-gray-700" />
+              <span className="theme-feedback-arrow-right-icon">
+                <ArrowLeftIcon className="h-6 w-6 " />
+              </span>
               <div
                 className={`flex h-[22px] w-[66px] items-center justify-center rounded-[30px] bg-teal text-xs font-semibold text-white`}
               >
@@ -54,7 +56,9 @@ export default async function Page({
                   : "답변 후"}
               </div>
             </Link>
-            <MeatballMenu id={id} />
+            <span className="theme-feedback-meatball-icon">
+              <MeatballMenu id={id} />
+            </span>
           </div>
           {/* 본문 영역 */}
           <div className="pt-2">
@@ -78,7 +82,7 @@ export default async function Page({
                     <p className="theme-email">{feedbackData?.member.email}</p>
                   </div>
                 </div>
-                <div className="font-semibold text-gray-500">
+                <div className="font-semibold theme-feedback-data-category">
                   {feedbackData?.category}
                 </div>
               </div>
