@@ -107,7 +107,7 @@ export function OTPForm({
                 </FormControl>
                 <Button
                   type="submit"
-                  className={`w-full max-w-[84px] h-12 rounded-lg text-white font-bold text-sm ml-1 ${
+                  className={`w-full max-w-[84px] h-12 rounded-lg text-white font-bold text-sm ml-1 theme-auth-reset-password-button ${
                     isOtpComplete ? "bg-teal" : "bg-gray-400"
                   }`}
                   disabled={loading}

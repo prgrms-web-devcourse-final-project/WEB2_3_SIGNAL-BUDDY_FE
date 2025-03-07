@@ -287,7 +287,7 @@ export default {
           "@apply text-gray-700 dark:text-gray-300": "",
         },
         ".theme-my-page-setting-toggle": {
-          "@apply bg-background dark:text-gray-300": "",
+          "@apply dark:bg-gray-700 data-[state=checked]:dark:bg-gray-200": "",
         },
         ".theme-map-deraction-search-result-box": {
           "@apply bg-white dark:bg-gray-800": "",
@@ -312,6 +312,43 @@ export default {
         },
         ".theme-map-deraction-guide-finish-button": {
           "@apply dark:hover:text-gray-800": "",
+        },
+        ".theme-map-welfare-facilities": {
+          "@apply text-gray-500 dark:text-gray-400": "",
+        },
+        ".theme-feedback-no-result": {
+          "@apply text-gray-500 dark:text-gray-400": "",
+        },
+        ".theme-my-page-withdraw": {
+          "@apply text-gray-500 dark:text-gray-400": "",
+        },
+        ".theme-my-page-logout": {
+          "@apply  dark:hover:text-gray-800": "",
+        },
+        ".theme-auth-login-button": {
+          "@apply  dark:hover:text-gray-800": "",
+        },
+        ".theme-auth-join-button": {
+          "@apply  dark:hover:text-gray-800": "",
+        },
+        ".theme-auth-reset-password-button": {
+          "@apply  dark:hover:text-gray-800": "",
+        },
+        ".theme-feedback-arrow-right-icon": {
+          "@apply text-gray-700 dark:text-gray-300": "",
+        },
+        ".theme-feedback-meatball-icon": {
+          "@apply text-gray-700 dark:text-gray-400": "",
+        },
+        ".theme-feedback-data-category": {
+          "@apply text-gray-500 dark:text-gray-400": "",
+        },
+        ".theme-feedback-require-comment-text": {
+          "@apply text-gray-500 dark:text-gray-300 dark:placeholder:text-gray-400":
+            "",
+        },
+        ".theme-feedback-comment-submit-icon": {
+          "@apply text-gray-600 dark:text-gray-400": "",
         },
       });
     },

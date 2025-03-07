@@ -47,12 +47,11 @@ export default function Page() {
           <div className="theme-category-title flex h-[60px] items-center justify-between font-extrabold">
             <p>디스플레이 모드</p>
             <DropdownThemeToggle />
-            {/* <div>드롭박스</div> */}
           </div>
         </section>
         <LogoutButton />
         <div className="flex justify-center">
-          <button className="text-gray-500 mt-[222px] text-xs font-medium hover:text-red">
+          <button className="theme-my-page-withdraw mt-[222px] text-xs font-medium hover:text-red">
             회원탈퇴
           </button>
         </div>

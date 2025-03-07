@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import {
   TMAP_POINT_TYPE,
   TMAP_FACILITY_TYPE,
@@ -28,7 +29,12 @@ export default function MapDirectionItem({ feature, onClick }: Props) {
             alt="nav icon"
             width={40}
             height={40}
-            className="dark:invert"
+            className={cn({
+              "dark:invert":
+                TMAP_TURN_TYPE[feature.properties.turnType].value !==
+                  "출발지" &&
+                TMAP_TURN_TYPE[feature.properties.turnType].value !== "목적지",
+            })}
           />
         </div>
       )}
