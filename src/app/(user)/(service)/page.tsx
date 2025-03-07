@@ -43,11 +43,12 @@ export default function Home() {
             height={70}
             layout="responsive"
             objectFit="contain"
+            className="dark:invert"
           />
-          <h2 className="font-Overpass text-gray-700 mt-4 text-[20px] font-bold sm:mt-2 sm:text-[40px] md:text-[50px]">
+          <h2 className="font-Overpass theme-home-slogan mt-4 text-[20px] font-bold sm:mt-2 sm:text-[40px] md:text-[50px]">
             A Walking Partner for All
           </h2>
-          <p className="text-gray-600 mt-[17px] w-full text-center sm:mt-[14px] sm:text-left lg:w-[775px] lg:text-xl">
+          <p className="theme-home-description mt-[17px] w-full text-center sm:mt-[14px] sm:text-left lg:w-[775px] lg:text-xl">
             <strong>“모두를 위한 보행 파트너”</strong>는 누구나 안전하고
             편리하게 이동할 수 있도록 돕는 서비스입니다. 보행 데이터를 분석해
             맞춤형 경로를 제공하며, 이동의 즐거움을 더하는 스마트한 기능을

@@ -350,6 +350,12 @@ export default {
         ".theme-feedback-comment-submit-icon": {
           "@apply text-gray-600 dark:text-gray-400": "",
         },
+        ".theme-home-slogan": {
+          "@apply text-gray-700 dark:text-gray-100": "",
+        },
+        ".theme-home-description": {
+          "@apply text-gray-600 dark:text-gray-100": "",
+        },
       });
     },
   ],
