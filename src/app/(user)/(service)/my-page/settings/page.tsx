@@ -78,7 +78,7 @@ export default function Page() {
             onClick={handleDeleteUser}
             className="theme-my-page-withdraw mt-[222px] text-xs font-medium hover:text-red"
           >
-            회원탈퇴
+            회원 탈퇴
           </button>
         </div>
       </div>
