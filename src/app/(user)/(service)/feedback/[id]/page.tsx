@@ -41,8 +41,8 @@ export default async function Page({
   const isCompleted = feedbackData?.answerStatus === "COMPLETION";
 
   return (
-    <div className="">
-      <div>
+    <div className="flex justify-center">
+      <div className="max-w-[1240px] w-full">
         {/* 헤더 영역 */}
         <div className="flex h-10 items-center justify-between border-b theme-line">
           <Link href={`/feedback`} className="flex items-center gap-1">
