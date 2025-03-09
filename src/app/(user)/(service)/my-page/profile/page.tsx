@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import myPostit from "@/public/imgs/my-postit.svg";
 import myFeedback from "@/public/imgs/my-feedback.svg";
-import likedPostit from "@/public/imgs/liked-postit.svg";
 import likedFeedback from "@/public/imgs/liked-feedback.svg";
 import {
   ArrowRightIcon,
@@ -28,7 +26,7 @@ export default async function Page() {
       label: "내가 작성한 피드백",
     },
     {
-      href: "/my-page/my-postits",
+      href: "/my-page/liked",
       icon: likedFeedback,
       label: "내가 좋아한 피드백",
     },
