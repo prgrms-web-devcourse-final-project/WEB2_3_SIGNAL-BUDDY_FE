@@ -161,7 +161,6 @@ export default function RecentDestinationsItem({
             <p className="theme-my-profile-location-name font-bold">{name}</p>
             <p className="theme-my-profile-location-address text-xs font-medium">
               {address}
-              최근 목적지 주소
             </p>
           </div>
         </div>
