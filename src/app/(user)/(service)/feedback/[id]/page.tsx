@@ -30,107 +30,104 @@ export default async function Page({
   let isLiked = false;
   let res: IFeedbackDetailResponse | null = null;
 
+  res = await fetchDataFeedbackItem(id);
+
   if (TOKEN) {
-    res = await fetchDataFeedbackItem(id, TOKEN);
     isLiked = await gerIsLiked(id, TOKEN);
   }
 
   const feedbackData = res?.data;
-  console.log("이미지: ", feedbackData?.imageUrl);
+  const authorId = feedbackData?.member.memberId;
+  const isCompleted = feedbackData?.answerStatus === "COMPLETION";
 
   return (
-    <div className="">
-      {TOKEN ? (
-        <div>
-          {/* 헤더 영역 */}
-          <div className="flex h-10 items-center justify-between border-b theme-line">
-            <Link href={`/feedback`} className="flex items-center gap-1">
-              <span className="theme-feedback-arrow-right-icon">
-                <ArrowLeftIcon className="h-6 w-6 " />
-              </span>
-              <div
-                className={`flex h-[22px] w-[66px] items-center justify-center rounded-[30px] bg-teal text-xs font-semibold text-white`}
-              >
-                {feedbackData?.answerStatus === "COMPLETION"
-                  ? "답변 전"
-                  : "답변 후"}
-              </div>
-            </Link>
-            <span className="theme-feedback-meatball-icon">
-              <MeatballMenu id={id} />
+    <div className="flex justify-center">
+      <div className="max-w-[1240px] w-full">
+        {/* 헤더 영역 */}
+        <div className="flex h-10 items-center justify-between border-b theme-line">
+          <Link href={`/feedback`} className="flex items-center gap-1">
+            <span className="theme-feedback-arrow-right-icon">
+              <ArrowLeftIcon className="h-6 w-6 " />
             </span>
-          </div>
-          {/* 본문 영역 */}
-          <div className="pt-2">
-            <div className="w-full rounded-[20px] theme-content-bg px-2 py-3">
-              {/* 본문 헤더 */}
-              <div className="flex items-center justify-between">
-                <div className="flex">
-                  <div className="mr-2 flex aspect-square w-[38px] items-center justify-center overflow-hidden rounded-full border border-gray-300">
-                    <Image
-                      src={feedbackData?.member.profileImageUrl as string}
-                      alt="User profile image"
-                      width={30}
-                      height={30}
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col justify-center text-xs font-medium">
-                    <p className="theme-nickname">
-                      {feedbackData?.member.nickname}
-                    </p>
-                    <p className="theme-email">{feedbackData?.member.email}</p>
-                  </div>
+            <div
+              className={`flex h-[22px] w-[66px] items-center justify-center rounded-[30px] 
+    ${isCompleted ? "bg-teal" : "bg-red"} text-xs font-semibold text-white`}
+            >
+              {isCompleted ? "답변 후" : "답변 전"}
+            </div>
+          </Link>
+          <span className="theme-feedback-meatball-icon">
+            <MeatballMenu feedbackId={id} authorId={authorId!} />
+          </span>
+        </div>
+        {/* 본문 영역 */}
+        <div className="pt-2">
+          <div className="w-full rounded-[20px] theme-content-bg px-5 py-3 pt-6">
+            {/* 본문 헤더 */}
+            <div className="flex items-center justify-between">
+              <div className="flex">
+                <div className="mr-2 flex aspect-square w-[38px] items-center justify-center overflow-hidden rounded-full border border-gray-300">
+                  <Image
+                    src={feedbackData?.member.profileImageUrl as string}
+                    alt="User profile image"
+                    width={30}
+                    height={30}
+                    className="object-cover"
+                  />
                 </div>
-                <div className="font-semibold theme-feedback-data-category">
-                  {feedbackData?.category}
+                <div className="flex flex-col justify-center text-xs font-medium">
+                  <p className="theme-nickname">
+                    {feedbackData?.member.nickname}
+                  </p>
+                  <p className="theme-email">{feedbackData?.member.email}</p>
                 </div>
               </div>
-              {/* 본문 메인 */}
-              <div className="mt-4">
-                {/* 이미지 영역 */}
-                {feedbackData?.imageUrl && (
-                  <div className="flex justify-center">
-                    <div className="w-full max-w-[393px] h-[400px] relative">
-                      <Image
-                        src={feedbackData?.imageUrl}
-                        alt="게시물 이미지 영역입니다."
-                        fill
-                        className="object-contain rounded-lg"
-                      />
-                    </div>
-                  </div>
-                )}
-                <h1 className="mb-2 text-lg font-bold theme-feedback-subject">
-                  {feedbackData?.subject}
-                </h1>
-                <p className="mb-4 text-xs font-medium theme-date-text">
-                  {formatDate(String(feedbackData?.createdAt))}
-                </p>
-                <p className="mb-10 theme-content-text">
-                  {feedbackData?.content}
-                </p>
-                {/* 지도 표시 */}
-                <div className="mb-4 flex h-[100px] items-center gap-[13px] border-y theme-line pb-[6px] pt-[10px]">
-                  <div className="aspect-square w-[84px] rounded-2xl bg-teal"></div>
-                  <p className="text-sm font-bold theme-content-text">
-                    {feedbackData?.crossroad.name}
-                  </p>
-                </div>
-                <FeedbackLikeButton
-                  feedbackId={id}
-                  likeCount={feedbackData?.likeCount ?? 0}
-                  likeStatus={isLiked}
-                />
+              <div className="font-semibold theme-feedback-data-category">
+                {feedbackData?.category}
               </div>
             </div>
+            {/* 본문 메인 */}
+            <div className="mt-4">
+              {/* 이미지 영역 */}
+              {feedbackData?.imageUrl && (
+                <div className="flex justify-center">
+                  <div className="w-full max-w-[393px] h-[400px] relative">
+                    <Image
+                      src={feedbackData?.imageUrl}
+                      alt="게시물 이미지 영역입니다."
+                      fill
+                      className="object-contain rounded-lg"
+                    />
+                  </div>
+                </div>
+              )}
+              <h1 className="mb-2 text-lg font-bold theme-feedback-subject">
+                {feedbackData?.subject}
+              </h1>
+              <p className="mb-4 text-xs font-medium theme-date-text">
+                {formatDate(String(feedbackData?.createdAt))}
+              </p>
+              <p className="mb-10 theme-content-text">
+                {feedbackData?.content}
+              </p>
+              {/* 지도 표시 */}
+              <div className="mb-4 flex h-[100px] items-center gap-[13px] border-y theme-line pb-[6px] pt-[10px]">
+                <div className="aspect-square w-[84px] rounded-2xl bg-teal"></div>
+                <p className="text-sm font-bold theme-content-text">
+                  {feedbackData?.crossroad.name}
+                </p>
+              </div>
+              <FeedbackLikeButton
+                feedbackId={id}
+                likeCount={feedbackData?.likeCount ?? 0}
+                likeStatus={isLiked}
+              />
+            </div>
           </div>
-          {/* 댓글 입력창 */}
-          <FeedbackComment id={id} user={user} />
         </div>
-      ) : (
-        <div>로그인 후 사용하세용</div>
-      )}
+        {/* 댓글 영역 */}
+        <FeedbackComment id={id} user={user} />
+      </div>
     </div>
   );
 }

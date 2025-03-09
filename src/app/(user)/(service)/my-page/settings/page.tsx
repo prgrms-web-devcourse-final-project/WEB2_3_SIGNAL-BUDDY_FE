@@ -63,7 +63,7 @@ export default function Page() {
             <div className="flex items-center space-x-2">
               <Switch
                 id="airplane-mode"
-                onClick={() => clickPushHandler(userToken!)}
+                // onClick={() => clickPushHandler(userToken!)}
               />
             </div>
           </div>
