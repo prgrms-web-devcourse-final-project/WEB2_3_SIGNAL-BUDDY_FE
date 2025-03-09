@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 import { StarIcon } from "../utils/icons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import client from "@/src/lib/api/client";
+import { Destination } from "./RecentDestinations";
 
 export interface DestinationItem {
   id?: string;
@@ -13,29 +14,47 @@ export interface DestinationItem {
   lat?: number;
   lng?: number;
   bookmarkId?: number;
+  recentPathId: number;
 }
 
 export default function RecentDestinationsItem({
+  recentPathId,
   name,
   address,
-  lat,
-  lng,
   bookmarked,
-  bookmarkId,
 }: DestinationItem) {
   const { data: session } = useSession();
   const queryClient = useQueryClient();
 
   const addBookmarkMutation = useMutation({
-    mutationFn: async (destination: DestinationItem) => {
+    mutationFn: async (recentPathId: number) => {
       if (!session?.user?.memberId) return;
-      console.log("보낼 데이터:", destination);
-      await client.post(`/api/members/${session.user.memberId}/bookmarks`, {
-        name: destination.name,
-        address: destination.address,
-        lat: destination.lat,
-        lng: destination.lng,
+      await client.post(`/api/recent-path/${recentPathId}/bookmarks`, {
+        memberId: parseInt(`${session.user.memberId}`),
       });
+    },
+    onMutate: async (recentPathId) => {
+      await queryClient.cancelQueries({
+        queryKey: ["recentPaths", session?.user?.memberId],
+      });
+
+      const previousPaths = queryClient.getQueryData<Destination[]>([
+        "recentPaths",
+      ]);
+
+      if (previousPaths) {
+        const newData = previousPaths.map((item) =>
+          item.recentPathId === recentPathId
+            ? { ...item, bookmarked: true }
+            : item,
+        );
+        queryClient.setQueryData<Destination[]>(
+          ["recentPaths", session?.user?.memberId],
+          newData,
+        );
+      }
+
+      return { previousPaths };
     },
 
     onSuccess: () => {
@@ -43,31 +62,70 @@ export default function RecentDestinationsItem({
         queryKey: ["recentPaths", session?.user?.memberId],
       });
     },
-    onError: (error) => {
-      console.error(error);
-      alert("북마크 저장에 실패했습니다.");
+    onError: (error, recentPathId, context) => {
+      if (context?.previousPaths) {
+        queryClient.setQueryData(
+          ["recentPaths", session?.user?.memberId],
+          context.previousPaths,
+        );
+      }
+      alert("북마크 추가에 실패했습니다.");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["recentPaths", session?.user?.memberId],
+      });
     },
   });
 
   const deleteBookmarkMutation = useMutation({
-    mutationFn: async (bookmarkId: number) => {
+    mutationFn: async (recentPathId: number) => {
       if (!session?.user?.memberId) return;
-      console.log("북마크 해제 - 보낼 bookmarkId:", bookmarkId);
 
-      await client.delete(`/api/members/${session.user.memberId}/bookmarks`, {
-        params: {
-          bookmarkId: bookmarkId,
-        },
+      await client.delete(`/api/recent-path/${recentPathId}/bookmarks`);
+    },
+
+    onMutate: async (recentPathId) => {
+      await queryClient.cancelQueries({
+        queryKey: ["recentPaths", session?.user?.memberId],
       });
+
+      const previousPaths = queryClient.getQueryData<Destination[]>([
+        "recentPaths",
+      ]);
+
+      if (previousPaths) {
+        const newData = previousPaths.map((item) =>
+          item.recentPathId === recentPathId
+            ? { ...item, bookmarked: true }
+            : item,
+        );
+        queryClient.setQueryData<Destination[]>(
+          ["recentPaths", session?.user?.memberId],
+          newData,
+        );
+      }
+
+      return { previousPaths };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["myPlaces", session?.user?.memberId],
+        queryKey: ["recentPaths", session?.user?.memberId],
       });
     },
-    onError: (error) => {
-      console.error(error);
-      alert("북마크 해제에 실패했습니다.");
+    onError: (error, recentPathId, context) => {
+      if (context?.previousPaths) {
+        queryClient.setQueryData(
+          ["recentPaths", session?.user?.memberId],
+          context.previousPaths,
+        );
+      }
+      alert("북마크 추가에 실패했습니다.");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["recentPaths", session?.user?.memberId],
+      });
     },
   });
 
@@ -75,13 +133,9 @@ export default function RecentDestinationsItem({
     if (!session?.user?.memberId) return;
 
     if (bookmarked) {
-      if (!bookmarkId) {
-        console.warn("bookmarkId가 없어 북마크 해제 불가");
-        return;
-      }
-      deleteBookmarkMutation.mutate(bookmarkId);
+      deleteBookmarkMutation.mutate(recentPathId);
     } else {
-      addBookmarkMutation.mutate({ name, address, lat, lng, bookmarked });
+      addBookmarkMutation.mutate(recentPathId);
     }
   };
 
