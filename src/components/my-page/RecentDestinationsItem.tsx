@@ -2,9 +2,10 @@
 
 import { useSession } from "next-auth/react";
 import { StarIcon } from "../utils/icons";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import client from "@/src/lib/api/client";
 import { Destination } from "./RecentDestinations";
+import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";
 
 export interface DestinationItem {
   id?: string;
