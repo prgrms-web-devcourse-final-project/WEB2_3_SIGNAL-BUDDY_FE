@@ -16,22 +16,24 @@ import { redirect } from "next/navigation";
 import Profile from "@/src/components/common/profile/Profile";
 import RecentDestinations from "@/src/components/my-page/RecentDestinations";
 
-const activities = [
-  {
-    href: "/my-page/feedback",
-    icon: myFeedback,
-    label: "내가 작성한 피드백",
-  },
-  {
-    href: "/my-page/my-postits",
-    icon: likedFeedback,
-    label: "내가 좋아한 피드백",
-  },
-];
-
 export default async function Page() {
   const session = await auth();
   if (!session) redirect("/");
+  const nickname = session.user.nickname;
+
+  const activities = [
+    {
+      href: `/feedback?target=writer&keyword=${encodeURIComponent(nickname)}`,
+      icon: myFeedback,
+      label: "내가 작성한 피드백",
+    },
+    {
+      href: "/my-page/my-postits",
+      icon: likedFeedback,
+      label: "내가 좋아한 피드백",
+    },
+  ];
+
   return (
     <div className="flex w-full justify-center">
       <div className="flex w-[400px] flex-col gap-5 pt-2">
