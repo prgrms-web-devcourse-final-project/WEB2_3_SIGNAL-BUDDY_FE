@@ -18,7 +18,7 @@ import RecentDestinations from "@/src/components/my-page/RecentDestinations";
 
 const activities = [
   {
-    href: "/feedback/my-feedback",
+    href: "/my-page/feedback",
     icon: myFeedback,
     label: "내가 작성한 피드백",
   },

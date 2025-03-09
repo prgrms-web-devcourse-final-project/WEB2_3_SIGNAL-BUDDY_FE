@@ -1,6 +1,7 @@
 "use client";
 
 import Feedback from "@/src/components/feedback/Feedback";
+import FeedbackList from "@/src/components/feedback/FeedbackList";
 import client from "@/src/lib/api/client";
 import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";
 import { useQuery } from "@tanstack/react-query";
@@ -49,5 +50,17 @@ export default function Page() {
     return <div>에러가 발생했습니다: {error.message}</div>;
   console.log(session?.user?.memberId);
 
-  return <Feedback feedbackList={feedbackList} />;
+  return (
+    <div>
+      {feedbackList.length ? (
+        <FeedbackList feedbackList={feedbackList} />
+      ) : (
+        <div className="flex justify-center mt-[100px]">
+          <p className="theme-feedback-no-result text-sm">
+            작성한 피드백이 없습니다.
+          </p>
+        </div>
+      )}
+    </div>
+  );
 }
