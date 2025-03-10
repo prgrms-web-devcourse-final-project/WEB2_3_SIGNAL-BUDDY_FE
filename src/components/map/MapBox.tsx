@@ -22,7 +22,8 @@ type Props = {
 export default function MapBox({ slug }: Props) {
   const mapRef = useRef<HTMLDivElement>(null);
 
-  const { location, handleGetGeo } = useGeoLocation(geolocationOptions);
+  const { location, handleGetGeo, startWatching, stopWatching } =
+    useGeoLocation(geolocationOptions);
   const { mapIns } = useMap(mapRef, location);
   const {
     target: crossTarget,

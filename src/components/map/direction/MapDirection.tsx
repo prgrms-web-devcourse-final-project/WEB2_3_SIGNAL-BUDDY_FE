@@ -149,6 +149,7 @@ export default function MapDirection({ map, location }: Props) {
   const setMapCenter = (lonlat: TMapLatLng) => {
     if (!map) return;
     map.setCenter(lonlat);
+    map.setZoom(19);
   };
 
   const addTargetMarker = (poi: Poi) => {
