@@ -12,9 +12,12 @@ import {
 } from "@/src/components/utils/icons";
 import { IFeedbackDetailResponse } from "@/src/types/feedback/feedbackList";
 import FeedbackLikeButton from "@/src/components/feedback/FeedbackLikeButton";
-import { gerIsLiked } from "@/src/app/api/feedback/likeButton";
+
 import { formatDate } from "@/src/utils/formatDate";
 import FeedbackComment from "@/src/components/feedback/FeedbackComment";
+import { toast } from "sonner";
+import { redirect } from "next/navigation";
+import { getIsLiked } from "@/src/app/api/feedback/likeButton";
 
 export default async function Page({
   params,
@@ -33,7 +36,7 @@ export default async function Page({
   res = await fetchDataFeedbackItem(id);
 
   if (TOKEN) {
-    isLiked = await gerIsLiked(id, TOKEN);
+    isLiked = await getIsLiked(id, TOKEN);
   }
 
   const feedbackData = res?.data;

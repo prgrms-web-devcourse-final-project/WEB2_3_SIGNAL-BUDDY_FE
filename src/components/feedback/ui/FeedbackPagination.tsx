@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from "../../shadcn/components/ui/pagination";
 
 export default function FeedbackPagination({
   totalPages,
@@ -23,7 +23,7 @@ export default function FeedbackPagination({
       <PaginationContent>
         {/* 이전 페이지 버튼 */}
         <PaginationItem>
-          <PaginationPrevious href={`?page=${Math.max(page - 1, 1)}`} />
+          <PaginationPrevious href={`?page=${Math.max(page - 1, 0)}`} />
         </PaginationItem>
 
         {/* 페이지 번호 버튼 */}
@@ -31,7 +31,10 @@ export default function FeedbackPagination({
           const pageNumber = idx + 1;
           return (
             <PaginationItem key={idx}>
-              <PaginationLink href={`?page=${pageNumber - 1}`}>
+              <PaginationLink
+                href={`?page=${pageNumber - 1}`}
+                isActive={page+1 === pageNumber}
+              >
                 {pageNumber}
               </PaginationLink>
             </PaginationItem>
@@ -46,7 +49,7 @@ export default function FeedbackPagination({
 
         {/* 다음 페이지 버튼 */}
         <PaginationItem>
-          <PaginationNext href={`?page=${Math.min(page + 1, totalPages)}`} />
+          <PaginationNext href={`?page=${Math.min(page + 1, totalPages-1)}`} />
         </PaginationItem>
       </PaginationContent>
     </Pagination>

@@ -16,6 +16,7 @@ import {
 import Head from "next/head";
 import FeedbackPagination from "@/src/components/feedback/ui/FeedbackPagination";
 
+
 export default async function Page({
   searchParams,
 }: {
@@ -31,9 +32,6 @@ export default async function Page({
   const res = await fetchFeedbackList(searchParams);
   const feedbackList = res.data.searchResults;
   const totalPages = Math.ceil(totalFeedbackLength / 10);
-
-  console.log(feedbackList);
-  console.log(totalFeedback);
 
   return (
     <div className="flex justify-center">
