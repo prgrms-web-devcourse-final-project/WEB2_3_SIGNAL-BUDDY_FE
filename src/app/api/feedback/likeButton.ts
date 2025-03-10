@@ -38,25 +38,29 @@ export const getLikes = async (id: string, token: string) => {
 
 export const getIsLiked = async (id: string, token: string) => {
   try {
+    if (!token) {
+      throw new Error("로그인 상태가 아닙니다.");
+    }
+
     const res = await fetch(`${BASE_URL}/${id}/like/exist`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: token,
+        Authorization: `Bearer ${token}`, // token 형식이 'Bearer'여야 할 수 있습니다.
       },
       cache: "no-store",
     });
 
     if (!res.ok) {
-      throw new Error("유효하지 않은 응답");
+      const errorMessage = `응답 오류: ${res.status} ${res.statusText}`;
+      throw new Error(errorMessage);
     }
 
     const resJson = await res.json();
     return resJson.data.status;
   } catch (error) {
-    console.error("❌ fetchData Error:", error);
-    toast.error("로그인이 만료되었습니다. 다시 로그인 후 사용해주세요.");
-    redirect("/login");
+    // console.error("❌ fetchData Error:", error);
+    return error;
   }
 };
 
