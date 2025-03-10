@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { CrossRoadSearchbar } from "@/src/components/feedback/ui/CrossRoadSearchbar";
 import DropDownMenu from "@/src/components/feedback/ui/DropDownMenu";
-import { ArrowLeftIcon, CheckIcon } from "@/src/components/utils/icons";
+import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,6 +37,61 @@ export default function FeedbackEditPost({
 
   const router = useRouter();
 
+  // const submitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+
+  //   const formData = new FormData();
+
+  //   const requestData = {
+  //     subject: title,
+  //     content: feedbackContent,
+  //     category: feedbackCategory.toUpperCase(),
+  //     secret: isSecret,
+  //     crossroadId,
+  //     updatedAt: new Date().toISOString(),
+  //   };
+
+  //   const imageFile = {
+  //     newImageUrl,
+  //   };
+
+  //   if (!title || !content || !category) {
+  //     console.log(formData);
+  //     toast.error("내용을 모두 입력해주세요.");
+  //     return;
+  //   }
+  //   console.log("뉴 이미지", imageFile);
+
+  //   if (newImageUrl === null) {
+  //     formData.delete("imageFile");
+  //     formData.append("imageFile", "");
+  //   } else if (newImageUrl instanceof File) {
+  //     formData.delete("imageFile");
+  //     formData.append("imageFile", newImageUrl);
+  //   } else if (!newImageUrl) {
+  //     formData.delete("imageFile");
+  //   }
+
+  //   formData.append(
+  //     "request",
+  //     new Blob([JSON.stringify(requestData)], { type: "application/json" }),
+  //   );
+
+  //   Swal.fire({
+  //     title: "게시물을 수정하시겠습니까?",
+  //     text: "수정된 내용이 저장됩니다.",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#8DB4AF",
+  //     cancelButtonColor: "#64748B",
+  //     confirmButtonText: "확인",
+  //     cancelButtonText: "취소",
+  //   }).then(async (result) => {
+  //     if (result.isConfirmed) {
+  //       await updateFeedback(formData, feedbackId, token, router);
+  //     }
+  //   });
+  // };
+
   const submitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -51,28 +106,27 @@ export default function FeedbackEditPost({
       updatedAt: new Date().toISOString(),
     };
 
-    const imageFile = {
-      newImageUrl,
-    };
-
-    if (!title || !content || !category) {
-      console.log(formData);
+    if (!title || !feedbackContent || !feedbackCategory) {
       toast.error("내용을 모두 입력해주세요.");
       return;
     }
-    console.log("뉴 이미지", imageFile);
 
-    if (newImageUrl) {
-      formData.delete("imageFile");
+    if (newImageUrl === null) {
+      formData.append("imageFile", "");
+    } else if (newImageUrl instanceof File) {
       formData.append("imageFile", newImageUrl);
-    } else {
-      formData.delete("imageFile");
     }
 
     formData.append(
       "request",
       new Blob([JSON.stringify(requestData)], { type: "application/json" }),
     );
+
+    // ✅ FormData 콘솔 출력
+    console.log("🔍 FormData 내용 확인:");
+    formData.forEach((value, key) => {
+      console.log(`${key}:`, value);
+    });
 
     Swal.fire({
       title: "게시물을 수정하시겠습니까?",
@@ -147,7 +201,10 @@ export default function FeedbackEditPost({
 
         {/* 이미지 입력 */}
         <div className="flex flex-col gap-2">
-          <InputFile setImageUrl={setNewImageUrl} newImageUrl={newImageUrl} />
+          <InputFile
+            setNewImageUrl={setNewImageUrl}
+            newImageUrl={newImageUrl}
+          />
         </div>
 
         {/* 숨김처리 여부 */}
