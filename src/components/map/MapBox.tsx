@@ -22,7 +22,7 @@ type Props = {
 export default function MapBox({ slug }: Props) {
   const mapRef = useRef<HTMLDivElement>(null);
 
-  const { location, handleGetGeo, startWatching, stopWatching } =
+  const { location, handleGetGeo, startWatching, stopWatching, isWatching } =
     useGeoLocation(geolocationOptions);
   const { mapIns } = useMap(mapRef, location);
   const {
@@ -43,7 +43,13 @@ export default function MapBox({ slug }: Props) {
         ) : !slug ? (
           <MapSearch map={mapIns} location={location} />
         ) : slug[0] === "direction" ? (
-          <MapDirection map={mapIns} location={location} />
+          <MapDirection
+            map={mapIns}
+            location={location}
+            startWatching={startWatching}
+            stopWatching={stopWatching}
+            isWatching={isWatching}
+          />
         ) : (
           <></>
         )}
