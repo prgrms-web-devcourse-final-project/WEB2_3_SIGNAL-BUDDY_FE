@@ -13,11 +13,10 @@ import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 import InputFile from "@/src/components/feedback/ui/InputFile";
-import { useSearchParamsClient } from "@/src/hooks/useSearchParamsClient";
+import { CrossroadIdFetcher } from "@/src/hooks/useSearchParamsClient";
 
 export default function Page() {
-  const searchParams = useSearchParamsClient()
-  const crossroadId = searchParams.get("crossroadId");
+  const [crossroadId, setCrossroadId] = useState<string | null>(null);
 
   const { data: session } = useSession();
   const token = session?.user.token;
@@ -130,6 +129,7 @@ export default function Page() {
 
   return (
     <div className="flex flex-col md:mx-auto md:w-[821px]">
+      <CrossroadIdFetcher onCrossroadId={setCrossroadId} />
       {/* 헤더 영역 */}
       <Link
         href={`/feedback`}
