@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import { getIsLiked } from "@/src/app/api/feedback/likeButton";
 import { formatFeedbackCategory } from "@/src/utils/formatFeedbackCategory";
+import Profile from "@/src/components/common/profile/Profile";
 
 const handleError = (error: unknown) => {
   if (error instanceof Response) {
@@ -106,15 +107,15 @@ export default async function Page({
           <div className="w-full rounded-[20px] theme-content-bg px-5 py-3 pt-6">
             {/* 본문 헤더 */}
             <div className="flex items-center justify-between">
-              <div className="flex">
-                <div className="mr-2 flex aspect-square w-[38px] items-center justify-center overflow-hidden rounded-full border border-gray-300 relative">
-                  <Image
+              <div className="flex gap-2">
+                <Profile src={member.profileImageUrl} size="2md" />
+                {/* <Image
                     src={member.profileImageUrl ?? defaultProfileImage}
                     alt="User profile image"
                     fill
                     className="object-cover"
-                  />
-                </div>
+                  /> */}
+
                 <div className="flex flex-col justify-center text-xs font-medium">
                   <p className="theme-nickname">{member.nickname}</p>
                   <p className="theme-email">{member.email}</p>

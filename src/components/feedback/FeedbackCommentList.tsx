@@ -12,6 +12,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
+import Profile from "../common/profile/Profile";
 
 // 댓글 삭제 함수 (비동기 처리 및 UI 반영)
 const deleteComment = async (
@@ -96,13 +97,7 @@ function FeedbackCommentItem({
       <div className="flex flex-col gap-2">
         <div className="flex justify-between">
           <div className="flex items-center gap-1">
-            <Image
-              className="rounded-full outline outline-1 outline-gray-300"
-              src={member.profileImageUrl}
-              width={24}
-              height={24}
-              alt={`${member.nickname}님의 프로필 이미지`}
-            />
+            <Profile src={member.profileImageUrl} size="sm" />
             <p
               id={`comment-${commentId}`}
               className="font-semibold theme-nickname"
