@@ -67,8 +67,6 @@ export default function useMapCrossRoad(map: TMap | null) {
       const currentMap = mapRef.current;
       if (!Tmapv2 || !currentMap) return null;
       if (target) setTarget(null);
-      currentMap.setCenter(new Tmapv2.LatLng(cross.lat, cross.lng));
-      currentMap.setZoom(19);
       const res = await getCrossroadState(cross.crossroadId);
       const data = res.data;
       if (data.status === "성공" && data.data) {
