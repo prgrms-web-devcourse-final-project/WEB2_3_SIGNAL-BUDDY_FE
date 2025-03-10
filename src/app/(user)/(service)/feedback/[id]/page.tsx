@@ -109,12 +109,6 @@ export default async function Page({
             <div className="flex items-center justify-between">
               <div className="flex gap-2">
                 <Profile src={member.profileImageUrl} size="2md" />
-                {/* <Image
-                    src={member.profileImageUrl ?? defaultProfileImage}
-                    alt="User profile image"
-                    fill
-                    className="object-cover"
-                  /> */}
 
                 <div className="flex flex-col justify-center text-xs font-medium">
                   <p className="theme-nickname">{member.nickname}</p>
