@@ -5,7 +5,7 @@ import DropDownMenu from "@/src/components/feedback/ui/DropDownMenu";
 import { ArrowLeftIcon, CheckIcon } from "@/src/components/utils/icons";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +16,7 @@ import InputFile from "@/src/components/feedback/ui/InputFile";
 import { CrossroadIdFetcher } from "@/src/hooks/useSearchParamsClient";
 
 export default function Page() {
-  const [crossroadId, setCrossroadId] = useState<string | null>(null);
+  const [crossroadId, setCrossroadId] = useState<string | null>("2");
 
   const { data: session } = useSession();
   const token = session?.user.token;
@@ -129,7 +129,9 @@ export default function Page() {
 
   return (
     <div className="flex flex-col md:mx-auto md:w-[821px]">
-      <CrossroadIdFetcher onCrossroadId={setCrossroadId} />
+      <Suspense fallback={<p>loading...</p>}>
+        <CrossroadIdFetcher onCrossroadId={setCrossroadId} />
+      </Suspense>
       {/* 헤더 영역 */}
       <Link
         href={`/feedback`}
@@ -173,7 +175,7 @@ export default function Page() {
         </div>
         {/* 피드백 위치 */}
         <div className="flex flex-col gap-2">
-          <CrossRoadSearchbar crossroadId={crossroad!} />
+          <CrossRoadSearchbar crossroadId={crossroadId!} />
         </div>
         {/* 이미지 입력 */}
         <div className="flex flex-col gap-2">
