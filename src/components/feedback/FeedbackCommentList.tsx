@@ -57,10 +57,9 @@ const onDelete = (
   Swal.fire({
     title: "정말 삭제하시겠습니까?",
     text: "삭제된 댓글은 복구할 수 없습니다.",
-    icon: "warning",
     showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
+    confirmButtonColor: "#FF6156",
+    cancelButtonColor: "#64748B",
     confirmButtonText: "삭제",
     cancelButtonText: "취소",
   }).then((result) => {
