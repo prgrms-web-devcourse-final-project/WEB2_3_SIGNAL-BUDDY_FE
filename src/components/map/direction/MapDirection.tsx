@@ -448,7 +448,7 @@ export default function MapDirection({
         )}
       </div>
       {routeFeatures.length > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 theme-bg p-2 md:hidden">
+        <div className="fixed bottom-0 left-0 right-0 theme-bg p-2 pb-4 md:hidden">
           {!isSelect ? (
             <div
               onClick={handleSelectRoute}
