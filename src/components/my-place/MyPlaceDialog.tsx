@@ -18,6 +18,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 
 interface MyPlaceNameChangeDialogProps {
   children: React.ReactNode;
@@ -31,6 +32,18 @@ interface RenameBody {
   lat: number;
   address: string;
   name: string;
+}
+
+function newPlaceNameSchema(currentName: string) {
+  return z.object({
+    placeName: z
+      .string()
+      .min(1, { message: "새로운 장소명을 입력해주세요." })
+      .max(20, { message: "20자 이내로 입력해주세요" })
+      .refine((value) => value !== currentName, {
+        message: "새로운 장소명을 입력해주세요.",
+      }),
+  });
 }
 
 export function MyPlaceNameChangeDialog({
@@ -66,9 +79,14 @@ export function MyPlaceNameChangeDialog({
     },
   });
 
+  const schema = newPlaceNameSchema(name);
+
   const handleSave = () => {
-    if (!newName.trim() || newName === name) {
-      toast.error("새로운 장소명을 입력해주세요.");
+    const result = schema.safeParse({ placeName: newName });
+    if (!result.success) {
+      const errorMsg =
+        result.error.issues[0]?.message || "유효하지 않은 입력입니다.";
+      toast.error(errorMsg);
       return;
     }
     renameMutation.mutate(newName);
@@ -79,20 +97,21 @@ export function MyPlaceNameChangeDialog({
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{name} 장소명 변경</DialogTitle>
+          <DialogTitle>장소명 변경</DialogTitle>
           <DialogDescription>
-            새롭게 변경하고 싶은 장소명을 입력해 주세요.
+            <span className="text-bold">{name}</span>의 새로운 장소명을 입력해
+            주세요.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
+          <div className="items-center space-y-2">
             <Label htmlFor="new-name" className="text-right">
               새로운 장소명
             </Label>
             <Input
               id="new-name"
               onChange={(e) => setNewName(e.target.value)}
-              className="col-span-3"
+              className="col-span-3 theme-content-bg"
               required
             />
           </div>
