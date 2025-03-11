@@ -122,22 +122,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         Date.now() <
         (token.accessTokenExpires as number) * 1000 - 10 * 60 * 1000
       ) {
-        console.log(
-          Math.floor(Date.now() / 1000) -
-            Math.floor(
-              ((token.accessTokenExpires as number) * 1000 - 10 * 60 * 1000) /
-                1000,
-            ),
-        );
         return token;
       }
       if (!token.token) throw new TypeError("Missing accessTokenExpires");
       if (!token.refreshToken) throw new TypeError("Missing refresh_token");
       try {
-        console.log("request headers", {
-          Authorization: token.token as string,
-          Cookie: token.refreshToken as string,
-        });
         const response = await fetch(
           `${process.env.API_BASE_URL}/api/auth/reissue`,
           {

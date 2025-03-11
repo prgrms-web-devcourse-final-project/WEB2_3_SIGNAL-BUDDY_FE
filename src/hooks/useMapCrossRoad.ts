@@ -225,12 +225,9 @@ export default function useMapCrossRoad(map: TMap | null) {
   }, [map]);
 
   useEffect(() => {
-    console.log(crossroadId);
     if (!map || !crossroadId) return;
     const numCrossroadId = Number(crossroadId);
-    console.log(numCrossroadId);
     if (!isNaN(numCrossroadId)) {
-      console.log(numCrossroadId);
       handleCrossroadState(numCrossroadId);
     }
   }, [map, crossroadId]);

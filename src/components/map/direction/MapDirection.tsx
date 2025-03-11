@@ -50,6 +50,7 @@ const formSchema = z.object({
 type Props = {
   map: TMap | null;
   location?: ILocation;
+  getGEO: () => void;
   startWatching: () => void;
   stopWatching: () => void;
   isWatching: boolean;
@@ -58,6 +59,7 @@ type Props = {
 export default function MapDirection({
   map,
   location,
+  getGEO,
   startWatching,
   stopWatching,
   isWatching,
@@ -78,6 +80,8 @@ export default function MapDirection({
   const [focus, setFocus] = useState<"start" | "end">("start");
   const [results, setResults] = useState<Poi[]>([]);
   const [isSelect, setIsSelect] = useState<boolean>(false);
+
+  const isFirstLocationSet = useRef(false);
 
   const formatLatLng = (target: string | null) => {
     if (!location) return null;
@@ -152,6 +156,7 @@ export default function MapDirection({
     }
     router.replace(`${pathname}?${params.toString()}`);
     setIsSelect(false);
+    isFirstLocationSet.current = false;
     return;
   };
 
@@ -263,13 +268,17 @@ export default function MapDirection({
   };
 
   useEffect(() => {
-    getRoute(formatLatLng(start), formatLatLng(end));
-  }, [location, start, end]);
-
-  useEffect(() => {
+    getGEO();
     if (isWatching) handleCancelRoute();
     return () => handleCancelRoute();
   }, []);
+
+  useEffect(() => {
+    if (!isFirstLocationSet.current && location) {
+      getRoute(formatLatLng(start), formatLatLng(end));
+      isFirstLocationSet.current = true;
+    }
+  }, [location, start, end]);
 
   return (
     <>
@@ -364,7 +373,7 @@ export default function MapDirection({
                 <Button
                   type="submit"
                   size="icon"
-                  className="bg-gray-700 text-white p-2 h-full theme-map-deraction-search-button"
+                  className="bg-gray-700 text-white p-2 h-full min-h-[100px] theme-map-deraction-search-button"
                 >
                   <MagnifyingGlassIcon />
                 </Button>
