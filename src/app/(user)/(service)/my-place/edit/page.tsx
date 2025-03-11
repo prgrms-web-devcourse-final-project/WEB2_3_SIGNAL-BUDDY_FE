@@ -130,7 +130,7 @@ export default function Page() {
     if (items.length > 0) {
       const reorderBody = items.map((item, idx) => ({
         id: item.bookmarkId,
-        targetSequence: idx + 1,
+        targetSequence: page * size + idx + 1,
       }));
       await reorderMutation.mutateAsync(reorderBody);
     }
