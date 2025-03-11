@@ -54,7 +54,6 @@ export default function MapCrossRoadState({
   }, [time]);
 
   useEffect(() => {
-    console.log("leftTime", leftTime);
     if (leftTime) {
       setTime(Math.floor((leftTime * 10) / 100) + 1);
     } else setTime(null);
