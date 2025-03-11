@@ -46,7 +46,7 @@ export const getIsLiked = async (id: string, token: string) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`, // token 형식이 'Bearer'여야 할 수 있습니다.
+        Authorization: token,
       },
       cache: "no-store",
     });
@@ -57,6 +57,7 @@ export const getIsLiked = async (id: string, token: string) => {
     }
 
     const resJson = await res.json();
+    console.log();
     return resJson.data.status;
   } catch (error) {
     // console.error("❌ fetchData Error:", error);
