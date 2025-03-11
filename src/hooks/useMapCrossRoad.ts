@@ -98,7 +98,7 @@ export default function useMapCrossRoad(map: TMap | null) {
       const data = await handleGetCrossroadState(target.crossroadId);
       if (data) {
         console.log(data);
-        setTarget((prev) => ({ ...prev, ...data.data }));
+        setTarget((prev) => ({ ...prev, ...data }));
       }
     } catch (err) {
       console.error(err);

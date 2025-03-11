@@ -112,7 +112,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
     jwt: async ({ token, user, account, trigger, session }) => {
-      console.log("JWT 호출!!!!!!!!!!!!!!!!!!");
       if (user && account) {
         return { ...token, ...user };
       } else if (trigger === "update" && session) {
@@ -125,11 +124,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         console.log(
           "남은 시간",
           Math.floor(
-            ((token.accessTokenExpires as number) * 1000 -
-              10 * 60 * 1000 -
-              Date.now()) /
-              1000,
+            Math.floor(
+              ((token.accessTokenExpires as number) * 1000 -
+                10 * 60 * 1000 -
+                Date.now()) /
+                1000,
+            ) / 60,
           ),
+          "분",
         );
         return token;
       }
