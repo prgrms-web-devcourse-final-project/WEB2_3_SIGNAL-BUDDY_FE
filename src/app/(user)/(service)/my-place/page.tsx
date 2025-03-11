@@ -2,7 +2,6 @@
 
 import MyPlaceList from "@/src/components/my-place/MyPlaceList";
 import Link from "next/link";
-import MyPlacePagination from "@/src/components/my-place/MyPlacePagination";
 import { Bookmark } from "@/src/types/my-place";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -79,8 +78,8 @@ export default function Page() {
         </div>
         <div className="flex min-h-[916px] w-full">
           <section className="flex flex-grow flex-col gap-2 ">
-            <MyPlaceList searchResults={searchResults} />
-            <MyPlacePagination
+            <MyPlaceList
+              searchResults={searchResults}
               page={page}
               totalPages={totalPages}
               onPageChange={(newPage) => setPage(newPage)}
