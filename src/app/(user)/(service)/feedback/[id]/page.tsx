@@ -1,21 +1,19 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import defaultProfileImage from "@/public/imgs/DefaultProfile.png";
-
 import MeatballMenu from "@/src/components/feedback/MeatballMenu";
 import { auth } from "@/src/auth";
 import { fetchDataFeedbackItem } from "@/src/app/api/feedback/fetchFeedbackItem";
 import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { IFeedbackDetailResponse } from "@/src/types/feedback/feedbackList";
-import FeedbackLikeButton from "@/src/components/feedback/FeedbackLikeButton";
 
 import { formatDate } from "@/src/utils/formatDate";
 import FeedbackComment from "@/src/components/feedback/FeedbackComment";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
-import { getIsLiked } from "@/src/app/api/feedback/likeButton";
 import { formatFeedbackCategory } from "@/src/utils/formatFeedbackCategory";
+import Profile from "@/src/components/common/profile/Profile";
+import LikeBTN from "@/src/components/feedback/LikeBTN";
 
 const handleError = (error: unknown) => {
   if (error instanceof Response) {
@@ -38,10 +36,8 @@ export default async function Page({
   const { id } = await params;
   const session = await auth();
   const user = session?.user;
-  const TOKEN = session?.user.token;
-  const userId = session?.user.memberId || null;
 
-  let isLiked = false;
+  // let isLiked = false;
   let res: IFeedbackDetailResponse | null = null;
 
   // 피드백 데이터 요청
@@ -50,16 +46,6 @@ export default async function Page({
   } catch (error: unknown) {
     console.error("피드백 데이터 불러오기 실패:", error);
     handleError(error); // 에러 처리 함수 호출
-  }
-
-  // 좋아요 상태 요청
-  if (TOKEN) {
-    try {
-      isLiked = await getIsLiked(id, TOKEN);
-    } catch (error: unknown) {
-      console.error("좋아요 상태 불러오기 실패:", error);
-      handleError(error);
-    }
   }
 
   const feedbackData = res?.data;
@@ -106,15 +92,9 @@ export default async function Page({
           <div className="w-full rounded-[20px] theme-content-bg px-5 py-3 pt-6">
             {/* 본문 헤더 */}
             <div className="flex items-center justify-between">
-              <div className="flex">
-                <div className="mr-2 flex aspect-square w-[38px] items-center justify-center overflow-hidden rounded-full border border-gray-300 relative">
-                  <Image
-                    src={member.profileImageUrl ?? defaultProfileImage}
-                    alt="User profile image"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
+              <div className="flex gap-2">
+                <Profile src={member.profileImageUrl} size="2md" />
+
                 <div className="flex flex-col justify-center text-xs font-medium">
                   <p className="theme-nickname">{member.nickname}</p>
                   <p className="theme-email">{member.email}</p>
@@ -157,11 +137,7 @@ export default async function Page({
                 </div>
               </Link>
 
-              <FeedbackLikeButton
-                feedbackId={id}
-                likeCount={likeCount ?? 0}
-                likeStatus={isLiked}
-              />
+              <LikeBTN feedbackId={id} session={session} />
             </div>
           </div>
         </div>
