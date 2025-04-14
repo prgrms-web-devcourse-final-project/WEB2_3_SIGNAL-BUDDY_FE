@@ -25,8 +25,8 @@ import { ILocation } from "@/src/hooks/use-geo-location";
 import { cn } from "@/src/utils";
 import { useRouter } from "next/navigation";
 import useMapSearch from "@/src/hooks/use-map-search";
-import MapSearchList from "./MapSearchList";
-import MapSearchResult from "./MapSearchResult";
+import MapSearchList from "@/src/features/map/map-search/components/map-search-list";
+import MapSearchResult from "@/src/features/map/map-search/components/map-search-result";
 
 const formSchema = z.object({
   search: z.string(),

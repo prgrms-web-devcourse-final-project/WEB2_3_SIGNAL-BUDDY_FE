@@ -5,12 +5,12 @@ import { cn } from "@/src/utils";
 import { CrossRoadStateType, CrossRoadType } from "@/src/types";
 import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import MapCrossRoadState from "./MapCrossRoadState";
 import { useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import MapCrossroadFeedback from "./MapCrossroadFeedback";
+import MapCrossroadFeedback from "@/src/features/map/map-crossroads/components/map-crossroad-feedback";
+import MapCrossRoadState from "@/src/features/map/map-crossroads/components/map-crossroad-state";
 
 type Props = {
   target: CrossRoadType & CrossRoadStateType;

@@ -1,6 +1,6 @@
+import FeedbackList from "@/src/components/feedback/FeedbackList";
 import { getFeedbackList } from "@/src/services/feedback.service";
 import { useQuery } from "@tanstack/react-query";
-import FeedbackList from "../../feedback/FeedbackList";
 
 type Props = {
   crossroadId: number;

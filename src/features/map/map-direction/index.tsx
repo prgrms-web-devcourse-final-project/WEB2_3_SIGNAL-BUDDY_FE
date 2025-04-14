@@ -31,8 +31,8 @@ import {
   SpeakerWaveIcon,
 } from "@heroicons/react/24/solid";
 import useMapDirection from "@/src/hooks/use-map-direction";
-import MapSearchList from "../search/MapSearchList";
-import MapDirectionItem from "./MapDirectionItem";
+import MapSearchList from "../map-search/components/map-search-list";
+import MapDirectionItem from "./components/map-direction-item";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import { Swiper as SwiperType } from "swiper/types";

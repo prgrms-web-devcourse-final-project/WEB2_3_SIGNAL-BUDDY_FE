@@ -3,11 +3,11 @@
 import { useGeoLocation } from "@/src/hooks/use-geo-location";
 import { useRef } from "react";
 import useMap from "@/src/hooks/use-map";
-import MapSearch from "./search/MapSearch";
-import MapButtons from "./MapButtons";
-import MapDirection from "./direction/MapDirection";
+import MapButtons from "@/src/features/map/map-common/components/map-btns";
 import useMapCrossRoad from "@/src/hooks/use-map-crossroad";
-import MapCrossRoad from "./crossroads/MapCrossRoad";
+import MapCrossRoad from "@/src/features/map/map-crossroads";
+import MapSearch from "@/src/features/map/map-search";
+import MapDirection from "@/src/features/map/map-direction";
 
 const geolocationOptions = {
   enableHighAccuracy: true,
