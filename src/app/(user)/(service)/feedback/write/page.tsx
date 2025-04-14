@@ -1,7 +1,7 @@
 "use client";
 
-import { CrossRoadSearchbar } from "@/src/components/feedback/ui/CrossRoadSearchbar";
-import DropDownMenu from "@/src/components/feedback/ui/DropDownMenu";
+import { CrossRoadSearchbar } from "@/src/features/feedback/feedback-write/comments/feedback-write-crossroad-searchbar";
+import DropDownMenu from "@/src/features/feedback/feedback-common/components/feedback-dropdown-menu";
 import { ArrowLeftIcon, CheckIcon } from "@/src/components/utils/icons";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -12,8 +12,8 @@ import { Label } from "@/src/components/ui/label";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
-import InputFile from "@/src/components/feedback/ui/InputFile";
-import { CrossroadIdFetcher } from "@/src/hooks/useSearchParamsClient";
+import InputFile from "@/src/features/feedback/feedback-common/components/feedback-input-file";
+import { CrossroadIdFetcher } from "@/src/hooks/use-search-params-client";
 
 export default function Page() {
   const [crossroadId, setCrossroadId] = useState<string | null>("2");

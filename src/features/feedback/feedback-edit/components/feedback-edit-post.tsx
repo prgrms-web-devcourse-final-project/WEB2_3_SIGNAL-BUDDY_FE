@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { CrossRoadSearchbar } from "@/src/components/feedback/ui/CrossRoadSearchbar";
-import DropDownMenu from "@/src/components/feedback/ui/DropDownMenu";
+import { CrossRoadSearchbar } from "@/src/features/feedback/feedback-write/comments/feedback-write-crossroad-searchbar";
+import DropDownMenu from "@/src/features/feedback/feedback-common/components/feedback-dropdown-menu";
 import { ArrowLeftIcon, CheckIcon } from "@/src/components/utils/icons";
 import { useRouter } from "next/navigation";
 import { Input } from "@/src/components/ui/input";
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";
 import { onCancel } from "@/src/app/api/feedback/edit/onCancelEdit";
 import { updateFeedback } from "@/src/app/api/feedback/edit/updateFeedback";
-import InputFile from "./ui/InputFile";
+import InputFile from "../../feedback-common/components/feedback-input-file";
 import { toast } from "sonner";
 
 export default function FeedbackEditPost({

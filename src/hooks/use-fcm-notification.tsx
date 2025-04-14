@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { getMessaging, onMessage } from "firebase/messaging";
-import { app } from "../../firebase/firebase"; // Firebase 초기화된 app 가져오기
+import { app } from "../firebase/firebase"; // Firebase 초기화된 app 가져오기
 import logo_icon from "@/public/icon-512x512.png";
 
 const FCMNotification = () => {
@@ -20,7 +20,9 @@ const FCMNotification = () => {
           body: payload.notification.body ?? "내용 없음",
           icon: "@/public/icon-512x512.png",
           data: {
-            url: `https://signal-buddy.vercel.app/feedback/${feedbackId}` || `https://signal-buddy.vercel.app/feedback/` ,
+            url:
+              `https://signal-buddy.vercel.app/feedback/${feedbackId}` ||
+              `https://signal-buddy.vercel.app/feedback/`,
           },
         };
 

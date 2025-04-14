@@ -5,16 +5,15 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/src/components/utils/dropdownMenu";
+} from "@/src/components/utils/dropdown-menu";
+
 import {
   DeleteIcon,
-  EditIcon,
   MeatballEditIcon,
   MeatballsIcon,
-  ReportIcon,
   ShareIcon,
-  TrashcanIcon,
-} from "../utils/icons";
+} from "../../../../components/utils/icons";
+
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -70,10 +69,9 @@ export default function MeatballMenu({
     }
 
     Swal.fire({
-      
       title: "정말 게시물을 삭제하시겠습니까?",
       text: "삭제시 다시 복구시킬 수 없습니다.",
-      focusConfirm: false, 
+      focusConfirm: false,
       showCancelButton: true,
       confirmButtonColor: "#FF6156",
       cancelButtonColor: "#64748B",
@@ -82,13 +80,6 @@ export default function MeatballMenu({
     }).then((result) => {
       if (result.isConfirmed) {
         deleteFeedback(feedbackId, token);
-        // setTimeout(() => router.push("/feedback"), 1000);
-        // Swal.fire({
-        //   title: "삭제 완료!",
-        //   text: "게시물이 성공적으로 삭제되었습니다.",
-        //   icon: "success",
-        // });
-        // router.refresh();
       }
     });
   };

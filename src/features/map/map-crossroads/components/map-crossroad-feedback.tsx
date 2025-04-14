@@ -1,4 +1,4 @@
-import FeedbackList from "@/src/components/feedback/FeedbackList";
+import FeedbackList from "@/src/features/feedback/feedback-list/components/feedback-list";
 import { getFeedbackList } from "@/src/services/feedback.service";
 import { useQuery } from "@tanstack/react-query";
 

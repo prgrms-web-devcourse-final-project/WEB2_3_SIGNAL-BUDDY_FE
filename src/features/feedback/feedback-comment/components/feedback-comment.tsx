@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { PaperAirplaneIcon } from "../utils/icons";
-import FeedbackCommentList from "./FeedbackCommentList";
+import { PaperAirplaneIcon } from "@/src/components/utils/icons";
+import FeedbackCommentList from "./feedback-comment-list";
 
 import { Input } from "@/src/components/ui/input";
 import { toast } from "sonner";
