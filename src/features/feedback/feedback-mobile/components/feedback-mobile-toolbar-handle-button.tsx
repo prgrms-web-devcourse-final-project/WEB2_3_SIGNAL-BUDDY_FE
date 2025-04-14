@@ -1,6 +1,6 @@
 "use client";
 
-import { AdjustmentsIcon } from "../utils/icons";
+import { AdjustmentsIcon } from "../../../../components/utils/icons";
 import useToolbarStore from "@/src/store/feedback/useToolbarStore";
 
 export default function MobileToolbarHandleButton() {

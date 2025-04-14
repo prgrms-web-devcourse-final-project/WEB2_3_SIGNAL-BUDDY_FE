@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { ArrowDownIcon } from "../utils/icons";
+import { ArrowDownIcon } from "../../../../components/utils/icons";
 
 export default function FeedbackSearchbar({
   className,

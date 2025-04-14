@@ -46,6 +46,7 @@ export default function LikeBTN({
       }
     };
     initializeLikeBTN();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchAddLike = async () => {

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ToggleGroup, ToggleGroupItem } from "@/src/components/ui/toggle-group";
-import FeedbackRadioButton from "./FeedbackRadioButton";
+import FeedbackRadioButton from "./feedback-radio-button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function FeedbackSidebar() {

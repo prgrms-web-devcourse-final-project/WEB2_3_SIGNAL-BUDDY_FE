@@ -1,9 +1,8 @@
 "use client";
 
-import FeedbackList from "@/src/components/feedback/FeedbackList";
+import { ArrowLeftIcon, ArrowRightIcon } from "@/src/components/utils/icons";
 import LikedFeedbackList from "@/src/features/my-page/my-page-feedback/components/my-page-feedback-list";
 import MyPlacePagination from "@/src/features/my-place/my-place-common/components/my-place-pagination";
-import { ArrowLeftIcon, ArrowRightIcon } from "@/src/components/utils/icons";
 import client from "@/src/lib/api/client";
 import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
