@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { PaperAirplaneIcon } from "../utils/icons";
 import FeedbackCommentList from "./FeedbackCommentList";
 
-import { Input } from "@/components/ui/input";
+import { Input } from "@/src/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { User } from "@/src/types/feedback/feedbackList";

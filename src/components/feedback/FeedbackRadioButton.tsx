@@ -2,10 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "../shadcn/components/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@/src/components/ui/toggle-group";
 
 type Option = {
   value: string;

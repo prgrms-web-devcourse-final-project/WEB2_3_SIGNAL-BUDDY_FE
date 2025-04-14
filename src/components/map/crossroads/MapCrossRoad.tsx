@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/src/components/ui/button";
+import { cn } from "@/src/utils";
 import { CrossRoadStateType, CrossRoadType } from "@/src/types";
 import { PencilSquareIcon, XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";

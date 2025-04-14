@@ -5,8 +5,8 @@ import { CrossRoadSearchbar } from "@/src/components/feedback/ui/CrossRoadSearch
 import DropDownMenu from "@/src/components/feedback/ui/DropDownMenu";
 import { ArrowLeftIcon, CheckIcon } from "@/src/components/utils/icons";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Input } from "@/src/components/ui/input";
+import { Label } from "@/src/components/ui/label";
 import Swal from "sweetalert2";
 import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";
 import { onCancel } from "@/src/app/api/feedback/edit/onCancelEdit";

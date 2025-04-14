@@ -5,7 +5,7 @@
  */
 import Link from "next/link";
 import { AuthSideImage } from "../components/auth/auth-side-image/auth-side-image";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/src/components/ui/card";
 
 export default function Component() {
   return (

@@ -7,7 +7,7 @@ import logoSymbol from "@/public/imgs/Logo Symbol White.png";
 import logoWhite from "@/public/imgs/Logo White.png";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import useThemeImg from "@/src/hooks/useThemeImg";
+import useThemeImg from "@/src/hooks/use-theme-Img";
 
 export function AuthSideImage() {
   const { theme, resolvedTheme, mounted } = useThemeImg();

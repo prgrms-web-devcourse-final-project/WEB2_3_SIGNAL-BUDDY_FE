@@ -8,11 +8,11 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Profile from "../profile/Profile";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/src/components/ui/button";
+import { cn } from "@/src/utils";
 import { ChevronRight } from "lucide-react";
 import { useTheme } from "next-themes";
-import useThemeImg from "@/src/hooks/useThemeImg";
+import useThemeImg from "@/src/hooks/use-theme-Img";
 
 export default function Navbar() {
   const { data: session } = useSession();

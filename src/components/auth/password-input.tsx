@@ -1,10 +1,10 @@
-import { Input } from "@/components/ui/input";
+import { Input } from "@/src/components/ui/input";
 import { useState } from "react";
 import eyeOpen from "@/public/imgs/eye-open.svg";
 import eyeSlash from "@/public/imgs/eye-slash.svg";
 import Image from "next/image";
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/utils";
 
 interface PasswordInputProps<T extends FieldValues> {
   field: ControllerRenderProps<T, Path<T>>;

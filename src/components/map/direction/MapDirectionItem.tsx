@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/utils";
 import {
   TMAP_POINT_TYPE,
   TMAP_FACILITY_TYPE,

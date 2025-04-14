@@ -1,7 +1,7 @@
 "use client";
 
 import LogoutButton from "@/src/components/auth/logout/LogoutButton";
-import { Switch } from "@/src/components/shadcn/components/ui/switch";
+import { Switch } from "@/src/components/ui/switch";
 import { DropdownThemeToggle } from "@/src/components/display-mode/DarkModeToggle";
 import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { signOut, useSession } from "next-auth/react";

@@ -1,14 +1,14 @@
 "use client";
 
 import { Control, FieldValues, Path } from "react-hook-form";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Checkbox } from "@/src/components/ui/checkbox";
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from "@/src/components/ui/form";
 import Link from "next/link";
 
 interface CheckboxGroupProps<T extends FieldValues> {

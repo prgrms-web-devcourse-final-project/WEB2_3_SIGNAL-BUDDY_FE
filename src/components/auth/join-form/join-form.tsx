@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/src/components/ui/button";
+import { Input } from "@/src/components/ui/input";
 import Image from "next/image";
 import logo from "@/public/imgs/Logo.png";
 import { CameraIcon } from "@/src/components/utils/icons";
@@ -14,7 +14,7 @@ import {
   FormItem,
   FormControl,
   FormLabel,
-} from "@/components/ui/form";
+} from "@/src/components/ui/form";
 import { CheckboxGroup } from "../../common/form/CheckboxGroup";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";

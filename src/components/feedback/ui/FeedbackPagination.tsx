@@ -9,7 +9,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "../../shadcn/components/ui/pagination";
+} from "@/src/components/ui/pagination";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function FeedbackPagination({

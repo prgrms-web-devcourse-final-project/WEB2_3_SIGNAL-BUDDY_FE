@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { Button } from "@/src/components/ui/button";
+import { cn } from "@/src/utils";
 import { TMap } from "@/src/types";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";

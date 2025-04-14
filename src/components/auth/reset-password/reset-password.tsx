@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import Image from "next/image";
 import logo from "@/public/imgs/Logo.png";
 import {
@@ -9,7 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormControl,
-} from "@/components/ui/form";
+} from "@/src/components/ui/form";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
