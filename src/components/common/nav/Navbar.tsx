@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import logoLight from "@/public/imgs/Logo Symbol.png";
-import logoDark from "@/public/imgs/Logo Symbol White.png";
+import logoLight from "@/public/imgs/logo-symbol.png";
+import logoDark from "@/public/imgs/logo-symbol-white.png";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import Profile from "../profile/Profile";

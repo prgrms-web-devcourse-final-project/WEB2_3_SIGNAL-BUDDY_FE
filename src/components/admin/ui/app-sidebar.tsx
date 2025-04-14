@@ -26,7 +26,7 @@ import {
 import React from "react";
 import Image from "next/image";
 
-import logo_text from "@/public/imgs/Logo.svg";
+import logo_text from "@/public/imgs/logo.svg";
 import logo_symbol from "@/public/imgs/logo-symbol-background-white.svg";
 import Link from "next/link";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import deleteImage from "@/public/imgs/Delete.svg";
+import deleteImage from "@/public/imgs/delete.svg";
 import twoLineHamburger from "@/public/imgs/two-line-hamburger.svg";
 import {
   DragDropContext,

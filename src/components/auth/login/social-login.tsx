@@ -2,9 +2,9 @@
 
 import { Button } from "@/src/components/ui/button";
 import Image from "next/image";
-import googleLogo from "@/public/imgs/Google.svg";
-import kakaoLogo from "@/public/imgs/Kakao.svg";
-import naverLogo from "@/public/imgs/Naver.svg";
+import googleLogo from "@/public/imgs/google.svg";
+import kakaoLogo from "@/public/imgs/kakao.svg";
+import naverLogo from "@/public/imgs/naver.svg";
 import { signIn } from "next-auth/react";
 
 export function SocialLogin() {

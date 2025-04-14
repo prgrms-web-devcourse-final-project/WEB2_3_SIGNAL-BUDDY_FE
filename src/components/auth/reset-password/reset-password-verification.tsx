@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/components/ui/button";
 import Image from "next/image";
-import logo from "@/public/imgs/Logo.png";
+import logo from "@/public/imgs/logo.png";
 import { useState } from "react";
 import { EmailForm } from "./email-form";
 import { OTPForm } from "./OTP-form";

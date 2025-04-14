@@ -1,12 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import authSideImageLight from "@/public/imgs/LoginBackground.png";
+import authSideImageLight from "@/public/imgs/login-bg.png";
 import authSideImageDark from "@/public/imgs/auth-side-image-dark.png";
-import logoSymbol from "@/public/imgs/Logo Symbol White.png";
-import logoWhite from "@/public/imgs/Logo White.png";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import logoSymbol from "@/public/imgs/logo-symbol-white.png";
+import logoWhite from "@/public/imgs/logo-white.png";
 import useThemeImg from "@/src/hooks/use-theme-Img";
 
 export function AuthSideImage() {

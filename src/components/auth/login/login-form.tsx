@@ -3,7 +3,7 @@
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import Image from "next/image";
-import logo from "@/public/imgs/Logo.png";
+import logo from "@/public/imgs/logo.png";
 import Link from "next/link";
 import { SocialLogin } from "./social-login";
 import { useEffect, useState } from "react";

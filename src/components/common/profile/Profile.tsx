@@ -11,7 +11,7 @@ type Props = {
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "2md";
 };
 
-const DEFATUL_PROFILE = "/imgs/DefaultProfile.png";
+const DEFATUL_PROFILE = "/imgs/default-profile.png";
 
 const AVATAR_SIZES = {
   xs: "w-4 h-4 min-w-4 min-h-4",

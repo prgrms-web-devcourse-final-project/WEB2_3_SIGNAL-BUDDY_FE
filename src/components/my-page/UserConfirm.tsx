@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { verifyPW } from "@/src/services/members.service";
 import Image from "next/image";
-import logo from "@/public/imgs/Logo.png";
+import logo from "@/public/imgs/logo.png";
 import { PasswordInput } from "../auth/password-input";
 import { Button } from "@/src/components/ui/button";
 
