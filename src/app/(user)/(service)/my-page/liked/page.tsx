@@ -1,5 +1,6 @@
 "use client";
 
+import FeedbackList from "@/src/features/feedback/feedback-list/components/feedback-list";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/src/components/utils/icons";
 import LikedFeedbackList from "@/src/features/my-page/my-page-feedback/components/my-page-feedback-list";
 import MyPlacePagination from "@/src/features/my-place/my-place-common/components/my-place-pagination";
