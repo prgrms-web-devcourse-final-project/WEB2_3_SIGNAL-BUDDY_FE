@@ -1,6 +1,6 @@
 "use client";
 
-import MyPlaceListEdit from "@/src/components/my-place/MyPlaceListEdit";
+import MyPlaceListEdit from "@/src/features/my-place/my-place-edit/components/my-place-edit-list";
 import { useSession } from "next-auth/react";
 import {
   useQuery,
@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { DropResult } from "@hello-pangea/dnd";
 import { Bookmark, ReorderBody } from "@/src/types/my-place";
-import MyPlacePagination from "@/src/components/my-place/MyPlacePagination";
+import MyPlacePagination from "@/src/features/my-place/my-place-common/components/my-place-pagination";
 
 type MyPlacesResponse = {
   searchResults: Bookmark[];

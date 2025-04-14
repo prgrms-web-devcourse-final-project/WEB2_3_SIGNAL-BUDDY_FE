@@ -2,7 +2,7 @@
 
 import FeedbackList from "@/src/components/feedback/FeedbackList";
 import LikedFeedbackList from "@/src/components/my-page/LikedFeedbackList";
-import MyPlacePagination from "@/src/components/my-place/MyPlacePagination";
+import MyPlacePagination from "@/src/features/my-place/my-place-common/components/my-place-pagination";
 import { ArrowLeftIcon, ArrowRightIcon } from "@/src/components/utils/icons";
 import client from "@/src/lib/api/client";
 import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";

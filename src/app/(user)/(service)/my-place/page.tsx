@@ -1,6 +1,6 @@
 "use client";
 
-import MyPlaceList from "@/src/components/my-place/MyPlaceList";
+import MyPlaceList from "@/src/features/my-place/my-place-view/components/my-place-list";
 import Link from "next/link";
 import { Bookmark } from "@/src/types/my-place";
 import { useSession } from "next-auth/react";
