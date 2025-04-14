@@ -1,17 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import logoLight from "@/public/imgs/logo-symbol.png";
 import logoDark from "@/public/imgs/logo-symbol-white.png";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import Profile from "../profile/Profile";
+import Profile from "./profile";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/src/components/ui/button";
 import { cn } from "@/src/utils";
 import { ChevronRight } from "lucide-react";
-import { useTheme } from "next-themes";
 import useThemeImg from "@/src/hooks/use-theme-Img";
 
 export default function Navbar() {

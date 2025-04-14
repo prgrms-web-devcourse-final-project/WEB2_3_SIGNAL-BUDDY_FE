@@ -15,14 +15,14 @@ import {
   FormControl,
   FormLabel,
 } from "@/src/components/ui/form";
-import { CheckboxGroup } from "../../common/form/CheckboxGroup";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { join } from "@/src/services/auth.service";
 import { useRouter, useSearchParams } from "next/navigation";
-import { PasswordInput } from "../password-input";
-import Profile from "../../common/profile/Profile";
 import axios from "axios";
+import Profile from "@/src/components/common/profile";
+import { CheckboxGroup } from "@/src/components/common/checkbox-group";
+import { PasswordInput } from "@/src/components/common/password-input";
 
 const formSchema = z
   .object({

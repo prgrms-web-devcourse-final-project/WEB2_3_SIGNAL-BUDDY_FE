@@ -19,10 +19,10 @@ import {
   FormLabel,
 } from "@/src/components/ui/form";
 import { toast } from "sonner";
-import { CheckboxGroup } from "../../common/form/CheckboxGroup";
 import { redirect } from "next/navigation";
-import { PasswordInput } from "../password-input";
 import { setTokenHandler } from "@/src/firebase/firebase";
+import { CheckboxGroup } from "@/src/components/common/checkbox-group";
+import { PasswordInput } from "@/src/components/common/password-input";
 
 const formSchema = z.object({
   email: z

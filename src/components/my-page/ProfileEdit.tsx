@@ -12,7 +12,7 @@ import {
   FormLabel,
 } from "@/src/components/ui/form";
 import { useEffect, useState } from "react";
-import Profile from "../common/profile/Profile";
+import Profile from "../common/profile";
 import { Input } from "@/src/components/ui/input";
 import { PasswordInput } from "../auth/password-input";
 import { toast } from "sonner";

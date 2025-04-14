@@ -1,7 +1,7 @@
 "use client";
 import useDetectScroll, { Direction } from "@smakss/react-scroll-direction";
-import Navbar from "../nav/Navbar";
 import { cn } from "@/src/utils";
+import Navbar from "./navbar";
 
 export default function Header() {
   const { scrollDir } = useDetectScroll();

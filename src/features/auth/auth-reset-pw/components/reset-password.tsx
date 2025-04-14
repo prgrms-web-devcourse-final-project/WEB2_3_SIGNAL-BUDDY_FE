@@ -13,13 +13,13 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { PasswordInput } from "../password-input";
 import { useEffect } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import axios from "axios";
 import { resetPW } from "@/src/services/auth.service";
+import { PasswordInput } from "@/src/components/common/password-input";
 
 const formSchema = z
   .object({
