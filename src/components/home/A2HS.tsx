@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
-import Logo_icon from "@/public/imgs/app_logo.svg";
+import Logo_icon from "@/public/imgs/app-logo.svg";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import {
   Drawer,
   DrawerClose,
@@ -12,7 +12,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "@/components/ui/drawer";
+} from "@/src/components/ui/drawer";
 import Image from "next/image";
 
 interface BeforeInstallPromptEvent extends Event {

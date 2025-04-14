@@ -7,7 +7,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "@/components/ui/pagination";
+} from "@/src/components/ui/pagination";
 
 interface MyPlacePaginationProps {
   page: number; // 현재 페이지 (0-based)

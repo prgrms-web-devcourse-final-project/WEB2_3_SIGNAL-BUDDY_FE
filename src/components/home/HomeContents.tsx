@@ -1,12 +1,12 @@
 "use client";
 import Image from "next/image";
-import logo from "@/public/imgs/Logo.svg";
+import logo from "@/public/imgs/logo.svg";
 import Link from "next/link";
 import { A2HS } from "@/src/components/home/A2HS";
-import { Button } from "@/src/components/shadcn/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import home_background_img from "@/public/imgs/noisy-gradients.jpg";
 import home_background_img_dark from "@/public/imgs/noisy-gradients-dark.jpg";
-import useThemeImg from "@/src/hooks/useThemeImg";
+import useThemeImg from "@/src/hooks/use-theme-Img";
 import { PlaiceholderType } from "@/src/utils/getBase64";
 
 type Props = {

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/src/components/ui/sonner";
 import RootProvider from "../contexts/RootProvider";
 import FCMNotification from "../components/fcm/FCMNotification";
 import { Providers } from "../components/display-mode/ThemeProvider";

@@ -12,7 +12,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
-import Profile from "../common/profile/Profile";
+import Profile from "../common/profile";
 
 // 댓글 삭제 함수 (비동기 처리 및 UI 반영)
 const deleteComment = async (

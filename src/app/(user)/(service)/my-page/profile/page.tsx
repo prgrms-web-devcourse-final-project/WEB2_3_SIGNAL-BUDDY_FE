@@ -6,7 +6,7 @@ import likedFeedback from "@/public/imgs/liked-feedback.svg";
 import { ArrowRightIcon, SettingIcon } from "@/src/components/utils/icons";
 import { auth } from "@/src/auth";
 import { redirect } from "next/navigation";
-import Profile from "@/src/components/common/profile/Profile";
+import Profile from "@/src/components/common/profile";
 import RecentDestinations from "@/src/components/my-page/RecentDestinations";
 
 export default async function Page() {

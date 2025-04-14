@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@/src/components/ui/toggle-group";
 import FeedbackRadioButton from "./FeedbackRadioButton";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 

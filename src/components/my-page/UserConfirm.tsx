@@ -8,15 +8,15 @@ import {
   FormItem,
   FormControl,
   FormLabel,
-} from "@/components/ui/form";
+} from "@/src/components/ui/form";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { verifyPW } from "@/src/services/members.service";
 import Image from "next/image";
-import logo from "@/public/imgs/Logo.png";
+import logo from "@/public/imgs/logo.png";
 import { PasswordInput } from "../auth/password-input";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 
 const formSchema = z.object({
   password: z

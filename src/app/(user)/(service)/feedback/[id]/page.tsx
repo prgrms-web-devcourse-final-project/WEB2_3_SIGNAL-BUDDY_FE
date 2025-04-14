@@ -12,7 +12,7 @@ import FeedbackComment from "@/src/components/feedback/FeedbackComment";
 import { toast } from "sonner";
 import { redirect } from "next/navigation";
 import { formatFeedbackCategory } from "@/src/utils/formatFeedbackCategory";
-import Profile from "@/src/components/common/profile/Profile";
+import Profile from "@/src/components/common/profile";
 import LikeBTN from "@/src/components/feedback/LikeBTN";
 
 const handleError = (error: unknown) => {

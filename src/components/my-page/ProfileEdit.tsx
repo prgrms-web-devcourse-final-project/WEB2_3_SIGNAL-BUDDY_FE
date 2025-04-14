@@ -10,13 +10,13 @@ import {
   FormItem,
   FormControl,
   FormLabel,
-} from "@/components/ui/form";
+} from "@/src/components/ui/form";
 import { useEffect, useState } from "react";
-import Profile from "../common/profile/Profile";
-import { Input } from "@/components/ui/input";
+import Profile from "../common/profile";
+import { Input } from "@/src/components/ui/input";
 import { PasswordInput } from "../auth/password-input";
 import { toast } from "sonner";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/src/components/ui/button";
 import {
   changeProfileImg,
   changeUserInfo,
