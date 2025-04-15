@@ -10,7 +10,7 @@ import {
   DropdownMenuRadioItem,
 } from "@/src/components/ui/dropdown-menu";
 import { useTheme } from "next-themes";
-import { ArrowDownIcon } from "../utils/icons";
+import { ArrowDownIcon } from "@/src/components/utils/icons";
 
 export function DropdownThemeToggle() {
   const { theme, resolvedTheme, setTheme } = useTheme();
