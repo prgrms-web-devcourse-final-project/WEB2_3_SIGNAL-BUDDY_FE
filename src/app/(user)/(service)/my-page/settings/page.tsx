@@ -1,7 +1,5 @@
 "use client";
 
-import LogoutButton from "@/src/components/auth/logout/LogoutButton";
-import { Switch } from "@/src/components/ui/switch";
 import { DropdownThemeToggle } from "@/src/components/display-mode/DarkModeToggle";
 import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { signOut, useSession } from "next-auth/react";
@@ -9,6 +7,7 @@ import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import client from "@/src/lib/api/client";
 import Swal from "sweetalert2";
+import LogoutButton from "@/src/features/auth/auth-common/components/logout-btn";
 
 export default function Page() {
   const session = useSession();
