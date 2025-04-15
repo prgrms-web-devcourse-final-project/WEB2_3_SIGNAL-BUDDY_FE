@@ -3,8 +3,8 @@
 import client from "@/src/lib/api/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
-import RecentDestinationsItem from "./RecentDestinationsItem";
 import { useEffect } from "react";
+import RecentDestinationsItem from "./recent-destinations-item";
 
 export interface Destination {
   recentPathId: number;

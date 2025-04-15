@@ -15,8 +15,8 @@ import { toast } from "sonner";
 import { verifyPW } from "@/src/services/members.service";
 import Image from "next/image";
 import logo from "@/public/imgs/logo.png";
-import { PasswordInput } from "../auth/password-input";
 import { Button } from "@/src/components/ui/button";
+import { PasswordInput } from "@/src/components/common/password-input";
 
 const formSchema = z.object({
   password: z
@@ -28,7 +28,7 @@ const formSchema = z.object({
 type Props = {
   onConfirm: () => void;
 };
-export default function UserConfirm({ onConfirm }: Props) {
+export default function ({ onConfirm }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const { data: session } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
