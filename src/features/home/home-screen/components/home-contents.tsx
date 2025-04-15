@@ -2,7 +2,7 @@
 import Image from "next/image";
 import logo from "@/public/imgs/logo.svg";
 import Link from "next/link";
-import { A2HS } from "@/src/components/home/A2HS";
+import { A2HS } from "@/src/features/home/home-pwa/components/home-pwa-A2HS-popup";
 import { Button } from "@/src/components/ui/button";
 import home_background_img from "@/public/imgs/noisy-gradients.jpg";
 import home_background_img_dark from "@/public/imgs/noisy-gradients-dark.jpg";
@@ -84,7 +84,6 @@ export default function HomeContents({ darkImage, lightImage }: Props) {
             </Link>
           </div>
           <A2HS />
-          {/* <InstallPrompt /> */}
         </div>
       </div>
     </section>

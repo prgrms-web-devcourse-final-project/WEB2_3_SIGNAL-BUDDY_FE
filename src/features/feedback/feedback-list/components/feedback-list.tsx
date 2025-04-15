@@ -2,7 +2,7 @@ import Link from "next/link";
 import { formatDate } from "@/src/utils/formatDate";
 import Image from "next/image";
 import { IFeedbackListItem } from "@/src/types/feedback/feedbackList";
-import Profile from "../common/profile";
+import Profile from "../../../../components/common/profile";
 
 function FeedbackItem({
   feedbackId,
