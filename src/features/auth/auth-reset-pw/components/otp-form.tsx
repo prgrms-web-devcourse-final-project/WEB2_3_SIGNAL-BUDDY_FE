@@ -19,10 +19,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { toast } from "sonner";
-
-const otpSchema = z.object({
-  otp: z.string().length(6, { message: "6자리 인증번호를 입력해주세요." }),
-});
+import { otpSchema } from "../actions";
 
 export function OTPForm({
   isOtpComplete,
