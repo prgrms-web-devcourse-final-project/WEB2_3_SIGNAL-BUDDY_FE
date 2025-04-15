@@ -1,19 +1,18 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import React, { useState, useEffect, useMemo } from "react";
 import useToolbarStore from "@/src/store/feedback/useToolbarStore";
 import FeedbackRadioButton from "../../feedback-common/components/feedback-radio-button";
 import FeedbackSearchbar from "../../feedback-common/components/feedback-searchbar";
 
 export default function MobileToolbar() {
-  const { isMobileToolbarOpen, closeMobileToolbar } = useToolbarStore();
+  const { isMobileToolbarOpen } = useToolbarStore();
 
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
 
   const [searchTerm, setSearchTerm] = useState("");
+
   const keywordFromURL = useMemo(
     () => searchParams.get("keyword") || "",
     [searchParams],
@@ -22,24 +21,6 @@ export default function MobileToolbar() {
   useEffect(() => {
     setSearchTerm(keywordFromURL);
   }, [keywordFromURL]);
-
-  // 검색 실행 함수
-  const handleSearch = (term: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (term.trim()) {
-      params.set("keyword", term.trim());
-    } else {
-      params.delete("keyword");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  };
-
-  // 폼 제출 핸들러
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSearch(searchTerm);
-    closeMobileToolbar();
-  };
 
   return (
     <>

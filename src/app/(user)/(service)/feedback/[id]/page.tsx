@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import MeatballMenu from "@/src/features/feedback/feedback-common/components/feedback-meatball-menu";
 import { auth } from "@/src/auth";
-import { fetchDataFeedbackItem } from "@/src/app/api/feedback/fetchFeedbackItem";
+import { fetchDataFeedbackItem } from "@/src/features/feedback/feedback-common/queries/fetchFeedbackItem";
 import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { IFeedbackDetailResponse } from "@/src/types/feedback/feedbackList";
 

@@ -27,8 +27,8 @@ export default function FeedbackEditPost({
   const [title, setTitle] = useState<string>(subject);
   const [feedbackContent, setFeedbackContent] = useState<string>(content);
   const [feedbackCategory, setFeedbackCategory] = useState<string>(category);
-  const [isSecret, setIsSecret] = useState(false);
-  const [crossroadId, setCrossroadId] = useState<string | null>(
+  const [isSecret] = useState(false);
+  const [crossroadId] = useState<string | null>(
     crossroad.crossroadId.toString(),
   );
   const [newImageUrl, setNewImageUrl] = useState<string | File | null>(
