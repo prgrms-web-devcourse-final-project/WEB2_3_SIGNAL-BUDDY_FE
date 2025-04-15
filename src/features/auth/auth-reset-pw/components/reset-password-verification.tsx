@@ -6,11 +6,11 @@ import logo from "@/public/imgs/logo.png";
 import { useState } from "react";
 import { EmailForm } from "./email-form";
 import { useRouter } from "next/navigation";
-import { sendAuthCode, verifyAuthCode } from "@/src/services/auth.service";
 import { toast } from "sonner";
 import axios from "axios";
 import dayjs from "dayjs";
 import { OTPForm } from "./otp-form";
+import { sendAuthCode, verifyAuthCode } from "../actions";
 
 export function ResetPasswordVerification() {
   const router = useRouter();

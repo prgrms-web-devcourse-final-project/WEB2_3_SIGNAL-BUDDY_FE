@@ -14,13 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useEffect } from "react";
 import { toast } from "sonner";
-
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "아이디를 입력해주세요." })
-    .email({ message: "이메일 형식이 아닙니다." }),
-});
+import { resetPwEamilFormSchema } from "../actions";
 
 export function EmailForm({
   onEmailSend,
@@ -31,8 +25,8 @@ export function EmailForm({
   isEmailSent: boolean;
   loading: boolean;
 }) {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof resetPwEamilFormSchema>>({
+    resolver: zodResolver(resetPwEamilFormSchema),
     defaultValues: {
       email: "",
     },
@@ -47,7 +41,7 @@ export function EmailForm({
     }
   }, [error]);
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof resetPwEamilFormSchema>) => {
     console.log("EmailForm 제출:", values.email);
     onEmailSend(values.email);
     // 실제 이메일 전송 API 호출 로직 넣기

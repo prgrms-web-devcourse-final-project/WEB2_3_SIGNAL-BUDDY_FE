@@ -23,24 +23,13 @@ import { redirect } from "next/navigation";
 import { setTokenHandler } from "@/src/firebase/firebase";
 import { CheckboxGroup } from "@/src/components/common/checkbox-group";
 import { PasswordInput } from "@/src/components/common/password-input";
-
-const formSchema = z.object({
-  email: z
-    .string()
-    .min(1, { message: "아이디를 입력해주세요." })
-    .email({ message: "이메일 형식이 아닙니다." }),
-  password: z
-    .string()
-    .min(8, { message: "비밀번호를 최소 8자 이상 입력해주세요." })
-    .max(50, { message: "최대 50자까지 입력 가능합니다." }),
-  agree: z.array(z.string()),
-});
+import { login, loginFormSchema } from "../actions";
 
 export function LoginForm() {
   const [loading, setLoading] = useState<boolean>(false);
   const { data: session } = useSession();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof loginFormSchema>>({
+    resolver: zodResolver(loginFormSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -49,6 +38,7 @@ export function LoginForm() {
   });
 
   const error = form.formState.errors;
+
   useEffect(() => {
     if (error) {
       const arr = Object.values(error)[0];
@@ -56,15 +46,13 @@ export function LoginForm() {
     }
   }, [error]);
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof loginFormSchema>) => {
     try {
       setLoading(true);
       const { email, password, agree } = values;
-      const result = await signIn("credentials", {
-        id: email,
-        password,
-        redirect: false,
-      });
+
+      const result = await login(email, password);
+
       if (result && result.error) {
         if (result.code) toast(result.code);
         else toast("이메일 혹은 비밀번호를 확인해주세요.");
@@ -83,7 +71,6 @@ export function LoginForm() {
   };
 
   useEffect(() => {
-    console.log(session);
     const storagedEmail = localStorage.getItem("signal-email");
     if (storagedEmail) {
       form.setValue("email", storagedEmail);

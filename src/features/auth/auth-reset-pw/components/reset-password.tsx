@@ -18,46 +18,8 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import axios from "axios";
-import { resetPW } from "@/src/services/auth.service";
 import { PasswordInput } from "@/src/components/common/password-input";
-
-const formSchema = z
-  .object({
-    password: z
-      .string()
-      .min(8, { message: "비밀번호를 최소 8자 이상 입력해주세요." })
-      .max(50, { message: "최대 50자까지 입력 가능합니다." })
-      .refine(
-        (pw) => {
-          const hasLetters = /[A-Za-z]/.test(pw);
-          const hasNumbers = /\d/.test(pw);
-          const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(pw);
-
-          const typesIncluded = [
-            hasLetters,
-            hasNumbers,
-            hasSpecialChars,
-          ].filter(Boolean).length;
-          return typesIncluded >= 2;
-        },
-        {
-          message: "영문, 숫자, 특수문자 중 2가지 이상 입력해주세요.",
-        },
-      ),
-
-    passwordConfirm: z
-      .string()
-      .min(1, { message: "비밀번호 확인을 입력해주세요." }),
-  })
-  .superRefine(({ passwordConfirm, password }, ctx) => {
-    if (passwordConfirm !== password) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["pwConfirm"],
-        message: "비밀번호가 일치하지 않습니다.",
-      });
-    }
-  });
+import { resetPW, resetPwFormSchema } from "../actions";
 
 type Props = {
   searchparams?: { email: string; date: string };
@@ -65,15 +27,15 @@ type Props = {
 
 export function ResetPassword({ searchparams }: Props) {
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof resetPwFormSchema>>({
+    resolver: zodResolver(resetPwFormSchema),
     defaultValues: {
       password: "",
       passwordConfirm: "",
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof resetPwFormSchema>) => {
     try {
       if (!searchparams) return toast("이메일을 입력해주세요.");
       const { email } = searchparams;

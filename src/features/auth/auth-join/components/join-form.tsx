@@ -17,61 +17,12 @@ import {
 } from "@/src/components/ui/form";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
-import { join } from "@/src/services/auth.service";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import Profile from "@/src/components/common/profile";
 import { CheckboxGroup } from "@/src/components/common/checkbox-group";
 import { PasswordInput } from "@/src/components/common/password-input";
-
-const formSchema = z
-  .object({
-    email: z
-      .string()
-      .min(1, { message: "아이디를 입력해주세요." })
-      .email({ message: "이메일 형식이 아닙니다." }),
-    nickname: z
-      .string()
-      .min(1, { message: "닉네임을 입력해주세요." })
-      .max(10, { message: "닉네임은 최대 10자까지 가능합니다." })
-      .regex(/^\S+$/, "닉네임에는 공백을 포함할 수 없습니다."),
-    password: z
-      .string()
-      .min(8, { message: "비밀번호를 최소 8자 이상 입력해주세요." })
-      .max(50, { message: "최대 50자까지 입력 가능합니다." })
-      .refine(
-        (pw) => {
-          const hasLetters = /[A-Za-z]/.test(pw);
-          const hasNumbers = /\d/.test(pw);
-          const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(pw);
-
-          const typesIncluded = [
-            hasLetters,
-            hasNumbers,
-            hasSpecialChars,
-          ].filter(Boolean).length;
-          return typesIncluded >= 2;
-        },
-        {
-          message: "영문, 숫자, 특수문자 중 2가지 이상 입력해주세요.",
-        },
-      ),
-    passwordConfirm: z
-      .string()
-      .min(1, { message: "비밀번호 확인을 입력해주세요." }),
-    agree: z.array(z.string()).refine((value) => value.length >= 2, {
-      message: "약관을 모두 동의해주세요.",
-    }),
-  })
-  .superRefine(({ passwordConfirm, password }, ctx) => {
-    if (passwordConfirm !== password) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["pwConfirm"],
-        message: "비밀번호가 일치하지 않습니다.",
-      });
-    }
-  });
+import { joinFormSchema, join } from "../actions";
 
 export function JoinForm() {
   const searchParams = useSearchParams();
@@ -84,8 +35,9 @@ export function JoinForm() {
   const [profileFile, setProfileFile] = useState<File | null>(null);
 
   const router = useRouter();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+
+  const form = useForm<z.infer<typeof joinFormSchema>>({
+    resolver: zodResolver(joinFormSchema),
     defaultValues: {
       email: email || "",
       nickname: nickname || "",
@@ -111,7 +63,7 @@ export function JoinForm() {
     setProfileFile(file);
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof joinFormSchema>) => {
     const { email, password, nickname } = values;
     try {
       setLoading(true);

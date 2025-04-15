@@ -6,6 +6,7 @@ import googleLogo from "@/public/imgs/google.svg";
 import kakaoLogo from "@/public/imgs/kakao.svg";
 import naverLogo from "@/public/imgs/naver.svg";
 import { signIn } from "next-auth/react";
+import { googleLogin, kakaoLogin, naverLogin } from "../actions";
 
 export function SocialLogin() {
   return (
@@ -19,7 +20,7 @@ export function SocialLogin() {
       </div>
       <div className="flex justify-center gap-5 mt-[18px]">
         <Button
-          onClick={() => signIn("naver")}
+          onClick={naverLogin}
           type="button"
           variant="outline"
           className="w-10 h-10 p-[10px] flex items-center justify-center rounded-full bg-[#1DC800]"
@@ -28,7 +29,7 @@ export function SocialLogin() {
           <span className="sr-only">네이버 계정으로 로그인</span>
         </Button>
         <Button
-          onClick={() => signIn("kakao")}
+          onClick={kakaoLogin}
           type="button"
           variant="outline"
           className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-[#FEE500]"
@@ -37,7 +38,7 @@ export function SocialLogin() {
           <span className="sr-only">카카오 계정으로 로그인</span>
         </Button>
         <Button
-          onClick={() => signIn("google")}
+          onClick={googleLogin}
           type="button"
           variant="outline"
           className="w-10 h-10 p-2 flex items-center justify-center rounded-full bg-white border-gray-300"
