@@ -7,7 +7,7 @@ import { ArrowRightIcon, SettingIcon } from "@/src/components/utils/icons";
 import { auth } from "@/src/auth";
 import { redirect } from "next/navigation";
 import Profile from "@/src/components/common/profile";
-import RecentDestinations from "@/src/components/my-page/RecentDestinations";
+import RecentDestinations from "@/src/features/my-page/my-page-direction";
 
 export default async function Page() {
   const session = await auth();

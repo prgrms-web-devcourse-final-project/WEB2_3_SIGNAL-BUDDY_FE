@@ -4,7 +4,7 @@ import Script from "next/script";
 import { Toaster } from "@/src/components/ui/sonner";
 import RootProvider from "../contexts/RootProvider";
 import FCMNotification from "../hooks/use-fcm-notification";
-import { Providers } from "../components/display-mode/ThemeProvider";
+import { Providers } from "@/src/features/display-mode/display-mode-common/components/theme-provider";
 import ThemeColorUpdater from "../hooks/use-theme-color-updater";
 import { getMetadata } from "../utils";
 export const metadata: Metadata = getMetadata();

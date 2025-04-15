@@ -12,9 +12,8 @@ import {
   FormLabel,
 } from "@/src/components/ui/form";
 import { useEffect, useState } from "react";
-import Profile from "../common/profile";
+import Profile from "../../../../components/common/profile";
 import { Input } from "@/src/components/ui/input";
-import { PasswordInput } from "../auth/password-input";
 import { toast } from "sonner";
 import { Button } from "@/src/components/ui/button";
 import {
@@ -23,6 +22,7 @@ import {
 } from "@/src/services/members.service";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { PasswordInput } from "@/src/components/common/password-input";
 
 const formSchema = z
   .object({

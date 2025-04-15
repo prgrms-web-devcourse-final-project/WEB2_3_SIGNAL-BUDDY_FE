@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import ProfileEdit from "./ProfileEdit";
 import { User } from "next-auth";
-import UserConfirm from "./UserConfirm";
+import ProfileEdit from "@/src/features/my-page/my-page-profile-edit/components/my-page-profile-edit-form";
+import UserConfirm from "@/src/features/my-page/my-page-profile-edit/components/my-page-user-confirm";
 type Props = {
   user: User;
 };

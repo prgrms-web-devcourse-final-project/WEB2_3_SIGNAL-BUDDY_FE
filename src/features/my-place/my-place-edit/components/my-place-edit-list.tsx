@@ -10,7 +10,7 @@ import {
   DropResult,
   DraggableProvidedDragHandleProps,
 } from "@hello-pangea/dnd";
-import { MyPlaceNameChangeDialog } from "./MyPlaceDialog";
+import { MyPlaceNameChangeDialog } from "@/src/features/my-place/my-place-edit/components/my-place-edit-modal";
 
 interface Bookmark {
   bookmarkId: number;
@@ -27,7 +27,7 @@ interface MyPlaceItemProps {
   onDelete: () => void;
 }
 
-function MyPlaceItem({
+function MyPlaceEditItem({
   bookmark,
   dragHandleProps,
   onDelete,
@@ -101,7 +101,7 @@ export default function MyPlaceListEdit({
                     {...provided.draggableProps}
                     className="mb-2"
                   >
-                    <MyPlaceItem
+                    <MyPlaceEditItem
                       bookmark={bookmark}
                       dragHandleProps={provided.dragHandleProps}
                       onDelete={() => handleDelete(bookmark.bookmarkId)}
