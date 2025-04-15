@@ -42,13 +42,13 @@ export default function InputFile({
       reader.onload = (e) => setImage(e.target?.result as string);
       reader.readAsDataURL(file);
 
-      setImageUrl(file); // ✅ File 객체 저장
+      setImageUrl(file);
     }
   };
 
   const handleRemoveImage = () => {
     setImage(null);
-    setImageUrl(null); // ✅ 이미지 삭제 시, 상태도 null로 변경
+    setImageUrl(null);
   };
 
   return (

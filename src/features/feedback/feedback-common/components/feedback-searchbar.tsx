@@ -8,7 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/src/components/ui/dropdown-menu";
-import { ArrowDownIcon } from "../../../../components/utils/icons";
+import { ArrowDownIcon } from "@/src/components/utils/icons";
+import FeedbackSearchInput from "./feedback-search-input";
 
 export default function FeedbackSearchbar({
   className,
@@ -40,28 +41,12 @@ export default function FeedbackSearchbar({
     setSearchTerm(keywordFromURL);
   }, [keywordFromURL]);
 
-  // 검색 실행 함수
-  const handleSearch = (term: string) => {
-    if (term.trim()) {
-      params.set("keyword", term.trim());
-    } else {
-      params.delete("keyword");
-    }
-    replace(`${pathname}?${params.toString()}`);
-  };
-
   // 드롭다운 선택 시 실행
   const handleSelectOption = (option: string) => {
     const value = option === "제목 + 내용" ? "content" : "writer";
     setSelectedOption(option);
     params.set("target", value);
     replace(`${pathname}?${params.toString()}`);
-  };
-
-  // 폼 제출 핸들러
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    handleSearch(searchTerm);
   };
 
   const searchOptions = ["제목 + 내용", "작성자"];
@@ -92,21 +77,13 @@ export default function FeedbackSearchbar({
       </DropdownMenu>
 
       {/* 검색 입력창 */}
-      <form onSubmit={handleSubmit} className="flex items-center gap-1">
-        <input
-          type="text"
-          className="border-1 h-10 w-[264px] rounded-[8px] border theme-line theme-content-bg p-3 text-sm font-medium text-gray-500"
-          placeholder="검색어를 입력해주세요."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <button
-          type="submit"
-          className="h-10 w-[70px] rounded-[8px] theme-feedback-filter-search-button text-sm font-medium text-white"
-        >
-          검색
-        </button>
-      </form>
+      <FeedbackSearchInput
+        params={params}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        pathname={pathname}
+        replace={replace}
+      />
     </div>
   );
 }

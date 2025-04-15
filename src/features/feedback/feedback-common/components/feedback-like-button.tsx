@@ -1,23 +1,26 @@
 "use client";
 
-import { fetchDataFeedbackItem } from "@/src/app/api/feedback/fetchFeedbackItem";
+import { fetchDataFeedbackItem } from "@/src/features/feedback/feedback-common/queries/fetchFeedbackItem";
 import { getIsLiked } from "@/src/app/api/feedback/likeButton";
+import { fetchAddLike, fetchDeleteLike } from "../actions/feedback-like-button";
+
 import HeartIcon from "@heroicons/react/24/solid/HeartIcon";
+
 import { Session } from "next-auth";
 import { useRouter } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
+
 import { toast } from "sonner";
 import Swal from "sweetalert2";
 
-export default function LikeBTN({
+export default function FeedbackLikeButton({
   feedbackId,
   session,
 }: {
   feedbackId: string;
   session?: Session | null;
 }) {
-  const BASE_URL = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/feedbacks/${feedbackId}/like`;
-
   const router = useRouter();
 
   const token = session?.user.token;
@@ -25,9 +28,7 @@ export default function LikeBTN({
   const [likeCount, setLikeCount] = useState(0);
 
   useEffect(() => {
-    
     const initializeLikeBTN = async () => {
-
       try {
         const feedbackRes = await fetchDataFeedbackItem(feedbackId);
         setLikeCount(feedbackRes.data.likeCount);
@@ -46,73 +47,27 @@ export default function LikeBTN({
       }
     };
     initializeLikeBTN();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const fetchAddLike = async () => {
-    if (!token) return;
+  const addLike = async () => {
+    setLikeCount((prev) => prev + 1);
+    setIsLiked((prev) => !prev);
     try {
-      const res = await fetch(BASE_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        cache: "no-cache",
-      });
-
-      if (res.status === 401) {
-        toast.error("로그인이 만료되었습니다. 다시 로그인해주세요.");
-        router.replace("/login");
-        return;
-      }
-
-      if (!res.ok) {
-        throw new Error(`응답 오류: ${res.status}`);
-      }
-      return await res.json();
+      if (token) await fetchAddLike(token, feedbackId, router);
     } catch (error) {
       console.error("❌ fetchAddLike Error:", error);
     }
   };
 
-  const fetchDeleteLike = async () => {
-    if (!token) return;
-    try {
-      const res = await fetch(BASE_URL, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        cache: "no-cache",
-      });
-
-      if (res.status === 401) {
-        toast.error("로그인이 만료되었습니다. 다시 로그인해주세요.");
-        router.replace("/login");
-        return;
-      }
-
-      if (!res.ok) {
-        throw new Error(`응답 오류: ${res.status}`);
-      }
-      return await res.json();
-    } catch (error) {
-      console.error("❌ fetchDeleteLike Error:", error);
-    }
-  };
-
-  const addLike = async () => {
-    setLikeCount((prev) => prev + 1);
-    setIsLiked((prev) => !prev);
-    await fetchAddLike();
-  };
-
   const deleteLike = async () => {
     setLikeCount((prev) => prev - 1);
     setIsLiked((prev) => !prev);
-    await fetchDeleteLike();
+    try {
+      if (token) await fetchDeleteLike(token, feedbackId, router);
+    } catch (error) {
+      console.error("❌ fetchDeleteLike Error:", error);
+    }
   };
 
   const onLikeHandle = () => {
