@@ -4,7 +4,7 @@ import client from "@/src/lib/api/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import RecentDestinationsItem from "./recent-destinations-item";
+import RecentDestinationsItem from "@/src/features/my-page/my-page-direction/components/my-page-direction-item";
 
 export interface Destination {
   recentPathId: number;
