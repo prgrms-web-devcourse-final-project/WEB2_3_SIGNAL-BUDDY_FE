@@ -12,13 +12,9 @@ import {
 } from "@/src/components/ui/dialog";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
-import client from "@/src/lib/api/client";
 import { Bookmark } from "@/src/types/my-place";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
-import { toast } from "sonner";
-import { z } from "zod";
+import { useMyPlaceNameChange } from "@/src/hooks/use-my-place-edit-rename";
 
 interface MyPlaceNameChangeDialogProps {
   children: React.ReactNode;
@@ -27,70 +23,18 @@ interface MyPlaceNameChangeDialogProps {
   onSubmit?: (newName: string) => void;
 }
 
-interface RenameBody {
-  lng: number;
-  lat: number;
-  address: string;
-  name: string;
-}
-
-function newPlaceNameSchema(currentName: string) {
-  return z.object({
-    placeName: z
-      .string()
-      .min(1, { message: "새로운 장소명을 입력해주세요." })
-      .max(20, { message: "20자 이내로 입력해주세요" })
-      .refine((value) => value !== currentName, {
-        message: "새로운 장소명을 입력해주세요.",
-      }),
-  });
-}
-
 export function MyPlaceNameChangeDialog({
   children,
   bookmark,
 }: MyPlaceNameChangeDialogProps) {
-  const { data: session, status } = useSession();
-  const { bookmarkId, lng, lat, address, name } = bookmark;
-  const [newName, setNewName] = useState<string>("");
-  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
 
-  const renameMutation = useMutation({
-    mutationFn: async (newName: string) => {
-      if (!session?.user?.memberId) return;
-      const body = {
-        lng: lng,
-        lat: lat,
-        address: address,
-        name: newName,
-      };
-      const response = await client.patch(
-        `/api/members/${session.user.memberId}/bookmarks/${bookmarkId}`,
-        body,
-      );
-      return response.data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["myPlaces", session?.user?.memberId],
-      });
+  const { newName, setNewName, handleSave } = useMyPlaceNameChange(
+    bookmark,
+    () => {
       setOpen(false);
     },
-  });
-
-  const schema = newPlaceNameSchema(name);
-
-  const handleSave = () => {
-    const result = schema.safeParse({ placeName: newName });
-    if (!result.success) {
-      const errorMsg =
-        result.error.issues[0]?.message || "유효하지 않은 입력입니다.";
-      toast.error(errorMsg);
-      return;
-    }
-    renameMutation.mutate(newName);
-  };
+  );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -101,8 +45,8 @@ export function MyPlaceNameChangeDialog({
             장소명 변경
           </DialogTitle>
           <DialogDescription className="text-center">
-            <span className="text-bold">{name}</span>의 새로운 장소명을 입력해
-            주세요.
+            <span className="text-bold">{bookmark.name}</span>의 새로운 장소명을
+            입력해 주세요.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-2">
