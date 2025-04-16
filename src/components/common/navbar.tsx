@@ -11,7 +11,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { Button } from "@/src/components/ui/button";
 import { cn } from "@/src/utils";
 import { ChevronRight } from "lucide-react";
-import useThemeImg from "@/src/hooks/use-theme-Img";
+import useThemeDisplay from "@/src/hooks/use-theme-display";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -21,7 +21,7 @@ export default function Navbar() {
     setOpen((prev) => !prev);
   };
 
-  const { theme, resolvedTheme, mounted } = useThemeImg();
+  const { theme, resolvedTheme, mounted } = useThemeDisplay();
 
   if (!mounted) {
     return null;
