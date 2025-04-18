@@ -12,7 +12,7 @@ import {
   FormLabel,
 } from "@/src/components/ui/form";
 import { useEffect, useState } from "react";
-import Profile from "../../../../components/common/profile";
+import Profile from "@/src/components/common/profile";
 import { Input } from "@/src/components/ui/input";
 import { toast } from "sonner";
 import { Button } from "@/src/components/ui/button";
@@ -23,48 +23,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { PasswordInput } from "@/src/components/common/password-input";
-
-const formSchema = z
-  .object({
-    nickname: z
-      .string()
-      .min(1, { message: "닉네임을 입력해주세요." })
-      .max(10, { message: "닉네임은 최대 10자까지 가능합니다." })
-      .regex(/^\S+$/, "닉네임에는 공백을 포함할 수 없습니다."),
-    password: z
-      .string()
-      .min(8, { message: "비밀번호를 최소 8자 이상 입력해주세요." })
-      .max(50, { message: "최대 50자까지 입력 가능합니다." })
-      .refine(
-        (pw) => {
-          const hasLetters = /[A-Za-z]/.test(pw);
-          const hasNumbers = /\d/.test(pw);
-          const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(pw);
-
-          const typesIncluded = [
-            hasLetters,
-            hasNumbers,
-            hasSpecialChars,
-          ].filter(Boolean).length;
-          return typesIncluded >= 2;
-        },
-        {
-          message: "영문, 숫자, 특수문자 중 2가지 이상 입력해주세요.",
-        },
-      )
-      .optional()
-      .or(z.literal("")),
-    passwordConfirm: z.string().optional().or(z.literal("")),
-  })
-  .superRefine(({ passwordConfirm, password }, ctx) => {
-    if (passwordConfirm !== password) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ["pwConfirm"],
-        message: "비밀번호가 일치하지 않습니다.",
-      });
-    }
-  });
+import { profileEditFormSchema } from "@/src/features/my-page/my-page-profile-edit/actions/profile-edit-schema";
 
 type Props = {
   user: User;
@@ -76,8 +35,8 @@ export default function ProfileEdit({ user }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const [profileFile, setProfileFile] = useState<File | null>(null);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof profileEditFormSchema>>({
+    resolver: zodResolver(profileEditFormSchema),
     defaultValues: {
       nickname: user.nickname || "",
       password: "",
@@ -101,7 +60,7 @@ export default function ProfileEdit({ user }: Props) {
     setProfileFile(file);
   };
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof profileEditFormSchema>) => {
     const { nickname, password } = values;
     try {
       setLoading(true);
