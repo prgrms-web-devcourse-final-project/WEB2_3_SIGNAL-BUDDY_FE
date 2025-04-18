@@ -1,5 +1,4 @@
 import { Button } from "@/src/components/ui/button";
-import { saveRecentPath } from "@/src/services/members.service";
 import { PoiDetail } from "@/src/types";
 import {
   BuildingOffice2Icon,
@@ -12,6 +11,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { saveRecentPath } from "../actions";
 type Props = {
   target: PoiDetail;
   onClose: () => void;
