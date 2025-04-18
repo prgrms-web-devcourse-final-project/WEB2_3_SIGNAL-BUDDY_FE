@@ -15,7 +15,7 @@ interface MyPlaceListEditProps {
   handleDelete: (bookmarkId: number) => void;
 }
 
-export default function MyPlaceListEdit({
+export default function MyPlaceEditList({
   items,
   handleDragEnd,
   handleDelete,

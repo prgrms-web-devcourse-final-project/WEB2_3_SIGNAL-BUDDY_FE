@@ -7,7 +7,7 @@ type MyPlacesResponse = {
   totalPages: number;
 };
 
-export const useMyBookmarksQuery = (
+export const myPlaceBookmarkQuery = (
   memberId: number | undefined,
   page: number,
   size = 15,

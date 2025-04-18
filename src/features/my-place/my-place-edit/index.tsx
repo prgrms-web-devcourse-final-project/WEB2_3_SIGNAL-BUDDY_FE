@@ -1,10 +1,10 @@
 "use client";
 
-import MyPlaceListEdit from "@/src/features/my-place/my-place-edit/components/my-place-edit-list";
+import MyPlaceEditList from "@/src/features/my-place/my-place-edit/components/my-place-edit-list";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import MyPlacePagination from "@/src/features/my-place/my-place-common/components/my-place-pagination";
-import { useMyBookmarksQuery } from "@/src/features/my-place/my-place-common/queries/use-my-bookmark-query";
+import { myPlaceBookmarkQuery } from "@/src/features/my-place/my-place-common/queries/my-place-bookmark-query";
 import { useMyPlaceEdit } from "@/src/hooks/use-my-place-edit";
 
 export default function MyPlaceEdit() {
@@ -17,7 +17,7 @@ export default function MyPlaceEdit() {
     isLoading,
     isError,
     error,
-  } = useMyBookmarksQuery(session?.user?.memberId, page);
+  } = myPlaceBookmarkQuery(session?.user?.memberId, page);
 
   const { searchResults, totalPages } = bookmarks;
 
@@ -42,7 +42,7 @@ export default function MyPlaceEdit() {
       </div>
       <div className="flex min-h-[916px] w-full">
         <section className="flex flex-grow flex-col gap-2">
-          <MyPlaceListEdit
+          <MyPlaceEditList
             items={items}
             handleDragEnd={handleDragEnd}
             handleDelete={handleDelete}

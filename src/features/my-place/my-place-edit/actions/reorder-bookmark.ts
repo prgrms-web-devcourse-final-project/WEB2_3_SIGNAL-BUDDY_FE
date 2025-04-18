@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import client from "@/src/lib/api/client";
 import { ReorderBody } from "@/src/types/my-place";
 
-export const useReorderBookmarks = (memberId?: number) => {
+export const reorderBookmark = (memberId?: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({

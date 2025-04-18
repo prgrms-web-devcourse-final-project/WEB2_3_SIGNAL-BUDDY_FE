@@ -4,7 +4,7 @@ import MyPlaceList from "@/src/features/my-place/my-place-view/components/my-pla
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
-import { useMyBookmarksQuery } from "@/src/features/my-place/my-place-common/queries/use-my-bookmark-query";
+import { myPlaceBookmarkQuery } from "@/src/features/my-place/my-place-common/queries/my-place-bookmark-query";
 
 export default function MyPlaceView() {
   const { data: session } = useSession();
@@ -15,7 +15,7 @@ export default function MyPlaceView() {
     isLoading,
     isError,
     error,
-  } = useMyBookmarksQuery(session?.user?.memberId, page);
+  } = myPlaceBookmarkQuery(session?.user?.memberId, page);
 
   const { searchResults, totalPages } = bookmarks;
 

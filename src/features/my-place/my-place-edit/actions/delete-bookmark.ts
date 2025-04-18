@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import client from "@/src/lib/api/client";
 
-export const useDeleteBookmarks = (memberId?: number) => {
+export const deleteBookmark = (memberId?: number) => {
   const queryClient = useQueryClient();
 
   return useMutation({

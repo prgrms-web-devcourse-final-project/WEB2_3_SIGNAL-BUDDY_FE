@@ -29,12 +29,9 @@ export function MyPlaceNameChangeDialog({
 }: MyPlaceNameChangeDialogProps) {
   const [open, setOpen] = useState(false);
 
-  const { newName, setNewName, handleSave } = useMyPlaceNameChange(
-    bookmark,
-    () => {
-      setOpen(false);
-    },
-  );
+  const { setNewName, handleSave } = useMyPlaceNameChange(bookmark, () => {
+    setOpen(false);
+  });
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useDeleteBookmarks } from "@/src/features/my-place/my-place-edit/actions/use-delete-bookmarks";
-import { useReorderBookmarks } from "@/src/features/my-place/my-place-edit/actions/use-reorder-bookmarks";
+import { deleteBookmark } from "@/src/features/my-place/my-place-edit/actions/delete-bookmark";
+import { reorderBookmark } from "@/src/features/my-place/my-place-edit/actions/reorder-bookmark";
 import { DropResult } from "@hello-pangea/dnd";
 import { Bookmark } from "@/src/types/my-place";
 
@@ -15,8 +15,8 @@ export function useMyPlaceEdit(
   const [items, setItems] = useState<Bookmark[]>([]);
   const [deletedIds, setDeletedIds] = useState<number[]>([]);
 
-  const deleteMutation = useDeleteBookmarks(memberId);
-  const reorderMutation = useReorderBookmarks(memberId);
+  const deleteMutation = deleteBookmark(memberId);
+  const reorderMutation = reorderBookmark(memberId);
 
   useEffect(() => {
     if (searchResults.length) {
