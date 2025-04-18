@@ -1,11 +1,10 @@
 "use client";
 
 import { useSession } from "next-auth/react";
-import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useBookmarkDestination } from "../actions/bookmark-direction";
-import DestinationCard from "./my-page-bookmark-card";
-import BookmarkToggleButton from "./my-page-bookmark-toggle-button";
+import { bookmarkRecentPath } from "@/src/features/my-page/my-page-recent-path/actions/bookmark-recent-path";
+import BookmarkToggleButton from "@/src/features/my-page/my-page-recent-path/components//my-page-bookmark-toggle-button";
+import RecentPathCard from "@/src/features/my-page/my-page-recent-path/components/my-page-recent-path-card";
 
 export interface DestinationItem {
   id?: string;
@@ -18,7 +17,7 @@ export interface DestinationItem {
   recentPathId: number;
 }
 
-export default function RecentDestinationsItem({
+export default function RecentPathItem({
   recentPathId,
   name,
   address,
@@ -28,9 +27,8 @@ export default function RecentDestinationsItem({
 }: DestinationItem) {
   const { data: session } = useSession();
   const router = useRouter();
-  const queryClient = useQueryClient();
 
-  const { add, remove } = useBookmarkDestination();
+  const { add, remove } = bookmarkRecentPath();
 
   const handleClickBookmark = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -54,7 +52,7 @@ export default function RecentDestinationsItem({
         className="flex items-center justify-between my-[10px] px-1 cursor-pointer"
         onClick={handleNavigate}
       >
-        <DestinationCard
+        <RecentPathCard
           name={name}
           address={address}
           onClick={handleNavigate}

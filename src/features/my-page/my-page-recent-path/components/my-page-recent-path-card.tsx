@@ -4,7 +4,7 @@ interface Props {
   onClick: () => void;
 }
 
-export default function DestinationCard({ name, address, onClick }: Props) {
+export default function RecentPathCard({ name, address, onClick }: Props) {
   return (
     <div onClick={onClick} className="flex gap-2">
       <div className="flex aspect-square w-[40px] items-center justify-center rounded-full bg-teal">

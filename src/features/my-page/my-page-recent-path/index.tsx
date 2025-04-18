@@ -1,7 +1,7 @@
 "use client";
 
-import RecentDestinationsItem from "@/src/features/my-page/my-page-direction/components/my-page-direction-item";
-import useRecentPaths from "@/src/features/my-page/my-page-direction/queries/recent-paths";
+import RecentPathItem from "@/src/features/my-page/my-page-recent-path/components/my-page-recent-path-item";
+import recentPaths from "@/src/features/my-page/my-page-recent-path/queries/recent-paths";
 
 export interface Destination {
   recentPathId: number;
@@ -14,7 +14,7 @@ export interface Destination {
 }
 
 export default function RecentDestinations() {
-  const { destinations, isLoading, isError, error } = useRecentPaths();
+  const { destinations, isLoading, isError, error } = recentPaths();
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError && error instanceof Error)
@@ -28,7 +28,7 @@ export default function RecentDestinations() {
       <ul className="flex flex-col gap-2">
         {destinations.length > 0 ? (
           destinations.map((item) => (
-            <RecentDestinationsItem
+            <RecentPathItem
               key={item.recentPathId}
               recentPathId={item.recentPathId}
               name={item.name}

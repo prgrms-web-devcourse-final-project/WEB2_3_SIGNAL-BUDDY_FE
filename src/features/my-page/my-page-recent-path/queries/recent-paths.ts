@@ -4,9 +4,9 @@ import client from "@/src/lib/api/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import { Destination } from "..";
+import { Destination } from "@/src/features/my-page/my-page-recent-path/index";
 
-export default function useRecentPaths() {
+export default function recentPaths() {
   const { data: session, status } = useSession();
   const queryClient = useQueryClient();
 

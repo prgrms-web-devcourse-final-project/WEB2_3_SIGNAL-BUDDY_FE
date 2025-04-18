@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import client from "@/src/lib/api/client";
-import { Destination } from "..";
+import { Destination } from "@/src/features/my-page/my-page-recent-path/index";
 import { useSession } from "next-auth/react";
 
-export const useBookmarkDestination = () => {
+export const bookmarkRecentPath = () => {
   const { data: session } = useSession();
   const queryClient = useQueryClient();
   const memberId = session?.user?.memberId;
