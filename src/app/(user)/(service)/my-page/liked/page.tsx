@@ -6,7 +6,7 @@ import { ArrowLeftIcon } from "@/src/components/utils/icons";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { likedFeedback } from "@/src/features/my-page/my-page-feedback/queries/liked-feedback";
+import { likedFeedbackQuery } from "@/src/features/my-page/my-page-feedback/queries/liked-feedback-query";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -18,7 +18,7 @@ export default function Page() {
     isLoading,
     isError,
     error,
-  } = likedFeedback(session?.user?.memberId, page, size);
+  } = likedFeedbackQuery(session?.user?.memberId, page, size);
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError && error instanceof Error)

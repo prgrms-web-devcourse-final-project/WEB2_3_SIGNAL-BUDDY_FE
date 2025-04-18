@@ -7,7 +7,7 @@ type MyFeedbackResponse = {
   totalPages: number;
 };
 
-export const likedFeedback = (memberId?: number, page = 0, size = 15) => {
+export const likedFeedbackQuery = (memberId?: number, page = 0, size = 15) => {
   return useQuery<MyFeedbackResponse>({
     queryKey: ["myFeedbacks", memberId, page],
     queryFn: async () => {

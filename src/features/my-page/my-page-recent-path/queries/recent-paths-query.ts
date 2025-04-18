@@ -6,7 +6,7 @@ import { useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { Destination } from "@/src/features/my-page/my-page-recent-path/index";
 
-export default function recentPaths() {
+export default function recentPathsQuery() {
   const { data: session, status } = useSession();
   const queryClient = useQueryClient();
 

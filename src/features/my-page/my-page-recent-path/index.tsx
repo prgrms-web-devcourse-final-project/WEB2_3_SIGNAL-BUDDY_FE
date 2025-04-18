@@ -1,7 +1,7 @@
 "use client";
 
 import RecentPathItem from "@/src/features/my-page/my-page-recent-path/components/my-page-recent-path-item";
-import recentPaths from "@/src/features/my-page/my-page-recent-path/queries/recent-paths";
+import recentPathsQuery from "@/src/features/my-page/my-page-recent-path/queries/recent-paths-query";
 
 export interface Destination {
   recentPathId: number;
@@ -14,7 +14,7 @@ export interface Destination {
 }
 
 export default function RecentDestinations() {
-  const { destinations, isLoading, isError, error } = recentPaths();
+  const { destinations, isLoading, isError, error } = recentPathsQuery();
 
   if (isLoading) return <div>로딩 중...</div>;
   if (isError && error instanceof Error)
