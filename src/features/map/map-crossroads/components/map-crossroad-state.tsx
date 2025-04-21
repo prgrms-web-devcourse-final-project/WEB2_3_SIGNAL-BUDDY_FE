@@ -26,6 +26,11 @@ const STATE_POSITION = {
   southwest: "bottom-[10%] left-[10%]",
 };
 
+function getCurrentTime(left: number, timeStamp: number) {
+  const time = Math.floor((left * 10) / 100) + 1;
+  return time;
+}
+
 export default function MapCrossRoadState({
   state,
   position,

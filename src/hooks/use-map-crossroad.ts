@@ -83,6 +83,7 @@ export default function useMapCrossRoad(map: TMap | null) {
       if (target) setTarget(null);
       const data = await handleGetCrossroadState(cross.crossroadId);
       if (data) {
+        console.log(data);
         setTarget({ ...cross, ...data });
       }
     } catch (err) {
