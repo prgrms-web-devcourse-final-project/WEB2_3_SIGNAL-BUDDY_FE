@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Logo_icon from "@/public/imgs/app-logo.svg";
+import Logo_icon from "@/public/imgs/common/app-logo-bg-mint-xl.svg";
 
 import { Button } from "@/src/components/ui/button";
 import {
