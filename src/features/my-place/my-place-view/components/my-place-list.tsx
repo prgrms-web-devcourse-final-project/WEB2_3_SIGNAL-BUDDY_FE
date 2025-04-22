@@ -1,6 +1,6 @@
 import { Bookmark } from "@/src/types/my-place";
 import MyPlacePagination from "@/src/features/my-place/my-place-common/components/my-place-pagination";
-import MyPlaceItem from "@/src/features/my-place/my-place-common/components/my-place-item";
+import MyPlaceItem from "@/src/features/my-place/my-place-view/components/my-place-item";
 
 interface MyPlaceListProps {
   searchResults: Bookmark[];

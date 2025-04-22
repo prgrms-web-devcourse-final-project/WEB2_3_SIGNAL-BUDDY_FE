@@ -9,33 +9,17 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
 } from "@/src/components/ui/dropdown-menu";
-import { useTheme } from "next-themes";
 import { ArrowDownIcon } from "@/src/components/utils/icons";
+import useThemeDisplay from "@/src/hooks/use-theme-display";
 
 export function DropdownThemeToggle() {
-  const { theme, resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
+  const { theme, setTheme, mounted, displayThemeName } = useThemeDisplay();
 
   if (!mounted) return null;
-
-  let displayTheme = "system";
-  if (theme !== "system") {
-    displayTheme = theme === "dark" ? "Dark" : "Light";
-  } else {
-    displayTheme = resolvedTheme === "dark" ? "Dark" : "Light";
-  }
 
   const handleChange = (value: string) => {
     setTheme(value);
   };
-
-  const displayThemeName = theme
-    ? theme.charAt(0).toUpperCase() + theme.slice(1)
-    : "";
 
   return (
     <DropdownMenu>
