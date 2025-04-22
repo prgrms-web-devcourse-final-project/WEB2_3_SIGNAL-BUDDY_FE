@@ -7,6 +7,7 @@ type Props = {
   position: CrossRoadStatePosition;
   leftTime: number | null;
   refresh: () => void;
+  transTimestamp: number;
 };
 const STATE_DEFAULT_STYLE =
   "w-10 h-10 rounded-full border absolute flex items-center justify-center text-sm font-bold text-white";
@@ -26,9 +27,15 @@ const STATE_POSITION = {
   southwest: "bottom-[10%] left-[10%]",
 };
 
-function getCurrentTime(left: number, timeStamp: number) {
-  const time = Math.floor((left * 10) / 100) + 1;
-  return time;
+function getLeftTime(left: number, timeStamp: number) {
+  const currentTime = Date.now();
+  const elapsed = currentTime - timeStamp;
+
+  const initialRemainingMs = left * 100;
+  const remainingMs = initialRemainingMs - elapsed;
+  console.log(elapsed, initialRemainingMs, remainingMs);
+
+  return Math.floor(Math.max(remainingMs, 0) / 1000);
 }
 
 export default function MapCrossRoadState({
@@ -36,10 +43,12 @@ export default function MapCrossRoadState({
   position,
   leftTime,
   refresh,
+  transTimestamp,
 }: Props) {
   const [time, setTime] = useState<number | null>(
-    leftTime ? Math.floor((leftTime * 10) / 100) + 1 : null,
+    leftTime ? getLeftTime(leftTime, transTimestamp) : null,
   );
+
   useEffect(() => {
     if (time === null) return;
 
@@ -53,14 +62,16 @@ export default function MapCrossRoadState({
       });
     }, 1000);
     if (time === 0) {
+      console.log("REFRESH!!!");
       refresh();
     }
     return () => clearInterval(interval);
   }, [time]);
 
   useEffect(() => {
+    console.log("leftTime", leftTime);
     if (leftTime) {
-      setTime(Math.floor((leftTime * 10) / 100) + 1);
+      setTime(getLeftTime(leftTime, transTimestamp));
     } else setTime(null);
   }, [leftTime]);
 

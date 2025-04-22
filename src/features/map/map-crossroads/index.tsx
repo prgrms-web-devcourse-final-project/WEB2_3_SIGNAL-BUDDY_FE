@@ -71,48 +71,56 @@ export default function MapCrossRoad({
               position="north"
               leftTime={target.northTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
             <MapCrossRoadState
               state={target.southState}
               position="south"
               leftTime={target.southTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
             <MapCrossRoadState
               state={target.eastState}
               position="east"
               leftTime={target.eastTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
             <MapCrossRoadState
               state={target.westState}
               position="west"
               leftTime={target.westTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
             <MapCrossRoadState
               state={target.northeastState}
               position="northeast"
               leftTime={target.northeastTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
             <MapCrossRoadState
               state={target.northwestState}
               position="northwest"
               leftTime={target.northwestTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
             <MapCrossRoadState
               state={target.southeastState}
               position="southeast"
               leftTime={target.southeastTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
             <MapCrossRoadState
               state={target.southwestState}
               position="southwest"
               leftTime={target.southwestTimeLeft}
               refresh={() => refreshState(target)}
+              transTimestamp={target.transTimestamp}
             />
           </div>
         </div>

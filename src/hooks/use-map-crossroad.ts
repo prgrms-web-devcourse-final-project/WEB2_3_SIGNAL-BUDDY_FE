@@ -96,7 +96,9 @@ export default function useMapCrossRoad(map: TMap | null) {
 
   const refreshState = async (target: CrossRoadType & CrossRoadStateType) => {
     try {
+      console.log("REFRESH?1");
       const data = await handleGetCrossroadState(target.crossroadId);
+      console.log("REFRESH?2", data);
       if (data) {
         setTarget((prev) => ({ ...prev, ...data }));
       }
