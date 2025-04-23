@@ -8,6 +8,7 @@ type Props = {
   leftTime: number | null;
   refresh: () => void;
   transTimestamp: number;
+  refreshTrigger: boolean;
 };
 const STATE_DEFAULT_STYLE =
   "w-10 h-10 rounded-full border absolute flex items-center justify-center text-sm font-bold text-white";
@@ -33,9 +34,8 @@ function getLeftTime(left: number, timeStamp: number) {
 
   const initialRemainingMs = left * 100;
   const remainingMs = initialRemainingMs - elapsed;
-  console.log(elapsed, initialRemainingMs, remainingMs);
 
-  return Math.floor(Math.max(remainingMs, 0) / 1000);
+  return Math.floor(Math.max(remainingMs, 0) / 1000) + 2;
 }
 
 export default function MapCrossRoadState({
@@ -44,6 +44,7 @@ export default function MapCrossRoadState({
   leftTime,
   refresh,
   transTimestamp,
+  refreshTrigger,
 }: Props) {
   const [time, setTime] = useState<number | null>(
     leftTime ? getLeftTime(leftTime, transTimestamp) : null,
@@ -62,18 +63,17 @@ export default function MapCrossRoadState({
       });
     }, 1000);
     if (time === 0) {
-      console.log("REFRESH!!!");
-      refresh();
+      setTimeout(() => {
+        refresh();
+      }, 1500);
     }
     return () => clearInterval(interval);
   }, [time]);
 
   useEffect(() => {
-    console.log("leftTime", leftTime);
-    if (leftTime) {
-      setTime(getLeftTime(leftTime, transTimestamp));
-    } else setTime(null);
-  }, [leftTime]);
+    if (!leftTime) return setTime(null);
+    setTime(getLeftTime(leftTime, transTimestamp));
+  }, [leftTime, refreshTrigger]);
 
   return (
     <div

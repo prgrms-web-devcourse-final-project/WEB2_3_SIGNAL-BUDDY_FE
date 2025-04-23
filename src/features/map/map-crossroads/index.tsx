@@ -16,12 +16,14 @@ type Props = {
   target: CrossRoadType & CrossRoadStateType;
   removeTarget: () => void;
   refreshState: (target: CrossRoadType & CrossRoadStateType) => void;
+  refreshTrigger: boolean;
 };
 
 export default function MapCrossRoad({
   target,
   removeTarget,
   refreshState,
+  refreshTrigger,
 }: Props) {
   const { data: session } = useSession();
   const [open, setOpen] = useState<boolean>(false);
@@ -72,6 +74,7 @@ export default function MapCrossRoad({
               leftTime={target.northTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
             <MapCrossRoadState
               state={target.southState}
@@ -79,6 +82,7 @@ export default function MapCrossRoad({
               leftTime={target.southTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
             <MapCrossRoadState
               state={target.eastState}
@@ -86,6 +90,7 @@ export default function MapCrossRoad({
               leftTime={target.eastTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
             <MapCrossRoadState
               state={target.westState}
@@ -93,6 +98,7 @@ export default function MapCrossRoad({
               leftTime={target.westTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
             <MapCrossRoadState
               state={target.northeastState}
@@ -100,6 +106,7 @@ export default function MapCrossRoad({
               leftTime={target.northeastTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
             <MapCrossRoadState
               state={target.northwestState}
@@ -107,6 +114,7 @@ export default function MapCrossRoad({
               leftTime={target.northwestTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
             <MapCrossRoadState
               state={target.southeastState}
@@ -114,6 +122,7 @@ export default function MapCrossRoad({
               leftTime={target.southeastTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
             <MapCrossRoadState
               state={target.southwestState}
@@ -121,6 +130,7 @@ export default function MapCrossRoad({
               leftTime={target.southwestTimeLeft}
               refresh={() => refreshState(target)}
               transTimestamp={target.transTimestamp}
+              refreshTrigger={refreshTrigger}
             />
           </div>
         </div>

@@ -27,6 +27,8 @@ export default function useMapCrossRoad(map: TMap | null) {
       : { name: "skttop", _lat: 37.5652045, _lng: 126.98702028 },
   );
 
+  const [refreshTrigger, setRefreshTrigger] = useState<boolean>(false);
+
   const [crossRoadMarkers, setCrossRoadMarkers] = useState<TMapMarker[]>([]);
 
   const removeTarget = () => {
@@ -83,7 +85,6 @@ export default function useMapCrossRoad(map: TMap | null) {
       if (target) setTarget(null);
       const data = await handleGetCrossroadState(cross.crossroadId);
       if (data) {
-        console.log(data);
         setTarget({ ...cross, ...data });
       }
     } catch (err) {
@@ -96,17 +97,20 @@ export default function useMapCrossRoad(map: TMap | null) {
 
   const refreshState = async (target: CrossRoadType & CrossRoadStateType) => {
     try {
-      console.log("REFRESH?1");
       const data = await handleGetCrossroadState(target.crossroadId);
-      console.log("REFRESH?2", data);
       if (data) {
         setTarget((prev) => ({ ...prev, ...data }));
+        setRefreshTrigger((prev) => !prev);
       }
     } catch (err) {
       console.error(err);
       if (axios.isAxiosError(err) && err.response) {
         toast(err.response.data.message);
       }
+    } finally {
+      setTimeout(() => {
+        setRefreshTrigger((prev) => !prev);
+      }, 1000);
     }
   };
 
@@ -117,7 +121,6 @@ export default function useMapCrossRoad(map: TMap | null) {
       if (!Tmapv2 || !currentMap) return null;
       if (target) setTarget(null);
       const data = await handleGetCrossroadState(id);
-      console.log(data);
       if (data) {
         setTarget({ ...data });
       }
@@ -235,5 +238,5 @@ export default function useMapCrossRoad(map: TMap | null) {
     }
   }, [map, crossroadId]);
 
-  return { isLoading, target, removeTarget, refreshState };
+  return { isLoading, target, refreshTrigger, removeTarget, refreshState };
 }
