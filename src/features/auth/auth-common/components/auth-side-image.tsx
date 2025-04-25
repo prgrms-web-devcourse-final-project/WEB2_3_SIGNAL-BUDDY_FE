@@ -5,10 +5,10 @@ import authSideImageLight from "@/public/imgs/login-bg.png";
 import authSideImageDark from "@/public/imgs/auth-side-image-dark.png";
 import logoSymbol from "@/public/imgs/logo-symbol-white.png";
 import logoWhite from "@/public/imgs/logo-white.png";
-import useThemeImg from "@/src/hooks/use-theme-Img";
+import useThemeDisplay from "@/src/hooks/use-theme-display";
 
 export function AuthSideImage() {
-  const { theme, resolvedTheme, mounted } = useThemeImg();
+  const { theme, resolvedTheme, mounted } = useThemeDisplay();
 
   if (!mounted) {
     return null;

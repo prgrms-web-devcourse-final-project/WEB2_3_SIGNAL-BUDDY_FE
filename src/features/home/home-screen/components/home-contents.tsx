@@ -6,8 +6,8 @@ import { A2HS } from "@/src/features/home/home-pwa/components/home-pwa-A2HS-popu
 import { Button } from "@/src/components/ui/button";
 import home_background_img from "@/public/imgs/noisy-gradients.jpg";
 import home_background_img_dark from "@/public/imgs/noisy-gradients-dark.jpg";
-import useThemeImg from "@/src/hooks/use-theme-Img";
 import { PlaiceholderType } from "@/src/utils/getBase64";
+import useThemeDisplay from "@/src/hooks/use-theme-display";
 
 type Props = {
   darkImage: PlaiceholderType & {
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function HomeContents({ darkImage, lightImage }: Props) {
-  const { theme, resolvedTheme, mounted } = useThemeImg();
+  const { theme, resolvedTheme, mounted } = useThemeDisplay();
 
   if (!mounted) {
     return null;
