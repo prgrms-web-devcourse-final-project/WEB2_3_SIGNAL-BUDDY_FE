@@ -13,7 +13,6 @@ export default function MapCrossroadFeedback({ crossroadId }: Props) {
       params.set("crossroadId", String(crossroadId));
       const res = await getFeedbackList(params);
       const data = res.data;
-      console.log(data);
       return data;
     } catch (err) {
       console.error(err);
