@@ -3,6 +3,8 @@ import { cn } from "@/src/utils";
 import { TMap } from "@/src/types";
 import { ArrowDownCircleIcon } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import MapWeather from "../../map-weather/components/map-weather";
+import MapWeatherMobileDrawer from "../../map-weather/components/map-weather-mobile-drawer";
 
 type Props = {
   map: TMap | null;
@@ -69,12 +71,27 @@ export default function MapButtons({ map, getGEO, setCenterLocation }: Props) {
         </Button>
       </div>
 
+      {/* <MapWeather />
+      
+
       <button
         onClick={handleClickCurrentPosition}
         className="fixed bottom-14 md:bottom-10 left-4 md:left-[340px]  border rounded-full hover:bg-gray-200 border-gray-300 z-[99] bg-gray-100 p-1"
       >
-        <ArrowDownCircleIcon className="w-6 h-6 text-teal" />
-      </button>
+        <ArrowDownCircleIcon className="w-8 h-8 text-teal" />
+      </button> */}
+
+      <div className="fixed bottom-14 md:bottom-10 left-4 md:left-[340px] z-[99]">
+        <div className="flex flex-col gap-1">
+          <MapWeatherMobileDrawer />
+          <button
+            onClick={handleClickCurrentPosition}
+            className="border rounded-full hover:bg-gray-200 border-gray-300 bg-gray-100 p-1"
+          >
+            <ArrowDownCircleIcon className="w-8 h-8 text-teal" />
+          </button>
+        </div>
+      </div>
     </>
   );
 }
