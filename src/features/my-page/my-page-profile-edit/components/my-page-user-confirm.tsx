@@ -17,13 +17,7 @@ import Image from "next/image";
 import logo from "@/public/imgs/logo.png";
 import { Button } from "@/src/components/ui/button";
 import { PasswordInput } from "@/src/components/common/password-input";
-
-const formSchema = z.object({
-  password: z
-    .string()
-    .min(8, { message: "비밀번호를 최소 8자 이상 입력해주세요." })
-    .max(50, { message: "최대 50자까지 입력 가능합니다." }),
-});
+import { userConfirmFormSchema } from "@/src/features/my-page/my-page-profile-edit/actions/user-confirm-schema";
 
 type Props = {
   onConfirm: () => void;
@@ -31,8 +25,8 @@ type Props = {
 export default function ({ onConfirm }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const { data: session } = useSession();
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof userConfirmFormSchema>>({
+    resolver: zodResolver(userConfirmFormSchema),
     defaultValues: {
       password: "",
     },
@@ -46,7 +40,7 @@ export default function ({ onConfirm }: Props) {
     }
   }, [error]);
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (values: z.infer<typeof userConfirmFormSchema>) => {
     try {
       if (!session) return toast("로그인 에러입니다.");
       setLoading(true);

@@ -27,6 +27,8 @@ export default function useMapCrossRoad(map: TMap | null) {
       : { name: "skttop", _lat: 37.5652045, _lng: 126.98702028 },
   );
 
+  const [refreshTrigger, setRefreshTrigger] = useState<boolean>(false);
+
   const [crossRoadMarkers, setCrossRoadMarkers] = useState<TMapMarker[]>([]);
 
   const removeTarget = () => {
@@ -98,12 +100,17 @@ export default function useMapCrossRoad(map: TMap | null) {
       const data = await handleGetCrossroadState(target.crossroadId);
       if (data) {
         setTarget((prev) => ({ ...prev, ...data }));
+        setRefreshTrigger((prev) => !prev);
       }
     } catch (err) {
       console.error(err);
       if (axios.isAxiosError(err) && err.response) {
         toast(err.response.data.message);
       }
+    } finally {
+      setTimeout(() => {
+        setRefreshTrigger((prev) => !prev);
+      }, 1000);
     }
   };
 
@@ -114,7 +121,6 @@ export default function useMapCrossRoad(map: TMap | null) {
       if (!Tmapv2 || !currentMap) return null;
       if (target) setTarget(null);
       const data = await handleGetCrossroadState(id);
-      console.log(data);
       if (data) {
         setTarget({ ...data });
       }
@@ -232,5 +238,5 @@ export default function useMapCrossRoad(map: TMap | null) {
     }
   }, [map, crossroadId]);
 
-  return { isLoading, target, removeTarget, refreshState };
+  return { isLoading, target, refreshTrigger, removeTarget, refreshState };
 }

@@ -29,6 +29,7 @@ export default function MapBox({ slug }: Props) {
     target: crossTarget,
     removeTarget,
     refreshState,
+    refreshTrigger,
   } = useMapCrossRoad(mapIns);
 
   return (
@@ -39,6 +40,7 @@ export default function MapBox({ slug }: Props) {
             target={crossTarget}
             removeTarget={removeTarget}
             refreshState={refreshState}
+            refreshTrigger={refreshTrigger}
           />
         ) : !slug ? (
           <MapSearch map={mapIns} location={location} />
