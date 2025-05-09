@@ -39,11 +39,10 @@ export function useMyPlaceEdit(
     setDeletedIds((prev) => [...prev, bookmarkId]);
   };
 
-  const handleComplete = async (e: React.MouseEvent) => {
-    e.preventDefault();
-
+  const persistChanges = async () => {
     if (deletedIds.length > 0) {
       await deleteMutation.mutateAsync(deletedIds);
+      setDeletedIds([]);
     }
 
     if (items.length > 0) {
@@ -53,7 +52,11 @@ export function useMyPlaceEdit(
       }));
       await reorderMutation.mutateAsync(reorderBody);
     }
+  };
 
+  const handleComplete = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    await persistChanges();
     router.push("/my-place");
   };
 
@@ -63,5 +66,6 @@ export function useMyPlaceEdit(
     handleDragEnd,
     handleDelete,
     handleComplete,
+    persistChanges,
   };
 }
