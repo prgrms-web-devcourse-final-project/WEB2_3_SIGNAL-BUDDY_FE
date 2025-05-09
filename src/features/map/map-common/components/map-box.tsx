@@ -57,11 +57,13 @@ export default function MapBox({ slug }: Props) {
           <></>
         )}
       </div>
+
       <MapButtons
         map={mapIns}
         getGEO={handleGetGeo}
         setCenterLocation={handleGetCenter}
       />
+
       <div className="flex-1 relative cursor-grab">
         <div id="map" ref={mapRef} />
       </div>

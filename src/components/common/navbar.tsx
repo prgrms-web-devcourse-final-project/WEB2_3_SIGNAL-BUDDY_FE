@@ -130,6 +130,8 @@ export default function Navbar() {
             <Link href="/feedback" className="leading-[50px]">
               피드백
             </Link>
+
+            {/* 날씨 영역 */}
           </div>
           <Image
             src={"/imgs/sm-logo.svg"}
