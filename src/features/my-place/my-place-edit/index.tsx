@@ -21,12 +21,13 @@ export default function MyPlaceEdit() {
 
   const { searchResults, totalPages } = bookmarks;
 
-  const { items, handleDragEnd, handleDelete, handleComplete } = useMyPlaceEdit(
-    searchResults,
-    session?.user?.memberId,
-    page,
-    size,
-  );
+  const { items, handleDragEnd, handleDelete, handleComplete, persistChanges } =
+    useMyPlaceEdit(searchResults, session?.user?.memberId, page, size);
+
+  const handlePageChange = async (newPage: number) => {
+    await persistChanges();
+    setPage(newPage);
+  };
 
   if (status === "loading") return <div>세션 로딩중...</div>;
   if (!session) return <div>로그인 해주세요</div>;
@@ -50,7 +51,7 @@ export default function MyPlaceEdit() {
           <MyPlacePagination
             page={page}
             totalPages={totalPages}
-            onPageChange={(newPage) => setPage(newPage)}
+            onPageChange={handlePageChange}
           />
         </section>
       </div>
