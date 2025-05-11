@@ -73,7 +73,7 @@ export default function MapCrossRoadState({
   useEffect(() => {
     if (!leftTime) return setTime(null);
     setTime(getLeftTime(leftTime, transTimestamp));
-  }, [leftTime, refreshTrigger]);
+  }, [leftTime, refreshTrigger, transTimestamp]);
 
   return (
     <div

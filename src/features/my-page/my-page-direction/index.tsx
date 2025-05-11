@@ -4,7 +4,7 @@ import client from "@/src/lib/api/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import RecentDestinationsItem from "@/src/features/my-page/my-page-direction/components/my-page-direction-item";
+// import RecentDestinationsItem from "@/src/features/my-page/my-page-direction/components/my-page-direction-item";
 
 export interface Destination {
   recentPathId: number;
@@ -68,15 +68,16 @@ export default function RecentDestinations() {
       <ul className="flex flex-col gap-2">
         {destinations.length > 0 ? (
           destinations.map((item) => (
-            <RecentDestinationsItem
-              key={item.recentPathId}
-              recentPathId={item.recentPathId}
-              name={item.name}
-              bookmarked={item.bookmarked}
-              lat={item.lat}
-              lng={item.lng}
-              address={item.address}
-            />
+            // <RecentDestinationsItem
+            //   key={item.recentPathId}
+            //   recentPathId={item.recentPathId}
+            //   name={item.name}
+            //   bookmarked={item.bookmarked}
+            //   lat={item.lat}
+            //   lng={item.lng}
+            //   address={item.address}
+            // />
+            <div key={item.recentPathId}>수정</div> // 임시 데이터
           ))
         ) : (
           <div className="flex flex-1 items-center justify-center">
