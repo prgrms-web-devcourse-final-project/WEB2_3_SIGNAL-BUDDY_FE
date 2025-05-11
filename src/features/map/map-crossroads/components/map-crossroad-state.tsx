@@ -68,7 +68,7 @@ export default function MapCrossRoadState({
       }, 1500);
     }
     return () => clearInterval(interval);
-  }, [time]);
+  }, [refresh, time]);
 
   useEffect(() => {
     if (!leftTime) return setTime(null);

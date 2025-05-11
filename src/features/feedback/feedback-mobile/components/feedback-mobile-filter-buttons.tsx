@@ -30,7 +30,7 @@ export default function MobileFeedbackFilterButtons() {
       }
       replace(`${pathname}?${params.toString()}`);
     },
-    [searchParams, pathname, replace],
+    [statusMapping, searchParams, replace, pathname],
   );
 
   return (
