@@ -27,7 +27,7 @@ export default function RecentDestinations() {
         queryKey: ["recentPaths", session?.user?.memberId],
       });
     }
-  }, [session?.user?.token]);
+  }, [queryClient, session, session?.user.token, status]);
 
   const {
     data: destinations = [],

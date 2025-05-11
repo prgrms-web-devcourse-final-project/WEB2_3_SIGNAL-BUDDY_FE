@@ -28,7 +28,7 @@ const formSchema = z.object({
 type Props = {
   onConfirm: () => void;
 };
-export default function ({ onConfirm }: Props) {
+export default function UserConfirm ({ onConfirm }: Props) {
   const [loading, setLoading] = useState<boolean>(false);
   const { data: session } = useSession();
   const form = useForm<z.infer<typeof formSchema>>({
